@@ -230,7 +230,7 @@ scrinit:
 	lda #$00
 :
 	sta $9600,x
-	dex
+	inx
 	bne :-
 
 
