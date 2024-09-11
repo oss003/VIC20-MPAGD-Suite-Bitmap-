@@ -156,6 +156,10 @@ init:
 	sta $912d
 	sta $912e
 
+; Set audio volume to max
+	lda #$0f
+	sta $900e
+
 ; Init screen for NTSC
 ; this sets the background and border color of the screen
 
@@ -220,6 +224,14 @@ scrinit:
 	inx
 	cpx#242
 	bne scrinit
+
+; Set character color to black - temp
+	ldx #$00
+	lda #$00
+:
+	sta $9600,x
+	inx
+	bne :-
 
 
 ; Reset fontcolor
@@ -577,16 +589,25 @@ vsync1:
 	lda sndtyp
 	beq sndskip
 sndloop:
-;	lda SpeakerBit		; handle sound
 	ldy sndtyp
 sndwait:
 	dey
 	bne sndwait
 	eor #4
-;	sta SpeakerBit
+
+	; enable sound on channel 2
+	; add 128 because sound is in range 128-255
+	lda sndtyp
+	clc
+	adc #$80
+	sta $900b
+
 	dec sndtyp
 	bne sndloop
 sndskip: 
+	; disable sound
+	lda #$00
+	sta $900b
 
 	pla
 	tax
