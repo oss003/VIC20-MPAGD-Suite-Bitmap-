@@ -86,7 +86,7 @@ swrflag = 0
 	ScrHeight	= 22
 	CentreX		= 4
 	CentreY		= 27
-	timervalue	= 40000
+	timervalue	= 25000
  	.out "- NTSC"
 .endif
 .out ""
@@ -101,6 +101,7 @@ swrflag = 0
 	MAP 		= MapAddr		; properties map buffer (3x256 bytes)
 	SCADTB_lb	= MAP + $300		; MAP + 22 x 22
 	SCADTB_hb	= SCADTB_lb + $100
+	SHRAPN 		= SCADTB_hb + $100	; shrapnel table (55x6 bytes)
 
 ; Block characteristics.
 
@@ -670,17 +671,6 @@ xspr0:
 	cpx #SPRBUF
 	bne xspr0		; repeat for rest of table.
 	rts
-
-;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-; Sound, NOT IMPLEMENTED!!!
-;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-;
-;silenc:
-;	jsr silen1 		; silence channel 1.
-;	jsr silen2 		; silence channel 2.
-;	jsr silen3 		; silence channel 3.
-;	jmp plsnd 		; play all channels to switch them off.
-;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 ;-------------------------------------------------------------
 ; Initialise all objects.
@@ -1762,7 +1752,7 @@ game:
 ; Set up screen address table.
 
 setsat:
-	lda #<CharAddress		; start of screen.
+	lda #<CharAddress	; start of screen.
 	sta scraddr
 	lda #>CharAddress
 	sta scraddr+1
@@ -3885,10 +3875,14 @@ noEor:	sta seed
 	sta varrnd		; return number in variable.
 	rts
 
-;--------------------------------------------------------
-; Keys
+;-------------------------------------------------------
+; Joystick and keyboard reading routines.
 ;
-; Out: joyval=x65FUDLR (bit cleared if key pressed)
+; contrl = 0, Keyboard
+;          1, JoyKeyb
+;          2, JoyMMC
+;
+;      joyval=x65FUDLR (bit cleared if key pressed)
 ;             ||||||||
 ;             |||||||+> Right    KEY 0  - X
 ;             ||||||+-> Left     KEY 1  - Z
@@ -3903,34 +3897,16 @@ noEor:	sta seed
 ;                       Option2  KEY 8  - 2
 ;                       Option3  KEY 9  - 3
 ;                       Option4  KEY 10 - 4
-;--------------------------------------------------------
-
-;              X   Z   .   ;  SPC  Q   P
-;keys:   .byte $42,$61,$68,$48,$62,$10,$37       ; Keys defined by game designer.
-;        .byte $30,$31,$11,$12                   ; menu options.;
-;
-;jkeys:  .byte $36,$37,$68,$48,$62,$10,$37       ; Keys defined by game designer.
-;        .byte $30,$31,$11,$12                   ; menu options.
-
-;-------------------------------------------------------
-; Joystick and keyboard reading routines.
-;
-; contrl = 0, Keyboard
-;          1, JoyKeyb
-;          2, JoyMMC
 ;-------------------------------------------------------
 
 joykey:
 	lda contrl 		; control flag.
 	cmp #1
-	bne :+
-	jmp joyjoy 		; read keyboard joystick
-:
+	beq joy1 		; scan joystick1
 	cmp #2
-	bne :+
-	jmp joysin 		; read MMC joystick.
-:
-; Keyboard controls.
+	beq joy2 		; scan joystick2
+
+; Scan keyboard
 
 	lda #0		 	; zero reading.
 	sta z80_e
@@ -3943,27 +3919,22 @@ joyke0:
 
 	dey		 	; next key.
 	bpl joyke0 		; repeat for all keys.
-	jmp joyjo1 		; store the value.
-
-; Keyboard joystick controls.
-
-joyjoy:
-	lda #0		 	; zero reading.
-	sta z80_e
-
-	ldy #6	 		; address of last key.
-joyjo3:
-	lda jkeys,y 		; get key from table.
-	jsr ktest		; being pressed?
-	rol z80_e 		; rotate into reading.
-
-	dey		 	; next key.
-	bpl joyjo3 		; repeat for all keys.
-joyjo1:
-	lda z80_e 		; copy e register to accumulator.
-joyjo2:
-	sta joyval		; remember value.
+joyret:
+	lda z80_e
+	sta joyval
 	rts
+
+; Scan joystick 1
+
+joy1:
+	jsr joy1scan
+	jmp joyret 		; store the value.
+
+; Scan joystick 2
+
+joy2:
+	jsr joy2scan
+	jmp joyret 		; store the value.
 
 ;---------------------------------------------------------------
 ; Display message.

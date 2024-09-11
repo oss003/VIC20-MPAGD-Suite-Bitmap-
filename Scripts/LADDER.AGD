@@ -1,5 +1,5 @@
 
-DEFINEWINDOW    1 1 22 22
+DEFINEWINDOW    0 0 22 22
 
 DEFINEMESSAGES
     "GAME OVER"
@@ -185,12 +185,12 @@ DEFINESCREEN      1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
                   1   0   0   0   0   0   0   0   0   2   2   0   0   0   0   0   0   0   2   2   0   1
                   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-SPRITEPOSITION  0 0 104 120
-SPRITEPOSITION  1 2 128 16
-SPRITEPOSITION  2 3 152 16
-SPRITEPOSITION  2 3 56 80
-SPRITEPOSITION  2 3 80 160
-SPRITEPOSITION  2 3 32 16
+SPRITEPOSITION  0 0 96 120
+SPRITEPOSITION  1 2 120 16
+SPRITEPOSITION  2 3 144 16
+SPRITEPOSITION  2 3 48 80
+SPRITEPOSITION  2 3 72 152
+SPRITEPOSITION  2 3 24 16
 
 DEFINESCREEN      1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
                   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
@@ -214,13 +214,13 @@ DEFINESCREEN      1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
                   1   0   0   0   0   0   0   2   2   0   0   0   0   0   0   0   0   0   2   2   0   1
                   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-SPRITEPOSITION  0 0 80 64
-SPRITEPOSITION  1 2 128 16
-SPRITEPOSITION  1 2 32 16
-SPRITEPOSITION  2 3 32 80
-SPRITEPOSITION  2 3 56 112
-SPRITEPOSITION  2 3 80 128
-SPRITEPOSITION  2 3 128 88
+SPRITEPOSITION  0 0 72 64
+SPRITEPOSITION  1 2 120 16
+SPRITEPOSITION  1 2 24 16
+SPRITEPOSITION  2 3 24 80
+SPRITEPOSITION  2 3 48 112
+SPRITEPOSITION  2 3 72 128
+SPRITEPOSITION  2 3 120 88
 
 DEFINESCREEN      1   1   1   1   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   1
                   1   1   1   1   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   1
@@ -244,15 +244,15 @@ DEFINESCREEN      1   1   1   1   0   0   0   0   0   0   0   0   0   0   1   0 
                   1   0   0   0   0   2   2   0   0   0   0   1   0   0   0   2   2   0   0   0   0   1
                   1   0   0   0   0   2   2   0   0   0   0   1   0   0   0   2   2   0   0   0   0   1
                   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-SPRITEPOSITION  0 0 64 136
-SPRITEPOSITION  1 2 40 56
-SPRITEPOSITION  1 2 112 64
-SPRITEPOSITION  2 3 16 40
-SPRITEPOSITION  2 3 16 128
-SPRITEPOSITION  2 3 88 152
-SPRITEPOSITION  2 3 136 88
-SPRITEPOSITION  2 3 160 16
-SPRITEPOSITION  2 3 160 160
+SPRITEPOSITION  0 0 56 136
+SPRITEPOSITION  1 2 32 56
+SPRITEPOSITION  1 2 104 64
+SPRITEPOSITION  2 3 8 40
+SPRITEPOSITION  2 3 8 128
+SPRITEPOSITION  2 3 80 152
+SPRITEPOSITION  2 3 124 88
+SPRITEPOSITION  2 3 152 16
+SPRITEPOSITION  2 3 152 160
 
 DEFINESCREEN      1   1   1   1   1   1   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   1   1   0   0   0   0   0   0   0   0   0   0   0
@@ -276,15 +276,15 @@ DEFINESCREEN      1   1   1   1   1   1   1   1   1   1   1   0   0   0   0   0 
                   1   1   1   1   1   2   2   1   1   1   1   0   0   0   2   2   0   0   0   0   0   0
                   0   0   0   0   0   2   2   0   0   1   1   0   0   0   2   2   0   0   0   0   0   0
                   0   0   0   0   0   2   2   0   0   1   1   1   1   1   1   1   1   1   1   1   1   1
-SPRITEPOSITION  0 0 160 16
-SPRITEPOSITION  1 2 16 104
-SPRITEPOSITION  1 2 64 80
-SPRITEPOSITION  1 2 112 112
-SPRITEPOSITION  2 3 16 16
-SPRITEPOSITION  2 3 88 16
-SPRITEPOSITION  2 3 136 160
-SPRITEPOSITION  2 3 16 152
-SPRITEPOSITION  2 3 64 24
+SPRITEPOSITION  0 0 152 16
+SPRITEPOSITION  1 2 8 104
+SPRITEPOSITION  1 2 56 80
+SPRITEPOSITION  1 2 104 112
+SPRITEPOSITION  2 3 8 16
+SPRITEPOSITION  2 3 80 16
+SPRITEPOSITION  2 3 124 160
+SPRITEPOSITION  2 3 8 152
+SPRITEPOSITION  2 3 56 24
 
 DEFINEOBJECT    71 254 56 120
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -424,8 +424,8 @@ IF COLLISION 0
     SPRITEINK 7
     SCORE 100
     SOUND 1
-    LET LINE = 3
-    LET COLUMN = 25
+    LET LINE = 0
+    LET COLUMN = 1
     SHOWSCORE
 ENDIF
 
@@ -472,24 +472,24 @@ COLOUR 23
 BORDER 2
 CLS
 LET LINE = 2
-LET COLUMN = 25
+LET COLUMN = 18
 MESSAGE 2
 LET LINE = 5
-LET COLUMN = 25
+LET COLUMN = 18
 MESSAGE 3
 LET LINE = 0
 LET COLUMN = 9
 COLOUR 48
 MESSAGE 1
 LET LINE = 3
-LET COLUMN = 25
+LET COLUMN = 18
 SHOWSCORE
 
 
 EVENT RESTARTSCREEN
 LET A = 0
 LET LINE = 6
-LET COLUMN = 27
+LET COLUMN = 20
 DISPLAY LIVES
 
 

@@ -5,7 +5,7 @@
 ; Screen is divided into 32 columns and 24 rows (Spectrum and Next/Timex) or 25 rows (CPC)
 ; The 4 parameters for DEFINEWINDOW are top edge, left edge, height and width respectively
 
-DEFINEWINDOW    1 1 22 30
+DEFINEWINDOW    0 0 22 22
 
 DEFINEFONT      0 0 0 0 0 0 0 0
                 0 48 48 48 48 0 48 0
@@ -127,28 +127,28 @@ DEFINESPRITE    1		; number of frames
 ; The compiler will automatically compress screens
 
 DEFINESCREEN
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 ; Next we define the sprites that appear on the screen
 ; SPRITEPOSITION requires 4 numbers for image, type, Y coordinate and X coordinate in that order
@@ -201,42 +201,44 @@ EVENT SPRITETYPE8
 EVENT INITSPRITE
 
 EVENT MAINLOOP1
- AT 1 1
+ AT 0 2
+ PRINTMODE 1
  PRINT "CALCULATIONS TEST:"
+ PRINTMODE 0
 
 ;--------------------
 ; Test divide
 ;--------------------
- AT 3 1
- PRINT "DIVISION:      MULTIPLICATION:"
+ AT 3 0
+ PRINT "DIV:       MUL:"
 
- AT 5 1
- PRINT "123 /  2 = "
+ AT 5 0
+ PRINT "123/ 2="
  LET L = 123
  DIVIDE L BY 2
  DISPLAY L
- AT 6 1
- PRINT "123 /  3 = "
+ AT 6 0
+ PRINT "123/ 3="
  LET L = 123
  DIVIDE L BY 3
  DISPLAY L
- AT 7 1
- PRINT "123 /  4 = "
+ AT 7 0
+ PRINT "123/ 4="
  LET L = 123
  DIVIDE L BY 4
  DISPLAY L
- AT 8 1
- PRINT "123 /  5 = "
+ AT 8 0
+ PRINT "123/ 5="
  LET L = 123
  DIVIDE L BY 5
  DISPLAY L
- AT 9 1
- PRINT "123 / 32 = "
+ AT 9 0
+ PRINT "123/32="
  LET L = 123
  DIVIDE L BY 32
  DISPLAY L
- AT 10 1
- PRINT "123 / 64 = "
+ AT 10 0
+ PRINT "123/64="
  LET L = 123
  DIVIDE L BY 64
  DISPLAY L
@@ -244,33 +246,33 @@ EVENT MAINLOOP1
 ;--------------------
 ; Test multiply
 ;--------------------
- AT 5 18
- PRINT "3 x  2 = "
+ AT 5 11
+ PRINT "3x  2="
  LET L = 3
  MULTIPLY L BY 2
  DISPLAY L
- AT 6 18
- PRINT "3 x  3 = "
+ AT 6 11
+ PRINT "3x  3="
  LET L = 3
  MULTIPLY L BY 3
  DISPLAY L
- AT 7 18
- PRINT "3 x  4 = "
+ AT 7 11
+ PRINT "3x  4="
  LET L = 3
  MULTIPLY L BY 4
  DISPLAY L
- AT 8 18
- PRINT "3 x  5 = "
+ AT 8 11
+ PRINT "3x  5="
  LET L = 3
  MULTIPLY L BY 5
  DISPLAY L
- AT 9 18
- PRINT "3 x 32 = "
+ AT 9 11
+ PRINT "3x 32="
  LET L = 3
  MULTIPLY L BY 32
  DISPLAY L
- AT 10 18
- PRINT "3 x 64 = "
+ AT 10 11
+ PRINT "3x 64="
  LET L = 3
  MULTIPLY L BY 64
  DISPLAY L
@@ -278,36 +280,36 @@ EVENT MAINLOOP1
 ;--------------------
 ; Test addition
 ;--------------------
- AT 12 1
- PRINT "ADDITION:      SUBTRACTION:"
+ AT 12 0
+ PRINT "ADD:       SUB:"
 
- AT 14 1
- PRINT "12 +   1 = "
+ AT 14 0
+ PRINT "12+  1=" 
  LET L = 12
  ADD 1 TO L
  DISPLAY L
- AT 15 1
- PRINT "12 +  31 = "
+ AT 15 0
+ PRINT "12+ 31="
  LET L = 12
  ADD 31 TO L
  DISPLAY L
- AT 16 1
- PRINT "12 +  62 = "
+ AT 16 0
+ PRINT "12+ 62="
  LET L = 12
  ADD 62 TO L
  DISPLAY L
- AT 17 1
- PRINT "12 +  94 = "
+ AT 17 0
+ PRINT "12+ 94="
  LET L = 12
  ADD 94 TO L
  DISPLAY L
- AT 18 1
- PRINT "12 + 128 = "
+ AT 18 0
+ PRINT "12+128="
  LET L = 12
  ADD 128 TO L
  DISPLAY L
- AT 19 1
- PRINT "12 + 199 = "
+ AT 19 0
+ PRINT "12+199="
  LET L = 12
  ADD 199 TO L
  DISPLAY L
@@ -315,33 +317,33 @@ EVENT MAINLOOP1
 ;--------------------
 ; Test subtration
 ;--------------------
- AT 14 16
- PRINT " 13 -   1 = "
+ AT 14 11
+ PRINT " 13-  1="
  LET L = 13
  SUBTRACT 1 FROM L
  DISPLAY L
- AT 15 16
- PRINT " 43 -  31 = "
+ AT 15 11
+ PRINT " 43- 31="
  LET L = 43
  SUBTRACT 31 FROM L
  DISPLAY L
- AT 16 16
- PRINT " 74 -  62 = "
+ AT 16 11
+ PRINT " 74- 62="
  LET L = 74
  SUBTRACT 62 FROM L
  DISPLAY L
- AT 17 16
- PRINT "106 -  94 = "
+ AT 17 11
+ PRINT "106- 94="
  LET L = 106
  SUBTRACT 94 FROM L
  DISPLAY L
- AT 18 16
- PRINT "140 - 128 = "
+ AT 18 11
+ PRINT "140-128="
  LET L = 140
  SUBTRACT 128 FROM L
  DISPLAY L
- AT 19 16
- PRINT "211 - 199 = "
+ AT 19 11
+ PRINT "211-199="
  LET L = 211
  SUBTRACT 199 FROM L
  DISPLAY L

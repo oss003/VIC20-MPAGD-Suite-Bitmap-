@@ -273,21 +273,23 @@ jkeys:  .byte $42,$61,$68,$48,$62,$10,$37       ; Keys defined by game designer.
 ;----------------------------------------------------
 
 prskey:
-	txa
+	tya
 	pha
 prsloop:
 	jsr vsync
+	jsr READKEY
+	cpy #255
+	beq prsloop			; wait until key pressed
 
-;	lda #$79
-;	ldx #$01
-;	jsr OSBYTE
+prsrelease:
+	jsr vsync
+	jsr READKEY
+	cpy #255
+	bne prsrelease			; wait until key pressed
 
-	cpx #$ff
-	beq prsloop		; wait until key pressed
-	txa
 	jsr joykey
 	pla
-	tax
+	tay
 	rts
 
 bbcinit:
@@ -347,7 +349,9 @@ bbcsync:
 	sta vsync_count
 	rts
 
-;--------------------------------------------------------
+;-------------------------------------------------------------
+; KTEST, scan key and return in carry if key pressed
+;
 ; Keyboard test routine.
 ;
 ; Input:
@@ -360,71 +364,158 @@ bbcsync:
 
 ktest:
 	sta z80_a		; save key
-	tya
-	pha
 
-; _BEEB keyboard read
+	lsr a			; set row
+	lsr a
+	lsr a
+	lsr a
+	tax
+	lda colmask,x
+	sta KeyColAddr
+
 	lda z80_a
-	eor #$80		; _BEEB just look for this key
+	and #$0f
 	tax
 
-;	lda #$79
-;	jsr OSBYTE
-
-	txa
-	bmi pressed 	; _BEEB X is negative if key is pressed
-
+	lda KeyRowAddr		; read column
+	and keymask,x		; check key pressed
+	beq pressed
 	sec			; key not pressed
-	pla
-	tay
 	rts
-
 pressed:
 	clc			; key pressed
-	pla
-	tay
 	rts
+
+colmask:	.byte 127,191,223,239,247,251,253,254
+keymask:	.byte $01,$02,$04,$08,$10,$20,$40,$80
 
 ;---------------------------------------------------------------
 ; Getkey in column,row format
 ;
 ; Output:
-;  A = high nibble=row and low nibble=column key in matrix
+;  A = high nibble=row and low nibble=col key in matrix
 ;---------------------------------------------------------------
-
 kget:
-	stx xtmp
+	stx xtmp		; Save x-reg
+kget0:
+	ldx #0			; reset row	
 kget1:
-;	lda #$79			; _BEEB read keyboard with OSBYTE &79
-;	ldx #$01
-;	jsr OSBYTE
-
-	cpx #$ff
-	beq kget1
-
-	txa
-	pha
+	lda colmask,x		; Get mask
+	sta KeyColAddr		; Set row
+	lda KeyRowAddr		; Read columns
+	sta tmp			; Save colums
+	cmp #$ff		; Key pressed?
+	bne kget2		; Yes, skip
+	inx			; Next row
+	cpx #8			; All rows scanned?
+	bne kget1		; No, repeat
+	jmp kget0		; No key pressed, a=$ff
 kget2:
-;	lda #$79			; wait for released key
-;	ldx #$01
-;	jsr OSBYTE
+	ldy #0			; Reset column
+kget3:
+	lsr tmp			; Test bit
+	bcc kget4		; If clear, key pressed
+	iny			; Next column
+	jmp kget3		; Repeat
+kget4:
+	stx tmp			; Get row
+	asl tmp			; Make high nibble
+	asl tmp
+	asl tmp
+	asl tmp
+	tya			; Get column
+	clc
+	adc tmp			; Add row as low nibble
+	sta tmp
+kget5:
+	lda KeyRowAddr		; Read columns
+	cmp #$ff
+	bne kget5
 
-	cpx #$ff
-	bne kget2
+	lda tmp			; Return keycode
+	ldx xtmp		; Restore X-reg
+	rts			; Return
 
-	pla
-	ldx xtmp
+;-------------------------------------------------------------
+; JOY1SCAN, scan joystick1 and return key in z80_e
+;-------------------------------------------------------------
+
+joy1scan:
+	lda #$ff
+	sta z80_e
+
+	lda JoyAddr1
+	lsr a
+	lsr a
+
+	lsr a
+	rol z80_e	; Up
+	lsr a
+	rol z80_e	; Down
+	lsr a
+	rol z80_e	; Left
+
+	lda #%01111111
+	sta DDRB	; Bit7 = input joystick b7
+	lda JoyAddr2
+	asl a
+	rol z80_e	; Right
+	lda #%11111111
+	sta DDRB	; Reset  
+
+	lda JoyAddr1
+	and #%00100000
+	bne :+
+	lda z80_e
+	and #%11101111	; Fire
+	sta z80_e
+:
+	lda keys+6	; Fire3
+	jsr ktest
+	bcs :+
+	lda z80_e
+	and #%10111111
+	sta z80_e
+:
+	lda keys+5	; Fire2
+	jsr ktest
+	bcs :+
+	lda z80_e
+	and #%11011111
+	sta z80_e
+:
+
 	rts
 
-;----------------------------------------------------
-; AtoMMC joystick controls.
-; _BEEB TODO
-;----------------------------------------------------
+;-------------------------------------------------------------
+; JOY2SCAN, scan joystick2 and return key in z80_e
+;-------------------------------------------------------------
+
+joy2scan:
+	rts
 
 joyinit:
-joysin:
 	rts
 
+;-------------------------------------------------------------
+; READKEY, Wait for keypress and then wait for release
+;-------------------------------------------------------------
+
+READKEY:
+	lda #$ff
+	sta tmp
+	ldx #7
+scanrow:
+	lda colmask,x
+	sta KeyColAddr
+	lda KeyRowAddr		; read column
+	and tmp
+	sta tmp
+	dex
+	bpl scanrow
+	lda tmp
+	tay
+	rts
 
 ;----------------------------------------------------
 ; Delay routine 1/50 sec
@@ -439,28 +530,28 @@ joysin:
 delay:
 	sta xtmp
 del_loop:
-;	lda #19
-;	jsr OSBYTE		; wait for vsync _BEEB
+	lda $9004
+	bne del_loop			; wait for flyback (1/60 sec)
 
-	ldy #208		; wait 208 x 16 = 3328 usec
+	ldy #208			; wait 208 x 16 = 3328 usec
 delay1:
-	adc ($80,x)		;	 6 usec
-	adc ($80,x)		;	 6 usec
-	dey			;	 2 usec
-	bne delay1		;	 2 usec
-	nop			; 2 usec
-	nop			; 2 usec
-				; tot: 20000 usec
+	adc ($80,x)			;	 6 usec
+	adc ($80,x)			;	 6 usec
+	dey				;	 2 usec
+	bne delay1			;	 2 usec
+	nop				; 2 usec
+	nop				; 2 usec
+					; tot: 20000 usec
 	dec xtmp
 	bne del_loop
 	rts
 
 ;-------------------------------------------------------------
-; Screen synchronisation.
+; VSYNC, synchronize to 25 frames/sec
 ;
 ;  - read joystick/keyboard
 ;  - handle sound
-;  - sync framerate with clock
+;  - sync framerate with timer 25Hz
 ;  - handle shrapnel every even frame
 ;-------------------------------------------------------------
 
@@ -471,9 +562,12 @@ vsync:
 	txa
 	pha
 	jsr joykey		; read joystick/keyboard.
+
+	lda #$40		; Set Timer1 expired bit
 vsync1:
-;	lda #19
-;	jsr OSBYTE		; _BEEB vsync
+	bit IFR			; Check Interrupt Flag Register
+	beq vsync1
+	lda Timer1_Low		; Clear Timer interrupt
 
 	lda clock
 	and #1
@@ -482,62 +576,18 @@ vsync1:
 :
 	lda sndtyp
 	beq sndskip
-
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-; beep effect using psg channel 0
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-
-	php			; save irq interrupt state
-
-	sei			; disable interrupts
-	
-	lda #$0b		; disable keyboard output that drives bit 7 of via port A
-	sta $fe40
-
-	lda #$ff		; via port A bits 0 - 7 output
-	sta $fe43
-
-	lda #$90		; psg channel 0 full volume
-	jsr psgWrite
-
-beepLoop:
-
-	lda sndtyp	; update low 4 bits of psg channel 0 tone register with 2 bits from sndtyp
-	and #3
-	asl a
-	asl a
-	ora #$80
-	jsr psgWrite
-
-	lda sndtyp	; update high 6 bits of psg channel 0 tone register with 6 bits from sndtyp
-	lsr a
-	lsr a
-	jsr psgWrite
-
-	ldy sndtyp		; do the half cycle delay
-
-beepWait:
-
+sndloop:
+;	lda SpeakerBit		; handle sound
+	ldy sndtyp
+sndwait:
 	dey
-	bne beepWait
-	
-	dec sndtyp			; reduce delay by 1
-	bne beepLoop		; repeat above until delay = 0
-	
-	lda #$9f				; channel 0 volume off
-	jsr psgWrite
-
-	lda #$7f		; via port A bit 7 input from keyboard output
-	sta $fe4f
-	
-	lda #$03		; enable keyboard output
-	sta $fe40
-	
-	plp			; restore irq state
-
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-
+	bne sndwait
+	eor #4
+;	sta SpeakerBit
+	dec sndtyp
+	bne sndloop
 sndskip: 
+
 	pla
 	tax
 	pla
@@ -546,35 +596,6 @@ sndskip:
 	rts
 
 sndtyp:		.byte 0
-
-
-
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-; psgWrite 					write data to psg
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-; entry			A			data to be written to 76489 psg
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-; exit			A			destroyed
-;-----------------------------------------------------------------------------------------------------------------------------------------------------
-
-psgWrite:
-
-	sta $fe4f				; place psg data on port a
-	
-	lda #0 + 0				; psg -we low
-	sta $fe40
-	
-	pha					; 5uS delay
-	pla
-	nop
-	nop
-	
-	lda #0 + 8				; psg -we high
-	sta $fe40
-
-	rts					; return
-
-
 
 ;----------------------------------------------------
 ; Draw sprite
@@ -615,12 +636,12 @@ sprit2:
 	sta (scraddr),y		; write to screen.
 
 	lda spr+1		; fetch graphic.
-	ldy #8			; _BEEB
+	ldy #16			; _BEEB
 	eor (scraddr),y		; merge with screen image.
 	sta (scraddr),y		; write to screen.
 
 	lda spr+2		; fetch graphic.
-	ldy #16			; _BEEB
+	ldy #32			; _BEEB
 	eor (scraddr),y		; merge with screen image.
 	sta (scraddr),y		; write to screen.
 
@@ -828,7 +849,7 @@ dline_shift2:
 	lda sprtmp2
 	and z80_b 		; mask away unwanted
 
-	ldy #24
+	ldy #32
 	eor (scraddr),y 	; XOR with what's there.
 	sta (scraddr),y 	; bung it in.
 
@@ -875,17 +896,9 @@ dline:
 	eor (scraddr),y 	; XOR with what's there.
 	sta (scraddr),y 	; left byte on screen.
 
-; _BEEB screen arrangement
-;	clc
-;	lda scraddr
-;	adc #16
-;	sta scraddr
-;	bcc :+
-;	inc scraddr+1
-;:
 	pla
 	and z80_b 		; mask away unwanted bits.
-	ldy #24
+	ldy #32
 	eor (scraddr),y 	; XOR with what's there.
 	sta (scraddr),y 	; right byte on screen
 
@@ -1003,7 +1016,7 @@ ddline_shift2:
 	lda sprtmp2
 	and z80_b 			; mask away unwanted
 
-	ldy #24
+	ldy #32
 	eor (scraddr),y 	; XOR with what's there.
 	sta (scraddr),y 	; bung it in.
 
@@ -1074,7 +1087,7 @@ ddline_shift4:
 	lda sprtmp2			; fetch data.
 	and z80_bp 			; mask away unwanted
 
-	ldy #24
+	ldy #32
 	eor (z80_hlp),y 	; XOR with what's there.
 	sta (z80_hlp),y 	; bung it in.
 
