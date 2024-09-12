@@ -567,7 +567,6 @@ vsync1:
 	lda sndtyp
 	beq sndskip
 sndloop:
-<<<<<<< HEAD
     ldy sndtyp
 sndwait:
     dey
@@ -589,27 +588,6 @@ sndskip:
     ; disable sound
     lda #$00
     sta $900c
-=======
-	ldy sndtyp
-sndwait:
-	dey
-	bne sndwait
-	eor #4
-
-	; enable sound on channel 2
-	; add 128 because sound is in range 128-255
-	lda sndtyp
-	clc
-	adc #$80
-	sta $900b
-
-	dec sndtyp
-	bne sndloop
-sndskip: 
-	; disable sound
-	lda #$00
-	sta $900b
->>>>>>> e0f4899fa9584d37491d641512130e7c05982b61
 
 	pla			; Restore registers
 	tax
