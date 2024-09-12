@@ -15,7 +15,7 @@
 ;	$2000-$7fff	24,0kB	RAM
 ;	$8000-$8fff	 4,0kB	CHAR ROM
 ;	$9000-$93ff	 1,0kB	VIC VIA's
-;	$9400-$97ff	 1,0kB	COLOUR RAM
+;	$9600-$97ff	 1,0kB	COLOUR RAM
 ;	$9800-$9fff	 2,0kB	I/O
 ;	$a000-$bfff	 8,0kB	RAM
 ;	$c000-$dfff	 8,0kB	BASIC ROM
@@ -107,7 +107,6 @@
 
 ; VIC constants
 
-	OBJCHAR 	= 178			; first char nr for objects
 	scrchar 	= 22			; char/line
 	scrline		= 22			; lines/screen
 	ScreenSize	= scrchar*scrline * 8	; Screen size bytes
@@ -127,6 +126,7 @@
 	Reg1		= $9001		; Vertical centering
 	Reg2		= $9002		; Set # of columns
 	Reg3		= $9003		; Set # of rows
+	Reg4		= $9004		; Vsync signal
 	Reg5		= $9005		; Start of character memory
 	RegF		= $900f		; Screen and border color register
 	JoyAddr1	= $9111		; Joystick address 1
@@ -156,14 +156,24 @@ init:
 	sta $912d
 	sta $912e
 
+; Set audio volume to max
+	lda #$0f
+	sta $900e
+
 ; Init screen for NTSC
 ; this sets the background and border color of the screen
-
 ; in this case border black and background black
+
 	lda #%00011000			
 	sta RegF
 
+; Reset fontcolor
+	lda #0		; Black
+	sta fontcol
+
+
 ; max num of columns 24
+
 	lda Reg2
 	and #%10000000
 	ora #ScrWidth
@@ -171,6 +181,7 @@ init:
 
 ; max num of lines (mult by 2 - 24) for 8x8 chars
 ; no multiply for 8x16 chars
+
 	lda Reg3
 	and #%10000001
 	ora #ScrWidth		; number of rows multipled by two
@@ -180,19 +191,21 @@ init:
 ; non standard screen resolution (standard 22x23)
 ; same games even allow the user to change them
 ; these values are for PAL for NTSC should be different
-
 ; move horizontal position in the screen
+
 	lda Reg0
 	and #%10000000
 	ora #CentreX
 	sta Reg0
 
 ; move vertical position in the screen
+
 	lda #CentreY
 	sta Reg1
 
 ; Set screem memory to $200
 ; bit 7 on $9002 has to be set
+
 	lda Reg2
 	ora #%10000000
 	sta Reg2
@@ -201,29 +214,36 @@ init:
 ; bit 7 on $9005 has always to be set 
 ; (based on compute - mapping the vic book)
 ; color ram goes to 9600
+
 	lda Reg5
 	and #%00001100
 	ora #%10001100
 	sta Reg5
 
 ; This set the char size to 8x16
+
 	lda Reg3
 	ora #%00000001
 	sta Reg3
 
 ; Init screencharacters
 ; Fill screen with characters from left to right, up to down
+
 	ldx #0
+	ldy #0
 scrinit:
 	txa
 	sta ScreenAddr,x
+	tya
+	sta ColorAttr,x
 	inx
 	cpx#242
 	bne scrinit
 
 
 ; Reset fontcolor
-	lda #0		; Black
+
+	lda #0			; Black
 	sta fontcol
 
 ; Init VIA timer for timeout 1/25 sec
@@ -241,10 +261,8 @@ scrinit:
 
 	rts
 
-
-
-
-
+;========================================================
+; KEY AND JOYSTICK ROUTINES
 ;--------------------------------------------------------
 ; Keys
 ;
@@ -265,121 +283,58 @@ scrinit:
 ;                       Option4  KEY 10 - 4
 ;--------------------------------------------------------
 
-jkeys:  .byte $42,$61,$68,$48,$62,$10,$37       ; Keys defined by game designer.
-        .byte $30,$31,$11,$12                   ; menu options.
-
-;----------------------------------------------------
+;--------------------------------------------------------
+; PRSKEY
+;
 ; Wait for keypress.
-;----------------------------------------------------
+;--------------------------------------------------------
 
 prskey:
 	tya
 	pha
 prsloop:
 	jsr vsync
-	jsr READKEY
+	jsr readkey
 	cpy #255
-	beq prsloop			; wait until key pressed
+	beq prsloop		; wait until key pressed
 
 prsrelease:
 	jsr vsync
-	jsr READKEY
+	jsr readkey
 	cpy #255
-	bne prsrelease			; wait until key pressed
+	bne prsrelease		; wait until key released
 
 	jsr joykey
+
 	pla
 	tay
 	rts
 
-bbcinit:
-;	sei
-;	lda EVENTV
-;	sta old_eventv
-;	lda EVENTV+1
-;	sta old_eventv+1
-
-;	lda #<event_handler
-;	sta EVENTV
-;	lda #>event_handler
-;	sta EVENTV+1
-;	cli
-	
-	; Enable VSYNC event.
-;	lda #14
-;	ldx #4
-;	jmp OSBYTE
-
-	rts
-
-bbckill:
-;	sei
-;	lda old_eventv
-;	sta EVENTV
-;	lda old_eventv+1
-;	sta EVENTV+1
-;	cli
-	
-	; Disable VSYNC event.
-;	lda #13
-;	ldx #4
-;	jmp OSBYTE
-
-	rts
-
-old_eventv:
-	.res 2
-
-event_handler:
-	php
-	cmp #4
-	bne not_vsync
-
-	inc vsync_count
-
-not_vsync:
-	plp
-	jmp (old_eventv)
-
-bbcsync:
-	lda vsync_count
-	cmp #2
-	bcc bbcsync
-	lda #0
-	sta vsync_count
-	rts
-
-;-------------------------------------------------------------
-; KTEST, scan key and return in carry if key pressed
+;--------------------------------------------------------
+; KTEST
 ;
-; Keyboard test routine.
-;
-; Input:
-;  A = key to read, high nibble=row and low nibble=col
-;
-; Output:
-;  carry clr = key pressed
-;  carry set = key not pressed
+; Keyboard test routine with key in A.
+; Scan key and clear carry if key pressed
 ;--------------------------------------------------------
 
 ktest:
 	sta z80_a		; save key
 
-	lsr a			; set row
+	lsr a
 	lsr a
 	lsr a
 	lsr a
 	tax
 	lda colmask,x
-	sta KeyColAddr
+	sta KeyColAddr		; set row
 
 	lda z80_a
 	and #$0f
-	tax
+	tax			; get column
 
 	lda KeyRowAddr		; read column
-	and keymask,x		; check key pressed
-	beq pressed
+	and keymask,x		; check if key pressed
+	beq pressed		; Skip if pressed
 	sec			; key not pressed
 	rts
 pressed:
@@ -390,11 +345,12 @@ colmask:	.byte 127,191,223,239,247,251,253,254
 keymask:	.byte $01,$02,$04,$08,$10,$20,$40,$80
 
 ;---------------------------------------------------------------
-; Getkey in column,row format
-;
-; Output:
-;  A = high nibble=row and low nibble=col key in matrix
+; KGET
+; 
+; Read keyboard matrix if a key is pressed.
+; Return A = high nibble=row and low nibble=col
 ;---------------------------------------------------------------
+
 kget:
 	stx xtmp		; Save x-reg
 kget0:
@@ -437,79 +393,21 @@ kget5:
 	rts			; Return
 
 ;-------------------------------------------------------------
-; JOY1SCAN, scan joystick1 and return key in z80_e
+; READKEY
+;
+; Check keyboard matrix if a key is pressed
+; Return keymask in Y
 ;-------------------------------------------------------------
 
-joy1scan:
-	lda #$ff
-	sta z80_e
-
-	lda JoyAddr1
-	lsr a
-	lsr a
-
-	lsr a
-	rol z80_e	; Up
-	lsr a
-	rol z80_e	; Down
-	lsr a
-	rol z80_e	; Left
-
-	lda #%01111111
-	sta DDRB	; Bit7 = input joystick b7
-	lda JoyAddr2
-	asl a
-	rol z80_e	; Right
-	lda #%11111111
-	sta DDRB	; Reset  
-
-	lda JoyAddr1
-	and #%00100000
-	bne :+
-	lda z80_e
-	and #%11101111	; Fire
-	sta z80_e
-:
-	lda keys+6	; Fire3
-	jsr ktest
-	bcs :+
-	lda z80_e
-	and #%10111111
-	sta z80_e
-:
-	lda keys+5	; Fire2
-	jsr ktest
-	bcs :+
-	lda z80_e
-	and #%11011111
-	sta z80_e
-:
-
-	rts
-
-;-------------------------------------------------------------
-; JOY2SCAN, scan joystick2 and return key in z80_e
-;-------------------------------------------------------------
-
-joy2scan:
-	rts
-
-joyinit:
-	rts
-
-;-------------------------------------------------------------
-; READKEY, Wait for keypress and then wait for release
-;-------------------------------------------------------------
-
-READKEY:
-	lda #$ff
+readkey:
+	lda #$ff		; Keymask
 	sta tmp
 	ldx #7
 scanrow:
 	lda colmask,x
-	sta KeyColAddr
+	sta KeyColAddr		; set row
 	lda KeyRowAddr		; read column
-	and tmp
+	and tmp			; Reset bit is key pressed
 	sta tmp
 	dex
 	bpl scanrow
@@ -517,89 +415,196 @@ scanrow:
 	tay
 	rts
 
-;----------------------------------------------------
-; Delay routine 1/50 sec
+;-------------------------------------------------------------
+; JOY1SCAN
 ;
-; Wait 1/60 sec = 16666 usec
-; Wait 208 x 16 =  3328 usec
-;                 19994 usec
-; rts           =     6 usec
-; Total         = 20000 usec
+; Initializes joystick
+;-------------------------------------------------------------
+
+joyinit:
+	rts
+
+;-------------------------------------------------------------
+; JOY1SCAN
+;
+; Scan joystick1 and return key in z80_e
+; Up, down, left, right and fire are read from the joystick
+; Fire2 and fire3 are read from the keyboard
+;-------------------------------------------------------------
+
+joy1scan:
+	lda #$ff
+	sta z80_e
+
+	lda JoyAddr1		; Read joystick input
+	lsr a
+	lsr a
+
+	lsr a
+	rol z80_e		; Up
+	lsr a
+	rol z80_e		; Down
+	lsr a
+	rol z80_e		; Left
+
+	lda #%01111111
+	sta DDRB		; Bit7 = input joystick b7
+	lda JoyAddr2
+	asl a
+	rol z80_e		; Right
+	lda #%11111111
+	sta DDRB		; Reset  
+
+	lda JoyAddr1
+	and #%00100000
+	bne :+
+	lda z80_e
+	and #%11101111		; Fire
+	sta z80_e
+:
+	lda keys+6		; Scan keys for Fire3
+	jsr ktest
+	bcs :+
+	lda z80_e
+	and #%10111111
+	sta z80_e
+:
+	lda keys+5		; Scan keys for Fire2
+	jsr ktest
+	bcs :+
+	lda z80_e
+	and #%11011111
+	sta z80_e
+:
+	rts
+
+;-------------------------------------------------------------
+; JOY2SCAN
+;
+; TODO, Scan joystick2 and return key in z80_e
+;-------------------------------------------------------------
+
+joy2scan:
+	rts
+
+
+
+;========================================================
+; HARDWARE DEPENDING ROUTINES
+;========================================================
+
+;----------------------------------------------------
+; DELAY
+;
+; Delay routine A * 1/50 sec
 ;----------------------------------------------------
 
 delay:
-	sta xtmp
+	sta xtmp		; set delaycounter
 del_loop:
-	lda $9004
-	bne del_loop			; wait for flyback (1/60 sec)
+	lda Reg4
+	bne del_loop		; wait for flyback (1/60 sec)
 
-	ldy #208			; wait 208 x 16 = 3328 usec
+	ldy #208		; wait 208 x 16 = 3328 usec
 delay1:
-	adc ($80,x)			;	 6 usec
-	adc ($80,x)			;	 6 usec
-	dey				;	 2 usec
-	bne delay1			;	 2 usec
-	nop				; 2 usec
-	nop				; 2 usec
-					; tot: 20000 usec
-	dec xtmp
+	adc ($80,x)		;	 6 usec
+	adc ($80,x)		;	 6 usec
+	dey			;	 2 usec
+	bne delay1		;	 2 usec
+	nop			; 2 usec
+	nop			; 2 usec
+				; tot: 20000 usec
+	dec xtmp		; Next 1/50 sec delay
 	bne del_loop
 	rts
 
 ;-------------------------------------------------------------
-; VSYNC, synchronize to 25 frames/sec
+; VSYNC
 ;
-;  - read joystick/keyboard
-;  - handle sound
-;  - sync framerate with timer 25Hz
-;  - handle shrapnel every even frame
+; - read joystick/keyboard
+; - sync framerate with timer 25Hz
+; - handle shrapnel every even frame
+; - handle sound
 ;-------------------------------------------------------------
 
 vsync:
-	pha
+	pha			; save registers
 	tya
 	pha
 	txa
 	pha
-	jsr joykey		; read joystick/keyboard.
 
-	lda #$40		; Set Timer1 expired bit
+; Read joystick/keyboard.
+
+	jsr joykey
+
+; Sync framerate with timer 25Hz
+
+	lda #$40		; set Timer1 expired bit
 vsync1:
-	bit IFR			; Check Interrupt Flag Register
-	beq vsync1
-	lda Timer1_Low		; Clear Timer interrupt
+	bit IFR			; check Interrupt Flag Register
+	beq vsync1		; wait if timer not expired
+	lda Timer1_Low		; clear Timer interrupt
 
-	lda clock
-	and #1
+; Handle shrapnel every even frame
+
+	lda clock		; get clock
+	and #1			; 2 frames expired
 	bne:+
-	jsr proshr		; handle shrapnel every even frame
+	jsr proshr		; process shrapnel
 :
+
+; Handle sound
+
 	lda sndtyp
 	beq sndskip
 sndloop:
-;	lda SpeakerBit		; handle sound
-	ldy sndtyp
+    ldy sndtyp
 sndwait:
-	dey
-	bne sndwait
-	eor #4
-;	sta SpeakerBit
-	dec sndtyp
-	bne sndloop
-sndskip: 
+    dey
+    bne sndwait
 
-	pla
+    ; enable sound on channel 2
+    ; add 128 because sound is in range 128-255
+    lda #$ff
+    sec
+    sbc sndtyp
+	lsr a
+    clc
+    adc #$80
+    sta $900c
+
+    dec sndtyp
+    bne sndloop
+sndskip: 
+    ; disable sound
+    lda #$00
+    sta $900c
+
+	pla			; Restore registers
 	tax
 	pla
 	tay
 	pla
 	rts
 
-sndtyp:		.byte 0
+sndtyp:		.byte 0		; Beep sound parameter
+
+
+
+
+
+
+;========================================================
+; SPRITE HANDLING ROUTINES
+;========================================================
 
 ;----------------------------------------------------
-; Draw sprite
+; SPRITE
+; 
+; Draw object sprite
 ;----------------------------------------------------
+
 .if oflag
 sprite:
 	stx xtmp		; Save X-reg
@@ -654,48 +659,50 @@ sprit2:
 	ldx xtmp		; retreive X-reg
 	rts
 
-;spr:	.byte 0,0,0
 .endif
+
 ;------------------------------------------------------------------
-; This routine returns a screen address for (dispx, dispy) in scraddr.
+; SCADD
+;
+; This routine returns a screen address for X,Y in scraddr.
 ;------------------------------------------------------------------
 
 scadd:
-	lda dispx
-	and #$f8
-	sta scraddr
+	lda dispx		; get x
+	and #$f8		; reset bit 0-2 for get block pos
+	sta scraddr		; set lb scraddr
 	lda #0
-	sta scraddr+1
-	asl scraddr
+	sta scraddr+1		; set hb scraddr
+	asl scraddr		; multiply X by 2
 	rol scraddr+1
 
-	ldx dispy
+; Add line address Y pos to X
+
+	ldx dispy		; get row address Y pos
 	clc
 	lda scraddr
 	adc SCADTB_lb,x
 	sta scraddr
 	lda scraddr+1
-	adc SCADTB_hb,x
+	adc SCADTB_hb,x	
 	sta scraddr+1
-
 
 	rts
 
-;-----------------------------------------------------------------
-; These are the sprite routines.
-; sspria = single sprite, old (ix).
-; ssprib = single sprite, new (ix+5).
-; sspric = both sprites, old (ix) and new (ix+5).
-;-----------------------------------------------------------------
+;------------------------------------------------------------------
+; SSPRIA
+;
+; Erase single sprite, old (ix+0).
+;------------------------------------------------------------------
 
 sspria:
 	jsr gsprad		; get old sprite address.
 sspri2:
 .if rflag
-	lda z80_e				; 3c
+	lda z80_e		; 3c
 	sta dline_spraddr1+1	; 4c
 	sta dline_spraddr2+1	; 4c
-	lda z80_d				; 3c
+	lda z80_d		; 3c
 	sta dline_spraddr1+2	; 4c
 	sta dline_spraddr2+2	; 4c
 
@@ -707,21 +714,21 @@ sspri2:
 	sta dline_shift1+2
 	sta dline_shift2+2
 
-	ldx #0			; vertical lines.
+	ldx #0			; byte counter.
 sspri0:
 	jsr dline		; draw a line.
   .if bflag
-	cpx #48
+	cpx #48			; big sprites have 24 bytes
   .else
-	cpx #32
+	cpx #32			; normal sprites have 32 bytes
   .endif
 	bne sspri0		; repeat 16 times x 2 bytes
 	rts
 .else
   .if bflag
-	lda #24
+	lda #24			; big sprites have 24 lines
   .else
-	lda #16			; vertical lines.
+	lda #16			; normal sprites have 16 lines.
   .endif
 	sta acnt
 sspri0:
@@ -730,31 +737,39 @@ sspri0:
 	bne sspri0		; repeat 16 times
 	rts
 
-acnt:	.byte 0
+acnt:	.byte 0			; line counter
+
 .endif
 
-;-----------------------------------------------------------------
+;------------------------------------------------------------------
+; SSPRIB
+;
+; Display single sprite, new (ix+5).
+;------------------------------------------------------------------
 
 ssprib:
 	jsr gspran 		; get new sprite address.
-	jmp sspri2
+	jmp sspri2		; Display sprite
 
-;-----------------------------------------------------------------
+;------------------------------------------------------------------
+; SSPRIC
+;
+; Erase old (ix+0) and display new (ix+5) sprite line by line.
+;------------------------------------------------------------------
 
 sspric:
-;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .if rflag
 	jsr gsprad 		; get old sprite address.
 
-	lda z80_e				; 3c
+	lda z80_e		; 3c
 	sta ddline_spraddr3+1	; 4c
 	sta ddline_spraddr4+1	; 4c
 
-	lda z80_d				; 3c
+	lda z80_d		; 3c
 	sta ddline_spraddr3+2	; 4c
 	sta ddline_spraddr4+2	; 4c
 
-	ldx sprshft
+	ldx sprshft		; set spriteshift table addresses
 	lda shift_table,x
 	sta ddline_shift3+1
 	sta ddline_shift4+1
@@ -765,11 +780,11 @@ sspric:
 	jsr exx  		; store addresses.
 	jsr gspran 		; get new sprite addresses.
 
-	lda z80_e				; 3c
+	lda z80_e		; 3c
 	sta ddline_spraddr1+1	; 4c
 	sta ddline_spraddr2+1	; 4c
 
-	lda z80_d				; 3c
+	lda z80_d		; 3c
 	sta ddline_spraddr1+2	; 4c
 	sta ddline_spraddr2+2	; 4c
 
@@ -793,41 +808,40 @@ lloop:
 	rts
 
 shift_table:
-.word shift0
-.word shift2
-.word shift4
-.word shift6
+	.word shift0
+	.word shift2
+	.word shift4
+	.word shift6
 
-;-------------------------------------------------------------
-; Drop through.
-; Line drawn, now work out next target address.
+;------------------------------------------------------------------
+; DLINE
+;
+; Draw a sprite line, now work out next target address.
 ;
 ; Input:
 ;  B  = right mask
 ;  C  = left mask
 ;  DE = spriteaddress
 ;  scraddr = screen address
-;-------------------------------------------------------------
+;------------------------------------------------------------------
 
 dline:
 
-; first screen byte
-
 dline_spraddr1:
-	ldy $ffff,x 		; graphic data.
+	ldy $ffff,x 		; get graphic data as pointer.
 dline_shift1:
-	lda $ffff,y
-	sta sprtmp
-	and z80_c 		; mask away what's not needed.
+	lda $ffff,y		; get pre-shifted data
+	sta sprtmp		; save byte
+	and z80_c 		; mask right for left byte
 
 	ldy #0
 	eor (scraddr),y 	; XOR with what's there.
-	sta (scraddr),y 	; bung it in.
+	sta (scraddr),y 	; display left byte
 
 ; carry to next screen byte
 
 	lda sprtmp		; fetch data.
-	and z80_b 		; mask away unwanted
+	and z80_b 		; mask for left part
 	sta sprtmp
 
 ; middle screen byte
@@ -842,7 +856,7 @@ dline_shift2:
 	ora sprtmp
 	ldy #16
 	eor (scraddr),y 	; XOR with what's there.
-	sta (scraddr),y 	; bung it in.
+	sta (scraddr),y 	; display middle bye.
 
 ; carry to last screen byte
 
@@ -851,11 +865,11 @@ dline_shift2:
 
 	ldy #32
 	eor (scraddr),y 	; XOR with what's there.
-	sta (scraddr),y 	; bung it in.
+	sta (scraddr),y 	; display right byte.
 
 	inx
 .else
-;~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 	jsr gsprad 		; get old sprite address.
 	jsr exx  		; store addresses.
 	jsr gspran 		; get new sprite addresses.
@@ -1142,7 +1156,13 @@ pchar:
 	lda fntaddr+1
 	adc #>(FONT-256)
 	sta fntaddr+1		; add displacement.
+
 pchark:
+	jsr gaadd		; set colour attribute
+	lda fontcol
+	ldy #0
+	sta (bufaddr),y
+
 	jsr gprad		; get screen address.
 	ldx #7			; lines to write.
 pchar0:
@@ -1159,10 +1179,10 @@ pchar0:
 :
 	dex			; next screen row down.
 	bpl pchar0		; repeat.
+
 	rts
 
 scrtab:		.byte $07,$06,$05,$04,$03,$02,$01,$00
-;scrtab:	.byte $e0,$c0,$a0,$80,$60,$40,$20,$00
 
 .if rflag
 ;----------------------------------------------------
