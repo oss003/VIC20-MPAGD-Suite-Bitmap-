@@ -572,15 +572,18 @@ sndwait:
     dey
     bne sndwait
 
-    ; enable sound on channel 2
-    ; add 128 because sound is in range 128-255
-    lda #$ff
-    sec
-    sbc sndtyp
-	lsr a
-    clc
-    adc #$80
-    sta $900c
+	lda sndtyp
+	sta $bff0
+	bmi :+ ; if negative (>=128)
+	; positive (<128 - normal sound)
+	ldx #$00
+	ora #%10000000
+	jmp :++ ; done positive
+:
+	; negative (>= 128 - crash sound)
+	ldx #$01
+:
+	sta $900c,x
 
     dec sndtyp
     bne sndloop
@@ -588,6 +591,7 @@ sndskip:
     ; disable sound
     lda #$00
     sta $900c
+	sta $900d
 
 	pla			; Restore registers
 	tax
