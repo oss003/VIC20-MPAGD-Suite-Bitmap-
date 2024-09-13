@@ -1,1 +1,1 @@
-.include "mozart1.inc" 
+.include "testcrash.inc" 

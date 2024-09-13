@@ -5,7 +5,7 @@
 ; Screen is divided into 32 columns and 24 rows (Spectrum and Next/Timex) or 25 rows (CPC)
 ; The 4 parameters for DEFINEWINDOW are top edge, left edge, height and width respectively
 
-DEFINEWINDOW    1 1 22 30
+DEFINEWINDOW    0 0 22 22
 
 DEFINEFONT      0 0 0 0 0 0 0 0
                 0 48 48 48 48 0 48 0
@@ -111,7 +111,7 @@ DEFINEFONT      0 0 0 0 0 0 0 0
 ; Block 0
 
 DEFINEBLOCK     EMPTYBLOCK      ; property
-                0 0 0 0 0 0 0 0 71                                      ; Spectrum.
+                0 0 0 0 0 0 0 0 0                                      ; Spectrum.
 
 ; Sprites
 ; First argument defines the number of frames
@@ -127,34 +127,34 @@ DEFINESPRITE    1		; number of frames
 ; The compiler will automatically compress screens
 
 DEFINESCREEN
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
 
 ; Next we define the sprites that appear on the screen
 ; SPRITEPOSITION requires 4 numbers for image, type, Y coordinate and X coordinate in that order
 ; Coordinates are based on Spectrum screen, even for CPC so need to change for conversions
 
-SPRITEPOSITION 66,0,88,128
+SPRITEPOSITION 66,0,88,80
 
 
 ; Define objects
@@ -164,29 +164,29 @@ SPRITEPOSITION 66,0,88,128
 ; Coordinates are based on Spectrum screen, even for CPC so need to change for conversions
 
 ; Spectrum:
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+DEFINEOBJECT    0,0,144,18     ; attribute, room, Y, X
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
 
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+DEFINEOBJECT    2,0,144,38     ; attribute, room, Y, X
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
 
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+DEFINEOBJECT    3,0,144,58     ; attribute, room, Y, X
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
 
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+DEFINEOBJECT    4,0,144,78     ; attribute, room, Y, X
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
 
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+DEFINEOBJECT    5,0,144,98     ; attribute, room, Y, X
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
 
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+DEFINEOBJECT    6,0,144,118     ; attribute, room, Y, X
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
+                255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255
 ; Map.
 ; First argument is WIDTH, second is the startscreen
 ; We then arrange the map as a grid with correct width, monospaced here for readability
@@ -224,20 +224,22 @@ EVENT MAINLOOP1
 
 
  PRINTMODE 1
- AT 0 6
+ AT 0 1
  PRINT "MENU/INVENTORY TEST:"
  PRINTMODE 0
 
- AT 4 3
- PRINT "MENU            = PRESS 1"
- AT 5 3
- PRINT "INVENTORY       = PRESS 2"
- AT 6 3
- PRINT "EMPTY INVENTORY = PRESS 3"
+ AT 4 1
+ PRINT "MENU      = PRESS 1"
+ AT 5 1
+ PRINT "INVENTORY = PRESS 2"
+ AT 6 1
+ PRINT "EMPTY INV = PRESS 3"
 
  IF KEY OPTION1
-  MENU "ONE,TWO,THREE,FOUR,FIVE,SIX,SEVEN"
-  AT 23,5
+  INK 2
+  MENU "ONE,TWO,THREE,FOUR,FIVE,SIX"
+  INK 0
+  AT 21,2
   PRINT "SELECTION WAS: "
   DISPLAY OPT
   PRINT "  "
@@ -247,8 +249,10 @@ EVENT MAINLOOP1
   GET 0
   GET 3
   GET 5
+  INK 4
   INV " OBJ0 , OBJ1 , OBJ2 , OBJ3 , OBJ4 , OBJ5"
-  AT 23,5
+  INK 0
+  AT 21,2
   PRINT "SELECTION WAS: "
   DISPLAY OPT
   PRINT "  "
@@ -256,16 +260,18 @@ EVENT MAINLOOP1
 
  IF KEY OPTION3
   IF GOT 0
-    PUT X Y 0
+    PUT 18 144 0
   ENDIF
   IF GOT 3
-    PUT X Y 3
+    PUT 78 144 3
   ENDIF
   IF GOT 5
-    PUT X Y 5
+    PUT 118 144 5
   ENDIF
+  INK 6
   INV " OBJ0 , OBJ1 , OBJ2 , OBJ3 , OBJ4 , OBJ5"
-  AT 23,5
+  INK 0
+  AT 21,2
   PRINT "SELECTION WAS: "
   DISPLAY OPT
   PRINT "  "

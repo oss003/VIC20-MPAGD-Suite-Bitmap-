@@ -432,7 +432,7 @@ dbox9:
 :
 	cmp #','		; another line?
 	beq dbox10		; yes, do next line.
-	cmp #ASCII_NEWLINE			; another line?
+	cmp #ASCII_NEWLINE	; another line?
 	beq dbox10		; yes, do next line.
 	cmp #128		; end of message?
 	bcs :+
@@ -583,7 +583,7 @@ dbar0:
 	bpl dbar0		; draw rest of character.
 
 	lda scraddr
-	adc #8
+	adc #16
 	sta scraddr
 	bcc :+
 	inc scraddr+1
@@ -689,24 +689,24 @@ iniob:
 
 	ldx numob 		; number of objects in the game.
 iniob0:
-	ldy #35
+	ldy #36
 	lda (z80_ix),y 		; start screen.
-	ldy #32
+	ldy #33
 	sta (z80_ix),y 		; set start screen.
 
-	ldy #36
+	ldy #37
 	lda (z80_ix),y 		; find start y.
-	ldy #33
+	ldy #34
 	sta (z80_ix),y 		; set start y.
 
-	ldy #37
+	ldy #38
 	lda (z80_ix),y 		; get initial x.
-	ldy #34
+	ldy #35
 	sta (z80_ix),y 		; set x coord.
 
 	clc 			; point to next object.
 	lda z80_x
-	adc #38			; distance between objects.
+	adc #39			; distance between objects.
 	sta z80_x
 	bcc :+
 	inc z80_i
@@ -755,7 +755,7 @@ redrw0:
 
 	ldy #var_Y
 	lda (z80_ix),y 		; sprite y.
-	cmp #177		; beyond maximum?
+	cmp #SpriteMaxY		; beyond maximum?
 	bcs redrw1		; yes, nothing to draw.
 
 	jsr sspria		; show single sprite.
@@ -2252,6 +2252,7 @@ plsnd:
 ;---------------------------------------------------
 ; Objects handling.
 ; 32 bytes for image
+; 1 for colour
 ; 3 for room, y and x
 ; 3 for starting room, y and x.
 ; 254 = disabled.
@@ -2271,7 +2272,7 @@ shwob:
 	lda numob 			; number of objects in the game.
 	sta sprcnt
 shwob0:
-	ldy #32 			; distance to room number.
+	ldy #33 			; distance to room number.
 	lda (z80_hl),y 			; same as an item?
 	cmp scno 			; current location.
 	bne :+
@@ -2279,7 +2280,7 @@ shwob0:
 :
 	clc
 	lda z80_l
-	adc #38 			; distance to next item.
+	adc #39 			; distance to next item.
 	sta z80_l
 	lda z80_h
 	adc #0
@@ -2297,7 +2298,10 @@ shwob0:
 ;---------------------------------------------------
 
 dobj:
-	ldy #33
+	ldy #32
+	lda (z80_hl),y 			; point to y.
+	sta objcol
+	ldy #34
 	lda (z80_hl),y 			; point to y.
 	sta dispy
 	iny
@@ -2323,7 +2327,7 @@ remob:
 	pla				; retrieve object number.
 	jsr gotob			; get its address.
 	lda #254
-	ldy #32
+	ldy #33
 	sta (z80_hl),y			; remove it.
 	rts
 
@@ -2344,7 +2348,7 @@ getob:
 	bne :+
 	rts			; we already do.
 :
-	ldy #32
+	ldy #33
 	lda (z80_hl),y		; is it on this screen?
 	cmp scno 		; current screen.
 	bne getob0		; not on screen, so nothing to delete.
@@ -2353,10 +2357,10 @@ getob:
 	sta (z80_hl),y		; pick it up.
 	iny 			; point to y coord.
 getob1:
-	ldy #33
+	ldy #34
 	lda (z80_hl),y		; y coord.
 	sta dispy
-	ldy #34
+	ldy #35
 	lda (z80_hl),y 		; x coord.
 	sta dispx
 	jmp dobj1 		; delete object sprite.
@@ -2399,7 +2403,7 @@ findob:
 fndob2:
 	clc
 	lda z80_l
-	adc #38 		; size of each object.
+	adc #39 		; size of each object.
 	sta z80_l
 	bcc :+
 	inc z80_h
@@ -2407,7 +2411,7 @@ fndob2:
 	dex 			; repeat until we find address.
 	bne fndob2
 fndob1:
-	ldy #32			; distance to room it's in.
+	ldy #33			; distance to room it's in.
 	lda (z80_hl),y		; fetch status.
 	rts
 .endif
@@ -2430,7 +2434,7 @@ drpob:
 	bne :+
 	rts			; yes, nothing to do.
 :
-	ldy #32
+	ldy #33
 	lda scno
 	sta (z80_hl),y		; bring onto screen.
 	lda dispy		; sprite y coordinate.
@@ -2458,14 +2462,14 @@ skobj:
 	sta z80_b 		; set up the loop counter.
 skobj0:
 	lda scno		; current room number.
-	ldy #32
+	ldy #33
 	cmp (z80_hl),y		; is object in here?
 	bne :+
 	jsr skobj1		; yes, check coordinates.
 :
 	clc			; point to next object in table.
 	lda z80_l
-	adc #38			; size of each object.
+	adc #39			; size of each object.
 	sta z80_l
 	bcc :+
 	inc z80_h
@@ -2477,7 +2481,7 @@ skobj0:
 	rts
 
 skobj1:
-	ldy #33			; point to y coordinate.
+	ldy #34			; point to y coordinate.
 	lda (z80_hl),y		; point to y coordinate.
 	sec
 	ldy #var_newY
@@ -2487,7 +2491,7 @@ skobj1:
 	cmp #31			; within range?
 	bcs skobj2		; no, ignore object.
 
-	ldy #34			; point to x coordinate now.
+	ldy #35			; point to x coordinate now.
 	lda (z80_hl),y 		; get coordinate.
 	sec
 	ldy #var_newX
@@ -2632,7 +2636,7 @@ grbase:	.word ScreenAddr	; graphics base address.
 
 checkx:
 	lda dispy		; y position.
-	cmp #24			; off screen?
+	cmp #22			; off screen?
 	bcs :+
 	rts			; no, it's okay.
 :
@@ -2931,7 +2935,7 @@ noskip:
 ; Get property buffer address of char at (dispx, dispy) in hl.
 ; 
 ; Output:
-;  buffaddr = bufaddr = MAP + dispy*32 + dispx
+;  buffaddr = bufaddr = MAP + dispy*22 + dispx
 ;--------------------------------------------------------------
 
 pradd:
@@ -4111,6 +4115,11 @@ bchar:
 	adc #>(FONT-256)
 	sta z80_d
 
+	jsr gaadd		; set colour attribute
+	lda fontcol
+	ldy #0
+	sta (bufaddr),y
+
 	jsr gprad 		; get screen address.
 
 	ldx #0			; height of character in font.
@@ -4175,8 +4184,16 @@ achar:
 nexpos:
 	inc dispx		; move along one position.
 	lda dispx 		; get coordinate.
-;	and #31
-	rts 			; return with status in zero flag.
+	cmp #22
+	bne :+
+	lda #0
+	sta dispx
+	lda prtmod
+	beq :+
+	jsr nexlin
+	jmp nexlin
+:
+	rts
 
 ;-------------------------------------------------
 ; Get next print line position.
@@ -4185,7 +4202,7 @@ nexpos:
 nexlin:
 	inc dispy 		; newline.
 	lda dispy		; vertical position.
-	cmp #24			; past screen edge?
+	cmp #22			; past screen edge?
 	bcs :+
 	rts			; no, still okay.
 :
@@ -5629,7 +5646,6 @@ scrly3:
 	lda $3333,y		; get image of char line.
 	and txtbit
 	beq scrly2		; don't plot pixel
-;	ldy scrline,x
 	lda (scr_r),y
 	clc
 	ora #1
@@ -5663,7 +5679,7 @@ scrly6:
 	ldx xtmp
 	rts
 
-scrline:	.byte $00,$20,$40,$60,$80,$a0,$c0,$e0
+;scrline:	.byte $00,$20,$40,$60,$80,$a0,$c0,$e0
 tmp_byte:	.byte 0
 line_cnt:	.byte 0
 

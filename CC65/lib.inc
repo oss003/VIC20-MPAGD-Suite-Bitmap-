@@ -107,11 +107,11 @@
 
 ; VIC constants
 
-	scrchar 	= 22			; char/line
-	scrline		= 22			; lines/screen
-	ScreenSize	= scrchar*scrline * 8	; Screen size bytes
-	ScreenRowBytes	= scrchar * 16		; bytes/line
-	SpriteMaxY	= 161			; maxlines - 16 + 1
+;	scrchar 	= 22				; char/line
+;	scrline		= 22				; lines/screen
+	ScreenSize	= ScrWidth * ScrHeight * 8	; Screen size bytes
+	ScreenRowBytes	= ScrWidth * 16			; bytes/line
+	SpriteMaxY	= 161				; maxlines - 16 + 1
 
 ; VIC variables:
 
@@ -239,14 +239,6 @@ scrinit:
 	inx
 	cpx#242
 	bne scrinit
-
-; Set character color to black - temp
-	ldx #$00
-	lda #$00
-:
-	sta $9600,x
-	inx
-	bne :-
 
 
 ; Reset fontcolor
@@ -564,42 +556,58 @@ vsync1:
 
 ; Handle sound
 
-	lda sndtyp
-	beq sndskip
+    lda sndtyp
+    beq sndskip
+
 sndloop:
     ldy sndtyp
 sndwait:
     dey
     bne sndwait
 
-	lda sndtyp
-	sta $bff0
-	bmi :+ ; if negative (>=128)
-	; positive (<128 - normal sound)
-	ldx #$00
-	ora #%10000000
-	jmp :++ ; done positive
-:
-	; negative (>= 128 - crash sound)
-	ldx #$01
-:
-	sta $900c,x
+    lda sndtyp
+    bmi crashaudio
+
+
+beepaudio:
+    ; enable sound on channel 2
+    ; add 128 because sound is in range 128-255
+    lsr
+    lda #$ff
+    sec
+    sbc sndtyp
+    lsr
+    lsr
+    ora #%11000000
+    sta $900c
+
+    jmp endaudiotype
+crashaudio:
+    lda #$ff
+    sec
+    sbc sndtyp
+    ora #%10000000
+    sta $900d
+
+endaudiotype:
 
     dec sndtyp
-    bne sndloop
+    beq sndskip
+    cmp #128
+    beq sndskip
+    jmp sndloop
 sndskip: 
     ; disable sound
     lda #$00
     sta $900c
-	sta $900d
+    sta $900d
 
-	pla			; Restore registers
-	tax
-	pla
-	tay
-	pla
-	rts
-
+    pla
+    tax
+    pla
+    tay
+    pla
+    rts
 sndtyp:		.byte 0		; Beep sound parameter
 
 
