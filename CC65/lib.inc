@@ -128,6 +128,7 @@
 	Reg3		= $9003		; Set # of rows
 	Reg4		= $9004		; Vsync signal
 	Reg5		= $9005		; Start of character memory
+	RegE		= $900e		; Colour and auxcolour register
 	RegF		= $900f		; Screen and border color register
 	JoyAddr1	= $9111		; Joystick address 1
 	KeyColAddr	= $9120		; Keyboard column (write)
