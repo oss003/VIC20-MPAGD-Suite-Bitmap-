@@ -4,103 +4,103 @@ DEFINEWINDOW    0 0 21 22
 DEFINECONTROLS  'Q' 'A' 'O' 'P' 'M' 32 'B' '1' '2' '3' '4'
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                31 20 31 20 31 20 31 0 0
+                31 20 31 20 31 20 31 0 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 0 80 32 80 0 0
+                0 0 0 0 80 32 80 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                235 12 237 10 234 8 187 56 0
+                235 12 237 10 234 8 187 56 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 0 10 4 10 0 0
+                0 0 0 0 10 4 10 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                255 0 187 56 167 32 175 32 0
+                255 0 187 56 167 32 175 32 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                32 40 40 48 48 32 0 0 0
+                32 40 40 48 48 32 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                242 14 190 50 162 34 174 46 0
+                242 14 190 50 162 34 174 46 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                224 224 0 0 0 0 0 0 0
+                224 224 0 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                235 12 237 10 234 10 185 56 0
+                235 12 237 10 234 10 185 56 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                8 56 56 0 0 0 0 0 0
+                8 56 56 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                255 0 187 56 163 40 179 48 0
+                255 0 187 56 163 40 179 48 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                32 0 0 0 0 0 0 0 0
+                32 0 0 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                183 56 173 34 170 34 234 226 0
+                183 56 173 34 170 34 234 226 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                14 14 0 0 0 0 0 0 0
+                14 14 0 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                255 8 255 8 255 8 255 0 0
+                255 8 255 8 255 8 255 0 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 40 16 40 0 0 0
+                0 0 0 40 16 40 0 0 1
 
 DEFINEBLOCK     LADDERBLOCK
-                249 3 250 2 250 2 250 1 0
+                249 3 250 2 250 2 250 1 4
 
 DEFINEBLOCK     LADDERBLOCK
-                159 64 111 32 55 48 111 192 0
+                159 64 111 32 55 48 111 192 4
 
 DEFINEBLOCK     LADDERBLOCK
-                3 7 13 25 51 54 52 52 0
+                3 7 13 25 51 54 52 52 4
 
 DEFINEBLOCK     LADDERBLOCK
-                128 0 0 0 224 176 152 152 0
+                128 0 0 0 224 176 152 152 4
 
 DEFINEBLOCK     LADDERBLOCK
-                18 8 7 0 12 30 12 7 0
+                18 8 7 0 12 30 12 7 4
 
 DEFINEBLOCK     LADDERBLOCK
-                144 160 192 128 64 64 128 0 0
+                144 160 192 128 64 64 128 0 4
 
 DEFINEBLOCK     WALLBLOCK
-                0 0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                248 8 248 8 248 8 248 0 0
+                248 8 248 8 248 8 248 0 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 20 8 20 0 0 0 0 0
+                0 20 8 20 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                0 117 169 237 0 231 197 230 0
+                0 117 169 237 0 231 197 230 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0 1
 
 DEFINEBLOCK     CUSTOMBLOCK
-                0 0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0 1
 
 DEFINEBLOCK     WALLBLOCK
-                0 0 0 0 48 74 104 104 0
+                0 0 0 0 48 74 104 104 1
 
 DEFINEBLOCK     WALLBLOCK
-                10 8 16 16 96 0 0 0 0
+                10 8 16 16 96 0 0 0 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0 1
 
 DEFINEBLOCK     EMPTYBLOCK
-                0 0 0 0 0 0 0 0 0
+                0 0 0 0 0 0 0 0 1
 
 
 DEFINESPRITE    3
@@ -622,8 +622,7 @@ IF OBJ = 6
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
-    ;PAPER 0
+    INK 1
     DISPLAY G
     LET B 1
     LET S 1
@@ -633,7 +632,7 @@ IF OBJ = 0
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
+    INK 1
     ;PAPER 0
     DISPLAY G
     LET D 1
@@ -644,7 +643,7 @@ IF OBJ = 1
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
+    INK 1
     ;PAPER 0
     DISPLAY G
     LET E 1
@@ -666,7 +665,7 @@ IF OBJ = 4
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
+    INK 1
     ;PAPER 0
     DISPLAY G
     LET J 1
@@ -677,7 +676,7 @@ IF OBJ = 3
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
+    INK 1
     ;PAPER 0
     DISPLAY G
     LET L 1
@@ -688,7 +687,7 @@ IF OBJ = 5
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
+    INK 1
     ;PAPER 0
     DISPLAY G
     LET O 1
@@ -699,7 +698,7 @@ IF OBJ 7
     ADD 1 TO G
     LET LINE 21
     LET COLUMN 20
-    INK 4
+    INK 1
     ;PAPER 0
     DISPLAY G
     LET N 1
@@ -714,7 +713,7 @@ IF OBJ 9
     ADD 1 TO LIVES
     LET LINE 21
     LET COLUMN 7
-    INK 2
+    INK 1
     ;PAPER 0
     DISPLAY LIVES
 ENDIF
@@ -724,7 +723,7 @@ IF OBJ 10
     ADD 1 TO LIVES
     LET LINE 21
     LET COLUMN 7
-    INK 2
+    INK 1
     ;PAPER 0
     DISPLAY LIVES
 ENDIF
@@ -734,7 +733,7 @@ IF OBJ 11
     ADD 1 TO LIVES
     LET LINE 21
     LET COLUMN 7
-    INK 2
+    INK 1
     ;PAPER 0
     DISPLAY LIVES
 ENDIF
@@ -1215,7 +1214,7 @@ ENDIF
 
 EVENT INTROMENU
 
-WAITKEY
+;WAITKEY
 INK 1
 PAPER 0
 CLS
@@ -1310,22 +1309,22 @@ CLS
 LET A 0
 LET LINE 21
 LET COLUMN 0
-INK 2
+;INK 1
 ;PAPER 0
 MESSAGE 1
 LET LINE 21
 LET COLUMN 7
-INK 2
+INK 1
 ;PAPER 0
 DISPLAY LIVES
 LET LINE 21
 LET COLUMN 10
-INK 4
+INK 1
 ;PAPER 0
 MESSAGE 2
 LET LINE 21
 LET COLUMN 20
-INK 4
+;INK 1
 ;PAPER 0
 DISPLAY G
 
@@ -1340,6 +1339,8 @@ LET J 255
 LET L 255
 LET O 255
 LET N 255
+PAPER 6
+INK 1
 
 
 EVENT FELLTOOFAR
@@ -1353,24 +1354,29 @@ SUBTRACT 1 FROM LIVES
 LET SCREEN 0
 LET LINE 21
 LET COLUMN 7
-INK 2
+INK 1
 ;PAPER 0
 DISPLAY LIVES
 IF LIVES 0
     BEEP 100
-    WAITKEY
+;    WAITKEY
 ENDIF
 
 
 EVENT LOSTGAME
 
-WAITKEY
+PRINTMODE 1
+INK 0
+AT 10,5:PRINT " GAME OVER "
+PRINTMODE 0
+DELAY 200
+;WAITKEY
 
 
 EVENT COMPLETEDGAME
 
-CLS
-WAITKEY
+DELAY 150
+;WAITKEY
 
 
 EVENT NEWHIGHSCORE
