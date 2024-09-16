@@ -34,6 +34,26 @@ DEFINESPRITE    4
 165,150,169,154,106,169,106,169
 106,169,40,40,20,20,85,85
 
+DEFINESPRITE    4
+3,195,15,252,63,243,63,252
+247,127,215,95,211,31,211,31
+215,95,247,127,127,253,127,253
+127,221,60,84,20,84,85,16
+
+3,195,15,252,63,243,63,252
+247,127,215,95,211,31,211,31
+215,95,247,127,127,253,127,253
+127,253,60,60,20,20,85,85
+
+3,195,15,252,15,243,63,252
+253,223,245,215,244,199,244,199
+245,215,253,223,127,253,127,253
+119,253,21,60,21,20,4,85
+
+3,195,15,252,15,243,63,252
+253,223,245,215,244,199,244,199
+245,215,253,223,127,253,127,253
+127,253,60,60,20,20,85,85
 
 DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
@@ -44,18 +64,19 @@ DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   1   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+                  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+                  1   0   0   0   0   0   0   0   0   0   0   0   1   1   1   1   1   1   1   0   0   1
+                  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+                  1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+                  1   0   0   0   0   0   1   1   1   1   0   0   0   0   0   0   0   0   0   0   0   1
+                  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+                  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
                   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-SPRITEPOSITION  0 0 80 80
+SPRITEPOSITION  0 0 80 60
+SPRITEPOSITION  1 1 96 112
 
 
 
@@ -244,6 +265,44 @@ FALL
 EVENT SPRITETYPE1		; Worm
 ;====================================================================
 
+ADD 1 TO A
+IF A 1
+
+IF DIRECTION = LEFT
+    IF CANGOLEFT
+        SPRITELEFT
+        SUBTRACT 16 FROM X
+        IF CANGODOWN
+            LET DIRECTION = RIGHT
+;            LET IMAGE = 0
+;            LET FRAME = 0
+        ENDIF
+        ADD 16 TO X
+    ELSE
+        LET DIRECTION = RIGHT
+;        LET IMAGE = 0
+ ;       LET FRAME = 0
+    ENDIF
+ELSE
+    IF CANGORIGHT
+        SPRITERIGHT
+        ADD 16 TO X
+        IF CANGODOWN
+            LET DIRECTION = LEFT
+;            LET IMAGE = 0
+;            LET FRAME = 0
+        ENDIF
+        SUBTRACT 16 FROM X
+    ELSE
+        LET DIRECTION = LEFT
+ ;       LET IMAGE = 0
+;        LET FRAME = 0
+    ENDIF
+ENDIF
+
+ANIMATE
+LET A 0
+ENDIF
 
 ;====================================================================
 EVENT SPRITETYPE2		; Block
@@ -278,20 +337,33 @@ EVENT MAINLOOP1
 EVENT MAINLOOP2
 
 EVENT INTROMENU
-  AUXCOLOUR 0
+  AUXCOLOUR 2
 
 EVENT GAMEINIT
 
 
 EVENT RESTARTSCREEN
 CLS
-PAPER 2
+PAPER 0
 INK 6
 BORDER 7
 PRINTMODE 1
-INK 4
-AT 0,3:PRINT "MULTICOLOUR DEMO"
+AT 0,3
+LET C 1
+REPEAT 16
+  INK C
+  READ B
+  CHR B
+  ADD 1 TO C
+  IF C 8
+    LET C 1
+  ENDIF
+ENDREPEAT
+
 PRINTMODE 0
+LET A 0
+
+DATA 'M' 'U' 'L' 'T' 'I' 'C' 'O' 'L' 'O' 'U' 'R' ' ' 'D' 'E' 'M' 'O'
 
 EVENT FELLTOOFAR
 

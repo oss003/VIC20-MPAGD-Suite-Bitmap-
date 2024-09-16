@@ -949,7 +949,6 @@ dline:
 ;	lda scraddr+1
 ;	sbc #0
 ;	sta scraddr+1
-
 	ldy #0
 	lda (z80_de),y 		; second bit of data.
 	ldy #16

@@ -2908,6 +2908,7 @@ gprad:
 	asl a
 	asl a
 	asl a			; multiply char by 8
+;	asl a
 	tay
 
 	clc
@@ -3500,7 +3501,7 @@ cangh1:
 	pha
 	clc
 	lda bufaddr
-	adc #32			; look down.
+	adc #32		; look down.
 	sta bufaddr
 	bcc :+
 	inc bufaddr+1
