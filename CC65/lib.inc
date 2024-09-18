@@ -143,6 +143,7 @@
 	IFR		= $911d		; Interrupt Flag Register
 	IER		= $911e		; Interrupt Enable Register
 	ColorAttr	= $9600		; Color attributes
+	HiRAM		= $a000		; Hi RAM 8kB
 
 ;----------------------------------------------------------------------
 ; VIC20 video hardware fns
@@ -259,6 +260,78 @@ scrinit:
 	sta Timer1_Low
 	lda #>timervalue
 	sta Timer1_High
+
+; Pre-shifted byte tables if parameter 'r' given
+; 4 tables are created which 0,2,4 ad 6 bits pre-shifted
+; The bits are shifted to the right and overflow bits are
+; inserted to the left. So 1 byte contains a left and right part
+
+.if rflag
+shift0 = HiRAM
+shift2 = HiRAM+256
+shift4 = HiRAM+512
+shift6 = HiRAM+768
+
+; Pre-shifted table 0 pixels
+
+	ldx #0
+shf0:
+	txa
+	sta shift0,x
+	inx
+	bne shf0
+
+; Pre-shifted table 2 pixels
+
+	ldx #0
+shf2:
+	ldy #2
+	txa
+shf2loop:
+	lsr a
+	bcc :+
+	ora #$80
+:
+	dey
+	bne shf2loop
+	sta shift2,x
+	inx
+	bne shf2
+
+; Pre-shifted table 4 pixels
+
+	ldx #0
+shf4:
+	ldy #4
+	txa
+shf4loop:
+	lsr a
+	bcc :+
+	ora #$80
+:
+	dey
+	bne shf4loop
+	sta shift4,x
+	inx
+	bne shf4
+
+; Pre-shifted table 6 pixels
+
+	ldx #0
+shf6:
+	ldy #6
+	txa
+shf6loop:
+	lsr a
+	bcc :+
+	ora #$80
+:
+	dey
+	bne shf6loop
+	sta shift6,x
+	inx
+	bne shf6
+.endif
 
 	rts
 
@@ -1204,29 +1277,3 @@ pchar0:
 
 scrtab:		.byte $07,$06,$05,$04,$03,$02,$01,$00
 
-.if rflag
-;----------------------------------------------------
-; Shift tables
-;----------------------------------------------------
-
-.align 256
-shift0:
-.repeat 256, i
-	.byte i
-.endrep
-
-shift2:
-.repeat 256, i
-	.byte (i >> 2) | (i << 6) & $c0
-.endrep
-
-shift4:
-.repeat 256, i
-	.byte (i >> 4) | ((i << 4) & $f0)
-.endrep
-
-shift6:
-.repeat 256, i
-	.byte (i >> 6) | ((i << 2) & $fc)
-.endrep
-.endif
