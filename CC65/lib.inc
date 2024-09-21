@@ -284,11 +284,14 @@ scrinit:
 	cpx#242
 	bne scrinit
 
-
 ; Reset fontcolor
 
 	lda #0			; Black
 	sta fontcol
+
+; Init music
+
+	jsr initmusic
 
 ; Init VIA1 timer11 for timeout 1/25 sec
 
@@ -306,7 +309,7 @@ scrinit:
 ; Init VIA2 timer21 for IRQ 1/50 sec
 
 	sei			; disable interrupt
-	lda #$e0		; T1 continuous
+	lda #$c0		; T1 continuous
 	sta AUX2
 	lda #$c0		; int timer1
 	sta IER2
@@ -399,12 +402,11 @@ shf6loop:
 ;========================================================
 
 int_service:
-	lda #$40		; Clear timer1 flag
-	sta IFR2
+	lda Timer21_Low		; Clear timer1 flag
 
 ; Insert interrupt code here
 
-	inc $9600		; Cycle color topleft char
+	jsr playmusic		; Cycle color topleft char
 
 ; End of interrupt code
 

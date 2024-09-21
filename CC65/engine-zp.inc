@@ -55,9 +55,9 @@ frmno:	.res 1			; selected frame.
 ; Missing vars 
 ;----------------------------------------------------
 
-loopa:		.res 1
-loopb:		.res 1
-loopc:		.res 1
+loopa:	    .res 1
+loopb:	    .res 1
+loopc:	    .res 1
 FontPtr:    .res 2
 
 ; Local vars
@@ -92,12 +92,12 @@ sprcnt:	    .res 1
 
 skptr:	    .res 2		; search pointer.
 sktptr:	    .res 1      ; not a ptr
-tmproom:	.res 1
+tmproom:    .res 1
 ogptr:	    .res 2		; original sprite pointer.
 
 spr:	    .res 3      ; static sprite data
 vsync_count:.res 1
-colpatt:	.res 1
+colpatt:    .res 1
 sprtmp:     .res 1
 sprtmp2:    .res 1
 sprshft:    .res 1
@@ -108,7 +108,7 @@ colour_xor: .res 1
 objcol:	    .res 1
 
 .if mflag
-TmpAddr:	.res 2
+TmpAddr:    .res 2
 bwid:	    .res 1     ; box/menu width.
 blen:	    .res 1     ; box/menu height.
 btop:	    .res 1     ; box coordinates.
@@ -117,7 +117,7 @@ blft:	    .res 1
 
 .if pflag
 shrctr:	    .res 1
-explcnt:	.res 1
+explcnt:    .res 1
 seed3:	    .res 1
 .endif
 
@@ -127,3 +127,32 @@ pbptr:      .res 2
 
 tmp1:       .res 1
 tmp2:       .res 1
+
+;----------------------------------------------------
+; Music player variables
+;----------------------------------------------------
+
+SONG_POS:		.res 1	; = $90
+PATTERN_POS:		.res 1	; = $91
+FRAME_COUNT:		.res 1	; = $92
+FRAME_LENGTH:		.res 1	; = $93
+SONG_NEXT_TRUE:		.res 1	; = $94
+SONG_END_TRUE:		.res 1	; = $95
+
+; 2 byte address of pattern data
+CH1_PATTERN_POS:	.res 2	; = $96
+CH2_PATTERN_POS:	.res 2	; = $98
+CH3_PATTERN_POS:	.res 2	; = $9a
+CH4_PATTERN_POS:	.res 2	; = $9c
+
+; #$00 == inactive mode
+CH1_ACTIVE:		.res 1	; = $a0
+CH2_ACTIVE:		.res 1	; = $a1
+CH3_ACTIVE:		.res 1	; = $a2
+CH4_ACTIVE:		.res 1	; = $a3
+
+TEMP_GUY:		.res 1	; = $a4
+CHAN_NOTE_DATA:		.res 1	; = $a5
+CHANS_INACTIVE:		.res 1	; = $a6
+FAST_COUNTER:		.res 1	; = $a7
+MEGA_COUNTER:		.res 1	; = $a8
