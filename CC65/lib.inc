@@ -104,6 +104,39 @@
 ;		bits 0-2 select border color
 ;		bit 3 selects inverted or normal mode
 ;
+; $9110-$911F 6522 VIA#1
+; $9120-$912F 6522 VIA#2
+;
+;	$9110,$9120 	Port B output register
+;	$9111,$9121 	Port A output register
+;			(PA0) Bit 0=Serial CLK IN
+;			(PA1) Bit 1=Serial DATA IN
+;			(PA2) Bit 2=Joy 0
+;			(PA3) Bit 3=Joy 1
+;			(PA4) Bit 4=Joy 2
+;			(PA5) Bit 5 = Lightpen/Fire button
+;			(PA6) Bit 6=Cassette switch sense
+;			(PA7) Bit 7=Serial ATN out
+;	$9112,$9122	Data direction register B
+;	$9113,$9123	Data direction register A
+;	$9114,$9124	Timer 1 low byte
+;	$9115,$9125	Timer 1 high byte & counter
+;	$9116,$9126	Timer 1 low byte
+;	$9117,$9127	Timer 1 high byte
+;	$9118,$9128	Timer 2 low byte
+;	$9119,$9129	Timer 2 high byte
+;	$911A,$912A	Shift register
+;	$911B,$912B	Auxiliary control register
+;	$911C,$912C	Peripheral control register
+;			(CA1, CA2, CB1, CB2)
+;			CA1 = restore key (Bit 0)
+;			CA2 = cassette motor control (Bits 1-3)
+;			CB1 = interrupt signal for received
+;			RS-232 data (Bit 4)
+;			CB2=transmitted RS-232 data (Bits 5-7)
+;	$911D,$912D	Interrupt flag register
+;	$911E,$912E	Interrupt enable register
+;	$911F,$912F	Port A (Sense cassette switch)
 
 ; VIC constants
 
@@ -112,6 +145,7 @@
 	ScreenSize	= ScrWidth * ScrHeight * 8	; Screen size bytes
 	ScreenRowBytes	= ScrWidth * 16			; bytes/line
 	SpriteMaxY	= 161				; maxlines - 16 + 1
+	timerint	= 20000				; Interrupt timer 1/50 sec
 
 ; VIC variables:
 
@@ -130,18 +164,26 @@
 	Reg5		= $9005		; Start of character memory
 	RegE		= $900e		; Colour and auxcolour register
 	RegF		= $900f		; Screen and border color register
+
 	JoyAddr1	= $9111		; Joystick address 1
+	Timer11_Low  	= $9114		; Timer 1 low byte
+	Timer11_High 	= $9115		; Timer 1 high byte
+	Timer12_Low  	= $9118		; Timer 2 low byte
+	Timer12_High 	= $9119		; Timer 2 high byte
+	AUX1		= $911b		; Auxiliary control register
+	IFR1		= $911d		; Interrupt Flag Register
+	IER1		= $911e		; Interrupt Enable Register
+
 	KeyColAddr	= $9120		; Keyboard column (write)
 	JoyAddr2	= $9120		; Joystick address 2
 	KeyRowAddr	= $9121		; Keyboard row (read)
 	DDRB		= $9122		; Bit7 must be 0 for joystick read
-	Timer1_Low  	= $9114		; Timer 1 low byte
-	Timer1_High 	= $9115		; Timer 1 high byte
-	Timer2_Low  	= $9118		; Timer 2 low byte
-	Timer2_High 	= $9119		; Timer 2 high byte
-	AUX		= $911b		; Auxiliary control register
-	IFR		= $911d		; Interrupt Flag Register
-	IER		= $911e		; Interrupt Enable Register
+	Timer21_Low  	= $9124		; Timer 1 low byte
+	Timer21_High 	= $9125		; Timer 1 high byte
+	AUX2		= $912b		; Auxiliary control register
+	IFR2		= $912d		; Interrupt Flag Register
+	IER2		= $912e		; Interrupt Enable Register
+
 	ColorAttr	= $9600		; Color attributes
 	HiRAM		= $a000		; Hi RAM 8kB
 
@@ -248,18 +290,35 @@ scrinit:
 	lda #0			; Black
 	sta fontcol
 
-; Init VIA timer for timeout 1/25 sec
+; Init VIA1 timer11 for timeout 1/25 sec
 
 	lda #$e0		; T1 continuous
-	sta AUX
+	sta AUX1
 	lda #$7f		; No int
-	sta IER
+	sta IER1
 	lda #0
-	sta IFR			; Clear interrupt flags
+	sta IFR1		; Clear interrupt flags
 	lda #<timervalue	; Timer 1/25 sec
-	sta Timer1_Low
+	sta Timer11_Low
 	lda #>timervalue
-	sta Timer1_High
+	sta Timer11_High
+
+; Init VIA2 timer21 for IRQ 1/50 sec
+
+	sei			; disable interrupt
+	lda #$e0		; T1 continuous
+	sta AUX2
+	lda #$c0		; int timer1
+	sta IER2
+	lda #<timerint		; timer 1/50 sec
+	sta Timer21_Low
+	lda #>timerint
+	sta Timer21_High
+	lda #<int_service	; set new IRQ vector
+	sta $0314
+	lda #>int_service
+	sta $0315
+	cli			; enable interrupts
 
 ; Pre-shifted byte tables if parameter 'r' given
 ; 4 tables are created which 0,2,4 ad 6 bits pre-shifted
@@ -336,6 +395,28 @@ shf6loop:
 	rts
 
 ;========================================================
+; INTERRUPT SERVICE ROUTINE
+;========================================================
+
+int_service:
+	lda #$40		; Clear timer1 flag
+	sta IFR2
+
+; Insert interrupt code here
+
+	inc $9600		; Cycle color topleft char
+
+; End of interrupt code
+
+	pla			; Restore resgisters
+	tay
+	pla
+	tax
+	pla
+
+	rti			; Return from interrupt
+
+;========================================================
 ; KEY AND JOYSTICK ROUTINES
 ;--------------------------------------------------------
 ; Keys
@@ -356,6 +437,19 @@ shf6loop:
 ;                       Option3  KEY 9  - 3
 ;                       Option4  KEY 10 - 4
 ;--------------------------------------------------------
+
+;----------------------------------------------------
+; Interrupt service
+;----------------------------------------------------
+
+intserv:
+	inc $9601	; scroll colour char topleft
+	pla
+	tay
+	pla
+	tax
+	pla
+	rti
 
 ;--------------------------------------------------------
 ; PRSKEY
@@ -616,9 +710,9 @@ vsync:
 
 	lda #$40		; set Timer1 expired bit
 vsync1:
-	bit IFR			; check Interrupt Flag Register
+	bit IFR1		; check Interrupt Flag Register
 	beq vsync1		; wait if timer not expired
-	lda Timer1_Low		; clear Timer interrupt
+	lda Timer11_Low		; clear Timer interrupt
 
 ; Handle shrapnel every even frame
 

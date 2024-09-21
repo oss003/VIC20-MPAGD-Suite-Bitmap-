@@ -86,7 +86,7 @@ swrflag = 0
 	ScrHeight	= 22
 	CentreX		= 4
 	CentreY		= 27
-	timervalue	= 25000
+	timervalue	= 20000
  	.out "- NTSC"
 .endif
 .out ""
