@@ -31,7 +31,7 @@ load:   .word @end
 main:
 	.include "game.inc"
 	.include "lib.inc"
-	.include "music.inc"
+;	.include "music.inc"
 	.include "z80.asm"
 
 eind_asm:

@@ -79,7 +79,8 @@ swrflag = 0
 	ScrHeight	= 22
 	CentreX		= 4
 	CentreY		= 28
-	timervalue	= 43450	; = 40000 * 1,108/1,02
+	timervalue	= 20000
+	timerint	= 20000			; Interrupt timer 1/50 sec
 	.out "- PAL"
 .else
 	ScrWidth	= 22	; NTSC settings
@@ -87,6 +88,7 @@ swrflag = 0
 	CentreX		= 4
 	CentreY		= 27
 	timervalue	= 20000
+	timerint	= 20000			; Interrupt timer 1/50 sec
  	.out "- NTSC"
 .endif
 .out ""

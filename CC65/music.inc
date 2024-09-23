@@ -56,10 +56,98 @@
 	NOTE_NOTHING      = %00000000
 
 ;---------------------------------------------------------------
+; API calls, entry with A = API call
+;---------------------------------------------------------------
+
+api:
+	cmp #0
+	bne api1
+	jmp int_init
+api1:
+	cmp #1
+	bne api2
+	jmp music_on
+api2:
+	cmp #2
+	bne api3
+	jmp music_off
+api3:
+	cmp #3
+	bne api4
+	jmp musicinit
+api4:
+	cmp #4
+	bne api_end
+	jmp musicplay
+api_end:
+	rts
+
+;---------------------------------------------------------------
+; Init VIA2 timer21 for IRQ 1/50 sec
+;---------------------------------------------------------------
+
+int_init:
+	sei			; disable interrupt
+	lda #$c0		; T1 continuous
+	sta AUX2
+	lda #$c0		; int timer1
+	sta IER2
+	lda #<timerint		; timer 1/50 sec
+	sta Timer21_Low
+	lda #>timerint
+	sta Timer21_High
+	lda #<int_service	; set new IRQ vector
+	sta $0314
+	lda #>int_service
+	sta $0315
+	rts
+
+;---------------------------------------------------------------
+; INTERRUPT SERVICE ROUTINE
+;---------------------------------------------------------------
+
+int_service:
+	lda Timer21_Low		; Clear timer1 flag
+
+; Insert interrupt code here
+
+	jsr musicplay		; Cycle color topleft char
+
+; End of interrupt code
+
+	pla			; Restore resgisters
+	tay
+	pla
+	tax
+	pla
+
+	rti			; Return from interrupt
+
+;---------------------------------------------------------------
+; Music_on, enable interrupt and play music
+;---------------------------------------------------------------
+
+music_on:
+	cli			; enable interrupts
+	lda #$c0		; int timer1
+	sta IFR2
+	rts
+
+;---------------------------------------------------------------
+; Music_off, disable interrrupt and stop music
+;---------------------------------------------------------------
+
+music_off:
+	sei			; enable interrupts
+	lda #$7f		; int timer1
+	sta IFR2
+	rts
+
+;---------------------------------------------------------------
 ; Initialisation routine
 ;---------------------------------------------------------------
 
-initmusic:
+musicinit:
 	lda #$00
 	sta SONG_POS
 	sta PATTERN_POS
@@ -77,7 +165,7 @@ initmusic:
 ; Mainloop
 ;---------------------------------------------------------------
 
-playmusic:
+musicplay:
 main_loop_skip_raster:
 
 ; load them patterns
@@ -89,6 +177,7 @@ main_loop_skip_raster:
 
 ; check if NeXT was called
 	lda SONG_NEXT_TRUE
+	cmp #$00
 	beq not_next_effect_called
 	lda #$00
 	sta PATTERN_POS
@@ -103,7 +192,7 @@ not_next_effect_called:
 	inc FRAME_COUNT
 	lda FRAME_COUNT
 	cmp FRAME_LENGTH
-	bne endplaymusicfunc
+	bne endmusicplayfunc
 
 ; reset frame counter
 	lda #$00
@@ -127,7 +216,7 @@ not_next_pattern:
 	inc MEGA_COUNTER
 	lda MEGA_COUNTER
 
-endplaymusicfunc:
+endmusicplayfunc:
 	rts
 
 ;---------------------------------------------------------------
@@ -149,6 +238,7 @@ AUDIO_UPDATE:
 
 ; CHANNEL 1
 	lda CH1_ACTIVE
+	cmp #$00
 	bne channel1_active
 
 	lda #$20
@@ -164,6 +254,7 @@ channel1_done:
 ; CHANNEL 2
 	inx
 	lda CH2_ACTIVE
+	cmp #$00
 	bne channel2_active
 
 	lda #$20
@@ -179,6 +270,7 @@ channel2_done:
 ; CHANNEL 3
 	inx
 	lda CH3_ACTIVE
+	cmp #$00
 	bne channel3_active
 	lda #$20
 	jmp channel3_done
@@ -360,5 +452,6 @@ dont_reset:
 	bne song_pos_loop
 	rts
 
+	.align $100
 songpos:
-.incbin "songdata_jonah.bin"
+	.incbin "songdata_jonah.bin"

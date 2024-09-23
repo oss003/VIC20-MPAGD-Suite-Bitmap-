@@ -145,7 +145,6 @@
 	ScreenSize	= ScrWidth * ScrHeight * 8	; Screen size bytes
 	ScreenRowBytes	= ScrWidth * 16			; bytes/line
 	SpriteMaxY	= 161				; maxlines - 16 + 1
-	timerint	= 20000				; Interrupt timer 1/50 sec
 
 ; VIC variables:
 
@@ -291,7 +290,7 @@ scrinit:
 
 ; Init music
 
-	jsr initmusic
+;	jsr initmusic
 
 ; Init VIA1 timer11 for timeout 1/25 sec
 
@@ -305,23 +304,6 @@ scrinit:
 	sta Timer11_Low
 	lda #>timervalue
 	sta Timer11_High
-
-; Init VIA2 timer21 for IRQ 1/50 sec
-
-	sei			; disable interrupt
-	lda #$c0		; T1 continuous
-	sta AUX2
-	lda #$c0		; int timer1
-	sta IER2
-	lda #<timerint		; timer 1/50 sec
-	sta Timer21_Low
-	lda #>timerint
-	sta Timer21_High
-	lda #<int_service	; set new IRQ vector
-	sta $0314
-	lda #>int_service
-	sta $0315
-	cli			; enable interrupts
 
 ; Pre-shifted byte tables if parameter 'r' given
 ; 4 tables are created which 0,2,4 ad 6 bits pre-shifted
@@ -396,27 +378,6 @@ shf6loop:
 .endif
 
 	rts
-
-;========================================================
-; INTERRUPT SERVICE ROUTINE
-;========================================================
-
-int_service:
-	lda Timer21_Low		; Clear timer1 flag
-
-; Insert interrupt code here
-
-	jsr playmusic		; Cycle color topleft char
-
-; End of interrupt code
-
-	pla			; Restore resgisters
-	tay
-	pla
-	tax
-	pla
-
-	rti			; Return from interrupt
 
 ;========================================================
 ; KEY AND JOYSTICK ROUTINES
