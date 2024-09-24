@@ -1339,4 +1339,13 @@ scrtab:		.byte $07,$06,$05,$04,$03,$02,$01,$00
 ;----------------------------------------------------
 
 loadfile:
+	tax
+	lda #<msgdat		; pointer to messages.
+	sta z80_l
+	lda #>msgdat
+	sta z80_h
+	jsr getwrd		; get message number.
+
+; z80_hl should point to the textstring now.
+
 	rts
