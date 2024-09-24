@@ -215,14 +215,14 @@ init:
 	sta fontcol
 
 
-; max num of columns 24
+; max num of columns 22
 
 	lda Reg2
 	and #%10000000
 	ora #ScrWidth
 	sta Reg2
 
-; max num of lines (mult by 2 - 24) for 8x8 chars
+; max num of lines (mult by 2 - 22) for 8x8 chars
 ; no multiply for 8x16 chars
 
 	lda Reg3
@@ -1334,3 +1334,9 @@ pchar0:
 
 scrtab:		.byte $07,$06,$05,$04,$03,$02,$01,$00
 
+;----------------------------------------------------
+; LoadFile
+;----------------------------------------------------
+
+loadfile:
+	rts

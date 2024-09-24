@@ -1,1 +1,1 @@
-.include "test24.inc" 
+.include "testload.inc" 
