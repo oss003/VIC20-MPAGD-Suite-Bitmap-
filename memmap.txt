@@ -1,8 +1,0 @@
-AGDGAME:
-
-$0e00-$25ff	 6,0K	Screen 256x192
-
-$2600-$7fff	22,5K	Code in RAM
-$8000-$bfff	16,0K	Code in SWRAM
---------------------------------------
-Total		38,5K	Code
