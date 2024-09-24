@@ -30,12 +30,22 @@ rem Assemble file
  copy %1.bin "..\GTK3VICE-3.8-win64\TAPES\%1.prg"
  del %1.bin
 
+rem Create discimage 
+ echo.
+ echo Creating diskimage %1.d64
+ cd ..\GTK3VICE-3.8-win64\bin
+ c1541 -format "diskimage,id" d64 %1.d64 
+ c1541 -attach %1.d64 -write ..\TAPES\%1.prg %1.prg
+ move %1.d64 ..\discs >nul
+
 rem Start emulator
  echo Starting Vice with %1.prg
- cd ..\GTK3VICE-3.8-win64\bin
 
- xvic -silent -memory all -ntsc ..\TAPES\%1.prg
- cd..\..
+rem cd ..\GTK3VICE-3.8-win64\bin
+rem xvic -silent -memory all -ntsc ..\TAPES\%1.prg
+
+ xvic -silent -memory all -ntsc "..\discs\%1.d64:%1.prg"
+ cd ..\..
 
  goto end
 

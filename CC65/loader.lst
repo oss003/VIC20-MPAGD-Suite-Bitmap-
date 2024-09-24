@@ -2,99 +2,200 @@ ca65 V2.13.3 - (C) Copyright 1998-2012 Ullrich von Bassewitz
 Main file   : loader.inc
 Current file: loader.inc
 
-000000r 1               ;---------------------------------------------------------------------
-000000r 1               ; AGD LOADER,
-000000r 1               ;
-000000r 1               ; - load AGDSWR at $3c00-$7bff
-000000r 1               ; - switch SWRAM bank 4
-000000r 1               ; - upload $2200-$7bff -> $8000-$bfff
-000000r 1               ; - load AGDRAM at $2600
-000000r 1               ; - switch SWRAM bank 4
-000000r 1               ; - start game
-000000r 1               ;---------------------------------------------------------------------
+000000r 1               ;=================================================
+000000r 1               ; Testprogram loader.prg
+000000r 1               ;=================================================
 000000r 1               
-000000r 1               AGDRAMload	= $2200
-000000r 1               AGDSWRload	= $3c00
-000000r 1               SWRaddress	= $8000
-000000r 1               boot_game	= $2200
-000000r 1               OSFILE		= $ffdd
+000000r 1               ; KERNEL/BASIC ROM Routines
+000000r 1               LOAD        = $FFD5
+000000r 1               SETLFS      = $FFBA
+000000r 1               SETNAM      = $FFBD
 000000r 1               
-000000r 1               .org $2100
-002100  1               
-002100  1               ; - load AGDSWR at $3c00-$7bff
-002100  1               
-002100  1  A2 51        	ldx #<loadAGDSWR		; Set pointer to loaderblock1
-002102  1  A0 21        	ldy #>loadAGDSWR
-002104  1  A9 FF        	lda #$ff
-002106  1  20 DD FF     	jsr OSFILE
-002109  1               
-002109  1               ; - switch SWRAM bank 4
-002109  1               
-002109  1  A9 04        	lda #4				; select SWRAM
-00210B  1  85 F4        	sta $f4
-00210D  1  8D 30 FE     	sta $fe30
-002110  1               
-002110  1               ; - upload $3b00-$7bff -> $8000-$bfff
-002110  1               
-002110  1  A2 40        	ldx #$40			; Nr of blocks
-002112  1  A0 00        	ldy #0
-002114  1               uploop:
-002114  1  B9 00 3C     	lda AGDSWRload, y
-002117  1  99 00 80     	sta SWRaddress, y
-00211A  1  C8           	iny
-00211B  1  D0 F7        	bne uploop
-00211D  1  EE 16 21     	inc uploop + 2
-002120  1  EE 19 21     	inc uploop + 5
-002123  1  CA           	dex
-002124  1  D0 EE        	bne uploop
-002126  1               
-002126  1               ; - load AGDRAM at $2200
-002126  1               
-002126  1  A2 6A        	ldx #<loadAGDRAM		; Set pointer to loaderblock2
-002128  1  A0 21        	ldy #>loadAGDRAM
-00212A  1  A9 FF        	lda #$ff
-00212C  1  20 DD FF     	jsr OSFILE
-00212F  1               
-00212F  1               ; - upload $2200-$7bff -> $8000-$bfff
-00212F  1               
-00212F  1  A2 5A        	ldx #$5a			; Nr of blocks
-002131  1  A0 FF        	ldy #$ff
-002133  1               uploop1:
-002133  1  B9 00 7B     	lda $7b00, y
-002136  1  99 00 7F     	sta $7f00, y
-002139  1  88           	dey
-00213A  1  C0 FF        	cpy #$ff
-00213C  1  D0 F5        	bne uploop1
-00213E  1  CE 35 21     	dec uploop1 + 2
-002141  1  CE 38 21     	dec uploop1 + 5
-002144  1  CA           	dex
-002145  1  D0 EC        	bne uploop1
-002147  1               
-002147  1               ; - switch SWRAM bank 4
-002147  1               
-002147  1  A9 04        	lda #4				; select SWRAM
-002149  1  85 F4        	sta $f4
-00214B  1  8D 30 FE     	sta $fe30
-00214E  1               
-00214E  1               ; - start game
-00214E  1               
-00214E  1  4C 00 22     	jmp boot_game
-002151  1               
-002151  1               ;---------------------------------------------------------------------
-002151  1               
-002151  1  63 21        loadAGDSWR:	.byte <file1,>file1
-002153  1  00 3C 00 00  		.byte <AGDSWRload,>AGDSWRload,0,0
-002157  1  00 3C 00 00  		.byte <AGDSWRload,>AGDSWRload,0,0
-00215B  1  00 00 00 00  		.byte 0,0,0,0,0,0,0,0
-00215F  1  00 00 00 00  
-002163  1  41 47 44 53  file1:		.byte "AGDSWR",$0d
-002167  1  57 52 0D     
-00216A  1               
-00216A  1  7C 21        loadAGDRAM:	.byte <file2,>file2
-00216C  1  00 22 00 00  		.byte <AGDRAMload,>AGDRAMload,0,0
-002170  1  00 22 00 00  		.byte <AGDRAMload,>AGDRAMload,0,0
-002174  1  00 00 00 00  		.byte 0,0,0,0,0,0,0,0
-002178  1  00 00 00 00  
-00217C  1  41 47 44 52  file2:		.byte "AGDRAM",$0d
-002180  1  41 4D 0D     
-002182  1               
+000000r 1               ; Constants
+000000r 1               
+000000r 1               	ScreenAddr	= $0200		; VIDEO RAM
+000000r 1               	Reg0		= $9000		; Horizontal centering
+000000r 1               	Reg1		= $9001		; Vertical centering
+000000r 1               	Reg2		= $9002		; Set # of columns
+000000r 1               	Reg3		= $9003		; Set # of rows
+000000r 1               	Reg5		= $9005		; Start of character memory
+000000r 1               	RegF		= $900f		; Screen and border color register
+000000r 1               	ColorAttr	= $9600		; Color attributes
+000000r 1               
+000000r 1               	ScrWidth	= 22	; NTSC settings
+000000r 1               	ScrHeight	= 22
+000000r 1               	CentreX		= 4
+000000r 1               	CentreY		= 27
+000000r 1               
+000000r 1               ;----------------------------------------------
+000000r 1               ; BASIC header
+000000r 1               ;----------------------------------------------
+000000r 1               
+000000r 1               .segment "BASIC"
+000000r 1               
+000000r 1  rr rr        	.word load
+000002r 1  rr rr        load:   .word @end
+000004r 1  02 00        	.word 2
+000006r 1  9E           	.byte $9e
+000007r 1  rr           	.byte .lobyte(main/1000 .mod 10) + $30
+000008r 1  rr           	.byte .lobyte(main/100 .mod 10) + $30
+000009r 1  rr           	.byte .lobyte(main/10 .mod 10) + $30
+00000Ar 1  rr           	.byte .lobyte(main/1 .mod 10) + $30
+00000Br 1  00           	.byte 0
+00000Cr 1  00 00        @end:   .word 0
+00000Er 1               
+00000Er 1               main:
+00000Er 1               
+00000Er 1               ;----------------------------------------------
+00000Er 1               ; Initialise screen + hardware
+00000Er 1               ;----------------------------------------------
+00000Er 1               
+00000Er 1               init:
+00000Er 1               
+00000Er 1               ; Disable interrupts
+00000Er 1               
+00000Er 1  A9 7F        	lda #$7f
+000010r 1  8D 1E 91     	sta $911e
+000013r 1  8D 2D 91     	sta $912d
+000016r 1  8D 2E 91     	sta $912e
+000019r 1               
+000019r 1               ; Set audio volume to max
+000019r 1  A9 0F        	lda #$0f
+00001Br 1  8D 0E 90     	sta $900e
+00001Er 1               
+00001Er 1               ; Init screen for NTSC
+00001Er 1               ; this sets the background and border color of the screen
+00001Er 1               ; in this case border black and background black
+00001Er 1               
+00001Er 1  A9 18        	lda #%00011000
+000020r 1  8D 0F 90     	sta RegF
+000023r 1               
+000023r 1               ; max num of columns 24
+000023r 1               
+000023r 1  AD 02 90     	lda Reg2
+000026r 1  29 80        	and #%10000000
+000028r 1  09 16        	ora #ScrWidth
+00002Ar 1  8D 02 90     	sta Reg2
+00002Dr 1               
+00002Dr 1               ; max num of lines (mult by 2 - 24) for 8x8 chars
+00002Dr 1               ; no multiply for 8x16 chars
+00002Dr 1               
+00002Dr 1  AD 03 90     	lda Reg3
+000030r 1  29 81        	and #%10000001
+000032r 1  09 16        	ora #ScrWidth		; number of rows multipled by two
+000034r 1  8D 03 90     	sta Reg3
+000037r 1               
+000037r 1               ; horizontal and vertical position must be set for
+000037r 1               ; non standard screen resolution (standard 22x23)
+000037r 1               ; same games even allow the user to change them
+000037r 1               ; these values are for PAL for NTSC should be different
+000037r 1               ; move horizontal position in the screen
+000037r 1               
+000037r 1  AD 00 90     	lda Reg0
+00003Ar 1  29 80        	and #%10000000
+00003Cr 1  09 04        	ora #CentreX
+00003Er 1  8D 00 90     	sta Reg0
+000041r 1               
+000041r 1               ; move vertical position in the screen
+000041r 1               
+000041r 1  A9 1B        	lda #CentreY
+000043r 1  8D 01 90     	sta Reg1
+000046r 1               
+000046r 1               ; Set screem memory to $200
+000046r 1               ; bit 7 on $9002 has to be set
+000046r 1               
+000046r 1  AD 02 90     	lda Reg2
+000049r 1  09 80        	ora #%10000000
+00004Br 1  8D 02 90     	sta Reg2
+00004Er 1               
+00004Er 1               ; Set character data pointer to CHAR RAM at $1000
+00004Er 1               ; bit 7 on $9005 has always to be set
+00004Er 1               ; (based on compute - mapping the vic book)
+00004Er 1               ; color ram goes to 9600
+00004Er 1               
+00004Er 1  AD 05 90     	lda Reg5
+000051r 1  29 0C        	and #%00001100
+000053r 1  09 8C        	ora #%10001100
+000055r 1  8D 05 90     	sta Reg5
+000058r 1               
+000058r 1               ; This set the char size to 8x16
+000058r 1               
+000058r 1  AD 03 90     	lda Reg3
+00005Br 1  09 01        	ora #%00000001
+00005Dr 1  8D 03 90     	sta Reg3
+000060r 1               
+000060r 1               ; Init screencharacters
+000060r 1               ; Fill screen with characters from left to right, up to down
+000060r 1               
+000060r 1  A2 00        	ldx #0
+000062r 1  A0 00        	ldy #0
+000064r 1               scrinit:
+000064r 1  8A           	txa
+000065r 1  9D 00 02     	sta ScreenAddr,x
+000068r 1  98           	tya
+000069r 1  9D 00 96     	sta ColorAttr,x
+00006Cr 1  E8           	inx
+00006Dr 1  E0 F2        	cpx#242
+00006Fr 1  D0 F3        	bne scrinit
+000071r 1               
+000071r 1               ;----------------------------------------------
+000071r 1               ; Loading picture data + colours
+000071r 1               ;----------------------------------------------
+000071r 1               ; SETLS:
+000071r 1               ;	A = $08		; Logical file number
+000071r 1               ;	X = $08		; Device number
+000071r 1               ;	Y = $01		; Secondary address
+000071r 1               ;				$00 Load using specifed address
+000071r 1               ;				$01 Load using original address from file
+000071r 1               ; LOAD:
+000071r 1               ;	A = $00		; Load = 0, Verify = 1
+000071r 1               ;	X = <$1000	; Low byte of start address
+000071r 1               ; 	Y = >$1000	; High byte of start address
+000071r 1               ;----------------------------------------------
+000071r 1               
+000071r 1               ; Load picture data at $1000
+000071r 1               
+000071r 1  A9 08        	lda #8
+000073r 1  A2 08        	ldx #8
+000075r 1  A0 01        	ldy #1
+000077r 1  20 BA FF     	jsr SETLFS		; Set above parameters
+00007Ar 1               
+00007Ar 1  AD rr rr     	lda titlecol		; Length of file name
+00007Dr 1  A2 rr        	ldx #<titlecol+1	; Low byte of file name location
+00007Fr 1  A0 rr        	ldy #>titlecol+1	; High byte of file name location
+000081r 1  20 BD FF     	jsr SETNAM		; Set the name
+000084r 1  20 D5 FF     	jsr LOAD		; Perform load
+000087r 1  B0 18        	bcs error		; Jump to error handler if error
+000089r 1               
+000089r 1               ; Load colour data at $9600
+000089r 1               
+000089r 1  A9 08        	lda #8
+00008Br 1  A2 08        	ldx #8
+00008Dr 1  A0 01        	ldy #1
+00008Fr 1  20 BA FF     	jsr SETLFS		; Set above parameters
+000092r 1               
+000092r 1  AD rr rr     	lda titledata		; Length of file name
+000095r 1  A2 rr        	ldx #<titledata+1	; Low byte of file name location
+000097r 1  A0 rr        	ldy #>titledata+1	; High byte of file name location
+000099r 1  20 BD FF     	jsr SETNAM		; Set the name
+00009Cr 1  20 D5 FF     	jsr LOAD		; Perform load
+00009Fr 1  B0 00        	bcs error		; Jump to error handler if error
+0000A1r 1               
+0000A1r 1               ; Handle error in A
+0000A1r 1               
+0000A1r 1               error:
+0000A1r 1  60           	rts
+0000A2r 1               
+0000A2r 1               ;----------------------------------------------
+0000A2r 1               ; Data
+0000A2r 1               ;----------------------------------------------
+0000A2r 1               
+0000A2r 1               titledata:
+0000A2r 1  09 54 49 54  	.byte 9,"TITLEDATA"
+0000A6r 1  4C 45 44 41  
+0000AAr 1  54 41        
+0000ACr 1               titlecol:
+0000ACr 1  08 54 49 54  	.byte 8,"TITLECOL"
+0000B0r 1  4C 45 43 4F  
+0000B4r 1  4C           
+0000B5r 1               
