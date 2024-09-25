@@ -2910,7 +2910,6 @@ gprad:
 	asl a
 	asl a
 	asl a			; multiply char by 8
-;	asl a
 	tay
 
 	clc
@@ -2920,8 +2919,6 @@ gprad:
 	lda scraddr+1
 	adc SCADTB_hb,y
 	sta scraddr+1
-
-
 
 	lda prtmod		; Double line if bigtxt
 	beq noskip
@@ -3665,6 +3662,7 @@ gtblk:
 	lda z80_d
 	adc #>chgfx
 	sta tileaddr+1
+
 	jsr gprad 		; get screen address.
 	ldx #7			; number of pixel rows to write.
 gtblk0:
@@ -5573,47 +5571,84 @@ clw1:
 ; X      = message nr
 ;----------------------------------------------------------
 
-scrollpos:	.byte   0,  8, 16, 24, 32, 40, 48, 56
-		.byte  64, 72, 80, 88, 96,104,112,120
-		.byte 128,136,144,152,160,168,176,184
-		.byte 192,200,208,216,224,232,240,248
 .if sflag
+
+scrollpos_lb:	.byte $00,$10,$20,$30,$40,$50,$60,$70
+		.byte $80,$90,$a0,$b0,$c0,$d0,$e0,$f0
+		.byte $00,$10,$20,$30,$40,$50
+scrollpos_hb:	.byte $00,$00,$00,$00,$00,$00,$00,$00
+		.byte $00,$00,$00,$00,$00,$00,$00,$00
+		.byte $01,$01,$01,$01,$01,$01
+
 scrly:
+
+; Set scr_l = txtscr
+
 	rts
 	.word txtscr         	; set scr_l = left screen address.
 	sta scr_l
-	sta tmp_byte		; tmp_byte = lb left screen address
+	sta scr_r
 	lda txtscr+1
 	sta scr_l+1
-	sta scr_r+1		; set hb scr_r = hb left screen address
+	sta scr_r+1
 	
 	stx xtmp		; save x
 
+; Calculate scr_r = scr_l + 16*(txtwid -1)
+
 	ldx txtwid
 	dex
-	ldy scrollpos,x
-	tya
+	lda scrollpos_lb,x
 	clc
-	adc scr_l
+	adc scr_r
 	sta scr_r		; set lb scr_r = scr_l + (txtwid - 1) * 8
-
-	lda #8
-	sta line_cnt
-scrly1:
-	ldx txtwid		; set txtwide
-	dex
+	bcc :+
+	inc scr_r+1
+:
 	clc
-scrly0:
-	ldy scrollpos,x
-	lda (scr_l),y		; scroll 1 line
-	rol a
-	sta (scr_l),y
-	dex
-	bpl scrly0
+	lda scrollpos_hb,x
+	adc scr_r+1
+	sta scr_r+1
 
-	inc scr_l
-	dec line_cnt
-	bne scrly1		; repeat 8 times
+; Scroll string
+
+	lda #0
+	sta line_cnt		; Set line counter
+scrly1:
+	clc
+	lda scr_r
+	adc line_cnt
+	sta scr_tmp
+	lda scr_r+1
+	sta scr_tmp+1
+
+	ldx txtwid		; set column counter
+	dex
+	ldy #0
+	clc			; Reset pixel to be shifted in
+scrly0:
+	lda (scr_tmp),y
+	rol a			; Shift screenbyte
+	sta (scr_tmp),y		; store screenbyte
+	php			; save carry
+
+	sec			; subtract 16 form screenaddress
+	lda scr_tmp
+	sbc #$10
+	sta scr_tmp
+	bcs :+
+	dec scr_tmp+1
+:
+	plp			; restore carry
+	dex			; previous column
+	bpl scrly0		; repeat for all columns
+
+	inc line_cnt		; next line
+	lda line_cnt
+	cmp #8
+	bne scrly1		; repeat for 8 lines
+
+; Get next character in string
 
 	lda txtpos 		; get text pointer.
 	sta scr_txt
@@ -5682,7 +5717,6 @@ scrly6:
 	ldx xtmp
 	rts
 
-;scrline:	.byte $00,$20,$40,$60,$80,$a0,$c0,$e0
 tmp_byte:	.byte 0
 line_cnt:	.byte 0
 

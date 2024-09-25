@@ -68,9 +68,12 @@ tileaddr:   .res 2
 bufaddr:    .res 2
 
 tmp:        .res 2
+.if sflag
 scr_l:      .res 2
 scr_r:      .res 2
 scr_txt:    .res 2
+scr_tmp:    .res 2
+.endif
 
 xtmp:	    .res 1
 spcnt:	    .res 1
@@ -122,6 +125,7 @@ seed3:	    .res 1
 .endif
 
 .if aflag
+pbbuf:      .res 2
 pbptr:      .res 2
 .endif
 

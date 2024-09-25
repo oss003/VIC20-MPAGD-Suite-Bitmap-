@@ -5,7 +5,7 @@ x redrw0: check cmp #177
 x nexpos: check for overshoot
 x nexlin: check for overshoot
 - pradd: check to simplefy like scadd:
-- grprad: check to simplefy like scadd:
+x gprad: check to simplefy like scadd:
 x NUMSPR, check speed for maximum nr of sprites
 - MAP, adjust declaration, is $1e4 bytes, not $300 bytes
 - PAL/NTSC not in engine, relocate to logical area
@@ -32,17 +32,17 @@ MPAGD:
 x MENU, check command
 x INV, check command
 x LASER, check command
-- DIG, check command
-- TICKER, check command
+x DIG, check command
+x TICKER, check command
 - SPRITEINK, check command
 - CALL, check command
 - COLOUR, check command
-- CRASH, add white noise
+x CRASH, add white noise
 - SOUND, check fx sounds
 - SILENCE, check command
-- Collectable blocks, check adventure mode
-- Big sprites, check 16x24 sprites
-- Colourmode, think of easy way to implement multicolour mode
+x Collectable blocks, check adventure mode
+x Big sprites, check 16x24 sprites
+x Colourmode, think of easy way to implement multicolour mode
    Auxilary colour
    BORDER, border colour
    INK, front colour
