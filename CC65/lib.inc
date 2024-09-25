@@ -1346,6 +1346,56 @@ loadfile:
 	sta z80_h
 	jsr getwrd		; get message number.
 
+; Init screen for NTSC
+; this sets the background and border color of the screen
+; in this case border black and background black
+
+	lda #%00001000			
+	sta RegF
+
 ; z80_hl should point to the textstring now.
+; Read filename +length into buffer
+
+	ldy #0
+nameloop:
+	lda (z80_hl),y
+	bmi lastchar
+	sta filename,y
+	iny
+	jmp nameloop
+lastchar:
+	and #$7f
+	sta filename,y
+	iny
+	sty filelen
+
+; Load the file name (in accumulator the size of the string
+;                      containing the name, x low address for FileName,
+;                      y high address for FileName)
+	lda filelen
+	ldx #<filename
+	ldy #>filename
+	jsr $ffbd
+
+; Which device to use (in A the file num 1 is OK - x with 8 is the type of device
+;                       usually the first drive, and y set to 1 reads from the header
+;                       of the file the location where to save it)
+	lda #1
+	ldx #8		; Disk device
+	ldy #1
+	jsr $ffba
+
+; load from disk to ram
+	lda #0		; accumulator must be set to 0 to load the image
+	ldx #<$ff	; target location low not set (got from header)
+	ldy #>$ff	; target location high (got from header)
+	jsr $ffd5
+
 
 	rts
+
+filename:
+	.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+	.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+filelen:
+	.byte 0

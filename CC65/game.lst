@@ -6209,2009 +6209,2113 @@ Current file: game.asm
 001117r 3               evnt11:
 001117r 3  60                   rts
 001118r 3               evnt12:
-001118r 3  20 rr rr             jsr cls		; CLS
-00111Br 3  A9 01                lda #1		; PRINTMODE
-00111Dr 3  85 rr                sta prtmod
-00111Fr 3  A9 00                lda #0		; AT
-001121r 3  85 rr                sta chary
-001123r 3  A9 06                lda #6
-001125r 3  85 rr                sta charx
-001127r 3  A9 00                lda #0		; PRINT
-001129r 3  20 rr rr             jsr dmsg
-00112Cr 3  A9 00                lda #0		; PRINTMODE
-00112Er 3  85 rr                sta prtmod
-001130r 3  20 rr rr             jsr prskey	; WAITKEY
-001133r 3  A9 01                lda #1		; LOAD
-001135r 3  20 rr rr             jsr loadfile
-001138r 3  20 rr rr             jsr prskey	; WAITKEY
-00113Br 3  60                   rts
-00113Cr 3               evnt13:
-00113Cr 3  60                   rts
-00113Dr 3               evnt14:
-00113Dr 3  60                   rts
-00113Er 3               evnt15:
-00113Er 3  60                   rts
-00113Fr 3               evnt16:
-00113Fr 3  60                   rts
-001140r 3               evnt17:
-001140r 3  60                   rts
-001141r 3               evnt18:
-001141r 3  60                   rts
-001142r 3               evnt19:
-001142r 3  60                   rts
-001143r 3               evnt20:
-001143r 3  60                   rts
-001144r 3  60           ptcusr: rts
-001145r 3               data_start:
-001145r 3               msgdat:
-001145r 3  54 45 53 54          .byte "TEST LOA",196
-001149r 3  20 4C 4F 41  
-00114Dr 3  C4           
-00114Er 3  49 4E 54 52          .byte "INTRO",177
-001152r 3  4F B1        
-001154r 3               nummsg:
-001154r 3  02                   .byte 2
-001155r 3               chgfx:
-001155r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0
-001159r 3  00 00 00 00  
-00115Dr 3               bCol:
-00115Dr 3  01                   .byte 1
-00115Er 3               bprop:
-00115Er 3  00                   .byte 0
-00115Fr 3               sprgfx:
-00115Fr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-001163r 3  00 00 00 00  
-001167r 3  00 00 00 00  
-00117Fr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-001183r 3  00 00 00 00  
-001187r 3  00 00 00 00  
-00119Fr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0011A3r 3  00 00 00 00  
-0011A7r 3  00 00 00 00  
-0011BFr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-0011C3r 3  00 00 00 00  
-0011C7r 3  00 00 00 00  
-0011DFr 3               frmlst:
-0011DFr 3  00 01 01 00          .byte 0,1,1,0
-0011E3r 3               scdat:
-0011E3r 3  06 00                .word 6
-0011E5r 3  FF 00 00 FF          .byte 255,0,0,255,0,228
-0011E9r 3  00 E4        
-0011EBr 3               numsc:
-0011EBr 3  01                   .byte 1
-0011ECr 3               nmedat:
-0011ECr 3  00 00 50 50          .byte 0,0,80,80,255
-0011F0r 3  FF           
-0011F1r 3               NUMOBJ = 1
-0011F1r 3               objdta:
-0011F1r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,160,32,0,160,32
-0011F5r 3  00 00 00 00  
-0011F9r 3  00 00 00 00  
-001218r 3               font:
-001218r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0
-00121Cr 3  00 00 00 00  
-001220r 3  00 30 30 30          .byte 0,48,48,48,48,0,48,0
-001224r 3  30 00 30 00  
-001228r 3  00 6C 6C 00          .byte 0,108,108,0,0,0,0,0
-00122Cr 3  00 00 00 00  
-001230r 3  00 6C FE 6C          .byte 0,108,254,108,108,254,108,0
-001234r 3  6C FE 6C 00  
-001238r 3  00 18 7E 78          .byte 0,24,126,120,126,30,126,24
-00123Cr 3  7E 1E 7E 18  
-001240r 3  00 E6 EC 18          .byte 0,230,236,24,48,110,206,0
-001244r 3  30 6E CE 00  
-001248r 3  00 30 78 30          .byte 0,48,120,48,126,204,126,0
-00124Cr 3  7E CC 7E 00  
-001250r 3  00 18 30 00          .byte 0,24,48,0,0,0,0,0
-001254r 3  00 00 00 00  
-001258r 3  00 0C 18 18          .byte 0,12,24,24,24,24,12,0
-00125Cr 3  18 18 0C 00  
-001260r 3  00 60 30 30          .byte 0,96,48,48,48,48,96,0
-001264r 3  30 30 60 00  
-001268r 3  00 00 3C 18          .byte 0,0,60,24,126,24,60,0
-00126Cr 3  7E 18 3C 00  
-001270r 3  00 00 18 18          .byte 0,0,24,24,126,24,24,0
-001274r 3  7E 18 18 00  
-001278r 3  00 00 00 00          .byte 0,0,0,0,0,24,24,48
-00127Cr 3  00 18 18 30  
-001280r 3  00 00 00 00          .byte 0,0,0,0,126,0,0,0
-001284r 3  7E 00 00 00  
-001288r 3  00 00 00 00          .byte 0,0,0,0,0,56,56,0
-00128Cr 3  00 38 38 00  
-001290r 3  00 00 06 0C          .byte 0,0,6,12,24,48,96,0
-001294r 3  18 30 60 00  
-001298r 3  00 7C CE DE          .byte 0,124,206,222,246,230,124,0
-00129Cr 3  F6 E6 7C 00  
-0012A0r 3  00 38 78 18          .byte 0,56,120,24,24,24,126,0
-0012A4r 3  18 18 7E 00  
-0012A8r 3  00 7C C6 06          .byte 0,124,198,6,124,192,254,0
-0012ACr 3  7C C0 FE 00  
-0012B0r 3  00 7C C6 1C          .byte 0,124,198,28,6,198,124,0
-0012B4r 3  06 C6 7C 00  
-0012B8r 3  00 18 38 78          .byte 0,24,56,120,216,254,24,0
-0012BCr 3  D8 FE 18 00  
-0012C0r 3  00 FE C0 FC          .byte 0,254,192,252,6,198,124,0
-0012C4r 3  06 C6 7C 00  
-0012C8r 3  00 7C C0 FC          .byte 0,124,192,252,198,198,124,0
-0012CCr 3  C6 C6 7C 00  
-0012D0r 3  00 FE 06 0C          .byte 0,254,6,12,24,48,48,0
-0012D4r 3  18 30 30 00  
-0012D8r 3  00 7C C6 7C          .byte 0,124,198,124,198,198,124,0
-0012DCr 3  C6 C6 7C 00  
-0012E0r 3  00 7C C6 C6          .byte 0,124,198,198,126,6,124,0
-0012E4r 3  7E 06 7C 00  
-0012E8r 3  00 00 00 30          .byte 0,0,0,48,0,0,48,0
-0012ECr 3  00 00 30 00  
-0012F0r 3  00 00 30 00          .byte 0,0,48,0,0,48,48,96
-0012F4r 3  00 30 30 60  
-0012F8r 3  00 00 0C 18          .byte 0,0,12,24,48,24,12,0
-0012FCr 3  30 18 0C 00  
-001300r 3  00 00 00 7E          .byte 0,0,0,126,0,126,0,0
-001304r 3  00 7E 00 00  
-001308r 3  00 00 30 18          .byte 0,0,48,24,12,24,48,0
-00130Cr 3  0C 18 30 00  
-001310r 3  00 7C C6 0C          .byte 0,124,198,12,24,0,24,0
-001314r 3  18 00 18 00  
-001318r 3  00 7C DE FE          .byte 0,124,222,254,254,192,124,0
-00131Cr 3  FE C0 7C 00  
-001320r 3  00 7C C6 C6          .byte 0,124,198,198,254,198,198,0
-001324r 3  FE C6 C6 00  
-001328r 3  00 FC C6 FC          .byte 0,252,198,252,198,198,252,0
-00132Cr 3  C6 C6 FC 00  
-001330r 3  00 7C C6 C0          .byte 0,124,198,192,192,198,124,0
-001334r 3  C0 C6 7C 00  
-001338r 3  00 F8 CC C6          .byte 0,248,204,198,198,204,248,0
-00133Cr 3  C6 CC F8 00  
-001340r 3  00 FE C0 FC          .byte 0,254,192,252,192,192,254,0
-001344r 3  C0 C0 FE 00  
-001348r 3  00 FE C0 FC          .byte 0,254,192,252,192,192,192,0
-00134Cr 3  C0 C0 C0 00  
-001350r 3  00 7C C6 C0          .byte 0,124,198,192,222,198,124,0
-001354r 3  DE C6 7C 00  
-001358r 3  00 C6 C6 FE          .byte 0,198,198,254,198,198,198,0
-00135Cr 3  C6 C6 C6 00  
-001360r 3  00 7E 18 18          .byte 0,126,24,24,24,24,126,0
-001364r 3  18 18 7E 00  
-001368r 3  00 06 06 06          .byte 0,6,6,6,198,198,124,0
-00136Cr 3  C6 C6 7C 00  
-001370r 3  00 CC D8 F0          .byte 0,204,216,240,216,204,198,0
-001374r 3  D8 CC C6 00  
-001378r 3  00 C0 C0 C0          .byte 0,192,192,192,192,192,254,0
-00137Cr 3  C0 C0 FE 00  
-001380r 3  00 C6 EE FE          .byte 0,198,238,254,198,198,198,0
-001384r 3  C6 C6 C6 00  
-001388r 3  00 C6 E6 F6          .byte 0,198,230,246,222,206,198,0
-00138Cr 3  DE CE C6 00  
-001390r 3  00 7C C6 C6          .byte 0,124,198,198,198,198,124,0
-001394r 3  C6 C6 7C 00  
-001398r 3  00 FC C6 C6          .byte 0,252,198,198,252,192,192,0
-00139Cr 3  FC C0 C0 00  
-0013A0r 3  00 7C C6 C6          .byte 0,124,198,198,246,222,124,0
-0013A4r 3  F6 DE 7C 00  
-0013A8r 3  00 FC C6 C6          .byte 0,252,198,198,252,204,198,0
-0013ACr 3  FC CC C6 00  
-0013B0r 3  00 7C C0 7C          .byte 0,124,192,124,6,198,124,0
-0013B4r 3  06 C6 7C 00  
-0013B8r 3  00 FE 30 30          .byte 0,254,48,48,48,48,48,0
-0013BCr 3  30 30 30 00  
-0013C0r 3  00 C6 C6 C6          .byte 0,198,198,198,198,198,124,0
-0013C4r 3  C6 C6 7C 00  
-0013C8r 3  00 C6 C6 C6          .byte 0,198,198,198,198,108,56,0
-0013CCr 3  C6 6C 38 00  
-0013D0r 3  00 C6 C6 C6          .byte 0,198,198,198,198,254,108,0
-0013D4r 3  C6 FE 6C 00  
-0013D8r 3  00 C6 6C 38          .byte 0,198,108,56,56,108,198,0
-0013DCr 3  38 6C C6 00  
-0013E0r 3  00 86 CC 78          .byte 0,134,204,120,48,48,48,0
-0013E4r 3  30 30 30 00  
-0013E8r 3  00 FE 0C 18          .byte 0,254,12,24,48,96,254,0
-0013ECr 3  30 60 FE 00  
-0013F0r 3  00 1E 18 18          .byte 0,30,24,24,24,24,30,0
-0013F4r 3  18 18 1E 00  
-0013F8r 3  00 00 C0 60          .byte 0,0,192,96,48,24,12,0
-0013FCr 3  30 18 0C 00  
-001400r 3  00 F0 30 30          .byte 0,240,48,48,48,48,240,0
-001404r 3  30 30 F0 00  
-001408r 3  00 30 78 FC          .byte 0,48,120,252,48,48,48,0
-00140Cr 3  30 30 30 00  
-001410r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,255
-001414r 3  00 00 00 FF  
-001418r 3  00 3C 66 F8          .byte 0,60,102,248,96,96,254,0
-00141Cr 3  60 60 FE 00  
-001420r 3  00 00 78 0C          .byte 0,0,120,12,124,204,124,0
-001424r 3  7C CC 7C 00  
-001428r 3  00 60 60 7C          .byte 0,96,96,124,102,102,124,0
-00142Cr 3  66 66 7C 00  
-001430r 3  00 00 3C 60          .byte 0,0,60,96,96,96,60,0
-001434r 3  60 60 3C 00  
-001438r 3  00 0C 0C 7C          .byte 0,12,12,124,204,204,124,0
-00143Cr 3  CC CC 7C 00  
-001440r 3  00 00 78 CC          .byte 0,0,120,204,248,192,124,0
-001444r 3  F8 C0 7C 00  
-001448r 3  00 1C 30 38          .byte 0,28,48,56,48,48,48,0
-00144Cr 3  30 30 30 00  
-001450r 3  00 00 7C CC          .byte 0,0,124,204,204,124,12,120
-001454r 3  CC 7C 0C 78  
-001458r 3  00 C0 C0 F8          .byte 0,192,192,248,204,204,204,0
-00145Cr 3  CC CC CC 00  
-001460r 3  00 30 00 70          .byte 0,48,0,112,48,48,120,0
-001464r 3  30 30 78 00  
-001468r 3  00 0C 00 0C          .byte 0,12,0,12,12,12,108,56
-00146Cr 3  0C 0C 6C 38  
-001470r 3  00 60 78 70          .byte 0,96,120,112,112,120,108,0
-001474r 3  70 78 6C 00  
-001478r 3  00 30 30 30          .byte 0,48,48,48,48,48,28,0
-00147Cr 3  30 30 1C 00  
-001480r 3  00 00 F8 FC          .byte 0,0,248,252,252,252,252,0
-001484r 3  FC FC FC 00  
-001488r 3  00 00 F8 CC          .byte 0,0,248,204,204,204,204,0
-00148Cr 3  CC CC CC 00  
-001490r 3  00 00 78 CC          .byte 0,0,120,204,204,204,120,0
-001494r 3  CC CC 78 00  
-001498r 3  00 00 F8 CC          .byte 0,0,248,204,204,248,192,192
-00149Cr 3  CC F8 C0 C0  
-0014A0r 3  00 00 7C CC          .byte 0,0,124,204,204,124,12,14
-0014A4r 3  CC 7C 0C 0E  
-0014A8r 3  00 00 3C 60          .byte 0,0,60,96,96,96,96,0
-0014ACr 3  60 60 60 00  
-0014B0r 3  00 00 78 C0          .byte 0,0,120,192,120,12,248,0
-0014B4r 3  78 0C F8 00  
-0014B8r 3  00 30 78 30          .byte 0,48,120,48,48,48,28,0
-0014BCr 3  30 30 1C 00  
-0014C0r 3  00 00 CC CC          .byte 0,0,204,204,204,204,120,0
-0014C4r 3  CC CC 78 00  
-0014C8r 3  00 00 CC CC          .byte 0,0,204,204,120,120,48,0
-0014CCr 3  78 78 30 00  
-0014D0r 3  00 00 CC FC          .byte 0,0,204,252,252,252,120,0
-0014D4r 3  FC FC 78 00  
-0014D8r 3  00 00 CC 78          .byte 0,0,204,120,48,120,204,0
-0014DCr 3  30 78 CC 00  
-0014E0r 3  00 00 CC CC          .byte 0,0,204,204,204,124,12,120
-0014E4r 3  CC 7C 0C 78  
-0014E8r 3  00 00 FC 18          .byte 0,0,252,24,48,96,252,0
-0014ECr 3  30 60 FC 00  
-0014F0r 3  00 1E 18 70          .byte 0,30,24,112,24,24,30,0
-0014F4r 3  18 18 1E 00  
-0014F8r 3  00 18 18 18          .byte 0,24,24,24,24,24,24,0
-0014FCr 3  18 18 18 00  
-001500r 3  00 F0 30 1C          .byte 0,240,48,28,48,48,240,0
-001504r 3  30 30 F0 00  
-001508r 3  00 3C 78 00          .byte 0,60,120,0,0,0,0,0
-00150Cr 3  00 00 00 00  
-001510r 3  7C C6 BB E3          .byte 124,198,187,227,227,187,198,124
-001514r 3  E3 BB C6 7C  
-001518r 3               jtab:
-001518r 3  63                   .byte 99
-001519r 3  65 14 51 10  keys:   .byte 101,20,81,16,48,68,52,112,0,113,1
-00151Dr 3  30 44 34 70  
-001521r 3  00 71 01     
-001524r 3               
-001524r 2               
-001524r 1               	.include "lib.inc"
-001524r 2               ;----------------------------------------------------------------------
-001524r 2               ; VIC20 Platform Specific functions
-001524r 2               ;----------------------------------------------------------------------
-001524r 2               
-001524r 2               ;============================================================
-001524r 2               ; PLATFORM VARIABLES
-001524r 2               ;============================================================
-001524r 2               ;
-001524r 2               ; Memory map:
-001524r 2               ;
-001524r 2               ;	$0000-$01ff	 0.5kB	CPU WS
-001524r 2               ;	$0200-$03ff	 0.5kB	VIDEO RAM
-001524r 2               ;	$0400-$0fff	 3,0kB	RAM
-001524r 2               ;	$1000-$1fff	 4,0kB	CHAR RAM
-001524r 2               ;	$2000-$7fff	24,0kB	RAM
-001524r 2               ;	$8000-$8fff	 4,0kB	CHAR ROM
-001524r 2               ;	$9000-$93ff	 1,0kB	VIC VIA's
-001524r 2               ;	$9600-$97ff	 1,0kB	COLOUR RAM
-001524r 2               ;	$9800-$9fff	 2,0kB	I/O
-001524r 2               ;	$a000-$bfff	 8,0kB	RAM
-001524r 2               ;	$c000-$dfff	 8,0kB	BASIC ROM
-001524r 2               ;	$e000-$ffff	 8,0kB	KERNAL ROM
-001524r 2               ;
-001524r 2               ; Keyboard matrix:
-001524r 2               ;                          	  $9121
-001524r 2               ;          $9120	b7  b6  b5  b4  b3  b2  b1  b0
-001524r 2               ; 	127-0111 1111 	F7  Hom  -   0   8   6   4   2
-001524r 2               ;               ASCII   ??  ??  45  48  56  54  52  50
-001524r 2               ;                 VIC   07  06  05  04  03  02  01  00
-001524r 2               ;
-001524r 2               ; 	191-1011 1111 	F5       @   O   U   T   E   Q
-001524r 2               ;               ASCII   ??  ??  64  79  85  84  69  81
-001524r 2               ;                 VIC   17  16  15  14  13  12  11  10
-001524r 2               ;
-001524r 2               ; 	223-1101 1111 	F3   =   :   K   H   F   S  Com
-001524r 2               ;               ASCII   ??  61  58  75  72  70  83  ??
-001524r 2               ;                 VIC   27  26  25  24  23  22  21  20
-001524r 2               ;
-001524r 2               ; 	239-1110 1111 	F1  RSh  .   M   B   C   Z  Spc
-001524r 2               ;               ASCII   ??  ??  46  77  66  67  90  32
-001524r 2               ;                 VIC   37  36  35  34  33  32  31  30
-001524r 2               ;
-001524r 2               ; 	247-1111 0111	Cur  /   ,   N   V   X  LSh Run
-001524r 2               ;               ASCII   ??  47  44  78  86  88  ??  ??
-001524r 2               ;                 VIC   47  46  45  44  43  42  41  40
-001524r 2               ;
-001524r 2               ; 	251-1111 1011	Cur  ;   L   J   G   D   A  Ctr
-001524r 2               ;               ASCII   ??  59  76  74  71  68  65  ??
-001524r 2               ;                 VIC   57  56  55  54  53  52  51  50
-001524r 2               ;
-001524r 2               ; 	253-1111 1101	Ret  *   P   I   Y   R   W
-001524r 2               ;               ASCII   13  42  80  73  89  82  87
-001524r 2               ;                 VIC   67  66  65  64  63  62  61  60
-001524r 2               ;
-001524r 2               ; 	254-1111 1110	Del Pnd  +   9   7   5   3   1
-001524r 2               ;               ASCII   08  ??  43  57  55  53  51  49
-001524r 2               ;                 VIC   77  76  75  74  73  72  71  70
-001524r 2               ;
-001524r 2               ;	 P =$65,O=$14,A=$51,Q=$10
-001524r 2               ;	SPC=$30,N=$44,M=$34
-001524r 2               ;	 1 =$70,2=$00,3=$71,4=$01
-001524r 2               ;
-001524r 2               ; Joysticks:
-001524r 2               ;
-001524r 2               ;               b7    b6    b5    b4    b3    b2    b1    b0
-001524r 2               ;	$9111	-     -     Fire  Left  Down  Up    -     -
-001524r 2               ;	$9120	Right -     -     -     -     -     -     -
-001524r 2               ;
-001524r 2               ;	$9122	DDRB = Data Direction Register port $9120
-001524r 2               ;               0 = input, 1 = output
-001524r 2               ;		Bit7 should be 0 to read joystick $9120
-001524r 2               ;
-001524r 2               ; Video registers:
-001524r 2               ;
-001524r 2               ;	$9000	horizontal centering
-001524r 2               ;		bits 0-6 horizontal centering
-001524r 2               ;		bit  7 sets interlace scan
-001524r 2               ;	$9001	vertical centering
-001524r 2               ;	$9002	set # of columns
-001524r 2               ;		bits 0-6 set # of columns
-001524r 2               ;		bit 7 is part of video matrix address
-001524r 2               ;	$9003	set # of rows
-001524r 2               ;		bit 0 sets 8x8 or 16x8 chars
-001524r 2               ;		bits 1-6 set # of rows
-001524r 2               ;	$9005	start of character memory
-001524r 2               ;		bits 0-3 start of character memory (default = 0)
-001524r 2               ;		bits 4-7 is rest of video address (default= F)
-001524r 2               ;		BITS 3,2,1,0 CM startinq address
-001524r 2               ;			     HEX   DEC
-001524r 2               ;		0000   ROM   8000  32768
-001524r 2               ;		0001	     8400  33792
-001524r 2               ;		0010	     8800  34816
-001524r 2               ;		0011	     8C00  35840
-001524r 2               ;		1000   RAM   0000  0000
-001524r 2               ;		1001  xxxx
-001524r 2               ;		1010  xxxx   unavail.
-001524r 2               ;		1011  xxxx
-001524r 2               ;		1100	     1000  4096
-001524r 2               ;		1101	     1400  5120
-001524r 2               ;		1110	     1800  6144
-001524r 2               ;		1111	     1C00  7168
-001524r 2               ;	$900f	Screen and border color register
-001524r 2               ;		bits 4-7 select background color
-001524r 2               ;		bits 0-2 select border color
-001524r 2               ;		bit 3 selects inverted or normal mode
-001524r 2               ;
-001524r 2               ; $9110-$911F 6522 VIA#1
-001524r 2               ; $9120-$912F 6522 VIA#2
-001524r 2               ;
-001524r 2               ;	$9110,$9120 	Port B output register
-001524r 2               ;	$9111,$9121 	Port A output register
-001524r 2               ;			(PA0) Bit 0=Serial CLK IN
-001524r 2               ;			(PA1) Bit 1=Serial DATA IN
-001524r 2               ;			(PA2) Bit 2=Joy 0
-001524r 2               ;			(PA3) Bit 3=Joy 1
-001524r 2               ;			(PA4) Bit 4=Joy 2
-001524r 2               ;			(PA5) Bit 5 = Lightpen/Fire button
-001524r 2               ;			(PA6) Bit 6=Cassette switch sense
-001524r 2               ;			(PA7) Bit 7=Serial ATN out
-001524r 2               ;	$9112,$9122	Data direction register B
-001524r 2               ;	$9113,$9123	Data direction register A
-001524r 2               ;	$9114,$9124	Timer 1 low byte
-001524r 2               ;	$9115,$9125	Timer 1 high byte & counter
-001524r 2               ;	$9116,$9126	Timer 1 low byte
-001524r 2               ;	$9117,$9127	Timer 1 high byte
-001524r 2               ;	$9118,$9128	Timer 2 low byte
-001524r 2               ;	$9119,$9129	Timer 2 high byte
-001524r 2               ;	$911A,$912A	Shift register
-001524r 2               ;	$911B,$912B	Auxiliary control register
-001524r 2               ;	$911C,$912C	Peripheral control register
-001524r 2               ;			(CA1, CA2, CB1, CB2)
-001524r 2               ;			CA1 = restore key (Bit 0)
-001524r 2               ;			CA2 = cassette motor control (Bits 1-3)
-001524r 2               ;			CB1 = interrupt signal for received
-001524r 2               ;			RS-232 data (Bit 4)
-001524r 2               ;			CB2=transmitted RS-232 data (Bits 5-7)
-001524r 2               ;	$911D,$912D	Interrupt flag register
-001524r 2               ;	$911E,$912E	Interrupt enable register
-001524r 2               ;	$911F,$912F	Port A (Sense cassette switch)
-001524r 2               
-001524r 2               ; VIC constants
-001524r 2               
-001524r 2               ;	scrchar 	= 22				; char/line
-001524r 2               ;	scrline		= 22				; lines/screen
-001524r 2               	ScreenSize	= ScrWidth * ScrHeight * 8	; Screen size bytes
-001524r 2               	ScreenRowBytes	= ScrWidth * 16			; bytes/line
-001524r 2               	SpriteMaxY	= 161				; maxlines - 16 + 1
-001524r 2               
-001524r 2               ; VIC variables:
-001524r 2               
-001524r 2  00           	fontcol:	.byte 0		; Frontcolour text
-001525r 2               
-001525r 2               ; Addresses
-001525r 2               
-001525r 2               	MapAddr		= $400		; RAM
-001525r 2               	ScreenAddr	= $0200		; VIDEO RAM
-001525r 2               	CharAddress	= $1000		; CHAR RAM
-001525r 2               	Reg0		= $9000		; Horizontal centering
-001525r 2               	Reg1		= $9001		; Vertical centering
-001525r 2               	Reg2		= $9002		; Set # of columns
-001525r 2               	Reg3		= $9003		; Set # of rows
-001525r 2               	Reg4		= $9004		; Vsync signal
-001525r 2               	Reg5		= $9005		; Start of character memory
-001525r 2               	RegE		= $900e		; Colour and auxcolour register
-001525r 2               	RegF		= $900f		; Screen and border color register
-001525r 2               
-001525r 2               	JoyAddr1	= $9111		; Joystick address 1
-001525r 2               	Timer11_Low  	= $9114		; Timer 1 low byte
-001525r 2               	Timer11_High 	= $9115		; Timer 1 high byte
-001525r 2               	Timer12_Low  	= $9118		; Timer 2 low byte
-001525r 2               	Timer12_High 	= $9119		; Timer 2 high byte
-001525r 2               	AUX1		= $911b		; Auxiliary control register
-001525r 2               	IFR1		= $911d		; Interrupt Flag Register
-001525r 2               	IER1		= $911e		; Interrupt Enable Register
-001525r 2               
-001525r 2               	KeyColAddr	= $9120		; Keyboard column (write)
-001525r 2               	JoyAddr2	= $9120		; Joystick address 2
-001525r 2               	KeyRowAddr	= $9121		; Keyboard row (read)
-001525r 2               	DDRB		= $9122		; Bit7 must be 0 for joystick read
-001525r 2               	Timer21_Low  	= $9124		; Timer 1 low byte
-001525r 2               	Timer21_High 	= $9125		; Timer 1 high byte
-001525r 2               	AUX2		= $912b		; Auxiliary control register
-001525r 2               	IFR2		= $912d		; Interrupt Flag Register
-001525r 2               	IER2		= $912e		; Interrupt Enable Register
-001525r 2               
-001525r 2               	ColorAttr	= $9600		; Color attributes
-001525r 2               	HiRAM		= $a000		; Hi RAM 8kB
-001525r 2               
-001525r 2               ;----------------------------------------------------------------------
-001525r 2               ; VIC20 video hardware fns
-001525r 2               ;----------------------------------------------------------------------
-001525r 2               
-001525r 2               init:
-001525r 2               
-001525r 2               ; Disable interrupts
-001525r 2               
-001525r 2  A9 7F        	lda #$7f
-001527r 2  8D 1E 91     	sta $911e
-00152Ar 2  8D 2D 91     	sta $912d
-00152Dr 2  8D 2E 91     	sta $912e
-001530r 2               
-001530r 2               ; Set audio volume to max
-001530r 2  A9 0F        	lda #$0f
-001532r 2  8D 0E 90     	sta $900e
-001535r 2               
-001535r 2               ; Init screen for NTSC
-001535r 2               ; this sets the background and border color of the screen
-001535r 2               ; in this case border black and background black
-001535r 2               
-001535r 2  A9 18        	lda #%00011000
-001537r 2  8D 0F 90     	sta RegF
-00153Ar 2               
-00153Ar 2               ; Reset fontcolor
-00153Ar 2  A9 00        	lda #0		; Black
-00153Cr 2  8D rr rr     	sta fontcol
-00153Fr 2               
-00153Fr 2               
-00153Fr 2               ; max num of columns 22
-00153Fr 2               
-00153Fr 2  AD 02 90     	lda Reg2
-001542r 2  29 80        	and #%10000000
-001544r 2  09 16        	ora #ScrWidth
-001546r 2  8D 02 90     	sta Reg2
-001549r 2               
-001549r 2               ; max num of lines (mult by 2 - 22) for 8x8 chars
-001549r 2               ; no multiply for 8x16 chars
-001549r 2               
-001549r 2  AD 03 90     	lda Reg3
-00154Cr 2  29 81        	and #%10000001
-00154Er 2  09 16        	ora #ScrWidth		; number of rows multipled by two
-001550r 2  8D 03 90     	sta Reg3
-001553r 2               
-001553r 2               ; horizontal and vertical position must be set for
-001553r 2               ; non standard screen resolution (standard 22x23)
-001553r 2               ; same games even allow the user to change them
-001553r 2               ; these values are for PAL for NTSC should be different
-001553r 2               ; move horizontal position in the screen
-001553r 2               
-001553r 2  AD 00 90     	lda Reg0
-001556r 2  29 80        	and #%10000000
-001558r 2  09 04        	ora #CentreX
-00155Ar 2  8D 00 90     	sta Reg0
-00155Dr 2               
-00155Dr 2               ; move vertical position in the screen
-00155Dr 2               
-00155Dr 2  A9 1B        	lda #CentreY
-00155Fr 2  8D 01 90     	sta Reg1
-001562r 2               
-001562r 2               ; Set screem memory to $200
-001562r 2               ; bit 7 on $9002 has to be set
-001562r 2               
-001562r 2  AD 02 90     	lda Reg2
-001565r 2  09 80        	ora #%10000000
-001567r 2  8D 02 90     	sta Reg2
-00156Ar 2               
-00156Ar 2               ; Set character data pointer to CHAR RAM at $1000
-00156Ar 2               ; bit 7 on $9005 has always to be set
-00156Ar 2               ; (based on compute - mapping the vic book)
-00156Ar 2               ; color ram goes to 9600
-00156Ar 2               
-00156Ar 2  AD 05 90     	lda Reg5
-00156Dr 2  29 0C        	and #%00001100
-00156Fr 2  09 8C        	ora #%10001100
-001571r 2  8D 05 90     	sta Reg5
-001574r 2               
-001574r 2               ; This set the char size to 8x16
-001574r 2               
-001574r 2  AD 03 90     	lda Reg3
-001577r 2  09 01        	ora #%00000001
-001579r 2  8D 03 90     	sta Reg3
-00157Cr 2               
-00157Cr 2               ; Init screencharacters
-00157Cr 2               ; Fill screen with characters from left to right, up to down
-00157Cr 2               
-00157Cr 2  A2 00        	ldx #0
-00157Er 2  A0 00        	ldy #0
-001580r 2               scrinit:
-001580r 2  8A           	txa
-001581r 2  9D 00 02     	sta ScreenAddr,x
-001584r 2  98           	tya
-001585r 2  9D 00 96     	sta ColorAttr,x
-001588r 2  E8           	inx
-001589r 2  E0 F2        	cpx#242
-00158Br 2  D0 F3        	bne scrinit
-00158Dr 2               
-00158Dr 2               ; Reset fontcolor
-00158Dr 2               
-00158Dr 2  A9 00        	lda #0			; Black
-00158Fr 2  8D rr rr     	sta fontcol
-001592r 2               
-001592r 2               ; Init music
-001592r 2               
-001592r 2               ;	jsr initmusic
-001592r 2               
-001592r 2               ; Init VIA1 timer11 for timeout 1/25 sec
-001592r 2               
-001592r 2  A9 E0        	lda #$e0		; T1 continuous
-001594r 2  8D 1B 91     	sta AUX1
-001597r 2  A9 7F        	lda #$7f		; No int
-001599r 2  8D 1E 91     	sta IER1
-00159Cr 2  A9 00        	lda #0
-00159Er 2  8D 1D 91     	sta IFR1		; Clear interrupt flags
-0015A1r 2  A9 20        	lda #<timervalue	; Timer 1/25 sec
-0015A3r 2  8D 14 91     	sta Timer11_Low
-0015A6r 2  A9 4E        	lda #>timervalue
-0015A8r 2  8D 15 91     	sta Timer11_High
-0015ABr 2               
-0015ABr 2               ; Pre-shifted byte tables if parameter 'r' given
-0015ABr 2               ; 4 tables are created which 0,2,4 ad 6 bits pre-shifted
-0015ABr 2               ; The bits are shifted to the right and overflow bits are
-0015ABr 2               ; inserted to the left. So 1 byte contains a left and right part
-0015ABr 2               
-0015ABr 2               .if rflag
-0015ABr 2               shift0 = HiRAM
-0015ABr 2               shift2 = HiRAM+256
-0015ABr 2               shift4 = HiRAM+512
-0015ABr 2               shift6 = HiRAM+768
-0015ABr 2               
-0015ABr 2               ; Pre-shifted table 0 pixels
-0015ABr 2               
-0015ABr 2               	ldx #0
-0015ABr 2               shf0:
-0015ABr 2               	txa
-0015ABr 2               	sta shift0,x
-0015ABr 2               	inx
-0015ABr 2               	bne shf0
-0015ABr 2               
-0015ABr 2               ; Pre-shifted table 2 pixels
-0015ABr 2               
-0015ABr 2               	ldx #0
-0015ABr 2               shf2:
-0015ABr 2               	ldy #2
-0015ABr 2               	txa
-0015ABr 2               shf2loop:
-0015ABr 2               	lsr a
-0015ABr 2               	bcc :+
-0015ABr 2               	ora #$80
-0015ABr 2               :
-0015ABr 2               	dey
-0015ABr 2               	bne shf2loop
-0015ABr 2               	sta shift2,x
-0015ABr 2               	inx
-0015ABr 2               	bne shf2
-0015ABr 2               
-0015ABr 2               ; Pre-shifted table 4 pixels
-0015ABr 2               
-0015ABr 2               	ldx #0
-0015ABr 2               shf4:
-0015ABr 2               	ldy #4
-0015ABr 2               	txa
-0015ABr 2               shf4loop:
-0015ABr 2               	lsr a
-0015ABr 2               	bcc :+
-0015ABr 2               	ora #$80
-0015ABr 2               :
-0015ABr 2               	dey
-0015ABr 2               	bne shf4loop
-0015ABr 2               	sta shift4,x
-0015ABr 2               	inx
-0015ABr 2               	bne shf4
-0015ABr 2               
-0015ABr 2               ; Pre-shifted table 6 pixels
-0015ABr 2               
-0015ABr 2               	ldx #0
-0015ABr 2               shf6:
-0015ABr 2               	ldy #6
-0015ABr 2               	txa
-0015ABr 2               shf6loop:
-0015ABr 2               	lsr a
-0015ABr 2               	bcc :+
-0015ABr 2               	ora #$80
-0015ABr 2               :
-0015ABr 2               	dey
-0015ABr 2               	bne shf6loop
-0015ABr 2               	sta shift6,x
-0015ABr 2               	inx
-0015ABr 2               	bne shf6
-0015ABr 2               .endif
-0015ABr 2               
-0015ABr 2  60           	rts
-0015ACr 2               
-0015ACr 2               ;========================================================
-0015ACr 2               ; KEY AND JOYSTICK ROUTINES
-0015ACr 2               ;--------------------------------------------------------
-0015ACr 2               ; Keys
-0015ACr 2               ;
-0015ACr 2               ; Out: joyval=x65FUDLR (bit cleared if key pressed)
-0015ACr 2               ;             ||||||||
-0015ACr 2               ;             |||||||+> Right    KEY 0  - X
-0015ACr 2               ;             ||||||+-> Left     KEY 1  - Z
-0015ACr 2               ;             |||||+--> Down     KEY 2  - .
-0015ACr 2               ;             ||||+---> Up       KEY 3  - ;
-0015ACr 2               ;             |||+----> Fire1    KEY 4  - SPC
-0015ACr 2               ;             ||+-----> Fire2    KEY 5  - Q
-0015ACr 2               ;             |+------> Fire3    KEY 6  - P
-0015ACr 2               ;             +-------> Not used
-0015ACr 2               ;
-0015ACr 2               ;                       Option1  KEY 7  - 1
-0015ACr 2               ;                       Option2  KEY 8  - 2
-0015ACr 2               ;                       Option3  KEY 9  - 3
-0015ACr 2               ;                       Option4  KEY 10 - 4
-0015ACr 2               ;--------------------------------------------------------
-0015ACr 2               
-0015ACr 2               ;----------------------------------------------------
-0015ACr 2               ; Interrupt service
-0015ACr 2               ;----------------------------------------------------
-0015ACr 2               
-0015ACr 2               intserv:
-0015ACr 2  EE 01 96     	inc $9601	; scroll colour char topleft
-0015AFr 2  68           	pla
-0015B0r 2  A8           	tay
-0015B1r 2  68           	pla
-0015B2r 2  AA           	tax
-0015B3r 2  68           	pla
-0015B4r 2  40           	rti
+001118r 3  A9 01                lda #1 	; PAPER
+00111Ar 3  0A                   asl a
+00111Br 3  0A                   asl a
+00111Cr 3  0A                   asl a
+00111Dr 3  0A                   asl a
+00111Er 3  85 rr                sta tmp
+001120r 3  AD 0F 90             lda RegF
+001123r 3  29 8F                and #%10001111
+001125r 3  05 rr                ora tmp
+001127r 3  8D 0F 90             sta RegF
+00112Ar 3  A9 00                lda #0 	; INK
+00112Cr 3  8D rr rr             sta fontcol
+00112Fr 3  20 rr rr             jsr cls		; CLS
+001132r 3  A9 01                lda #1		; PRINTMODE
+001134r 3  85 rr                sta prtmod
+001136r 3  A9 00                lda #0		; AT
+001138r 3  85 rr                sta chary
+00113Ar 3  A9 06                lda #6
+00113Cr 3  85 rr                sta charx
+00113Er 3  A9 00                lda #0		; PRINT
+001140r 3  20 rr rr             jsr dmsg
+001143r 3  A9 00                lda #0		; PRINTMODE
+001145r 3  85 rr                sta prtmod
+001147r 3  A9 01                lda #1		; LOAD
+001149r 3  20 rr rr             jsr loadfile
+00114Cr 3  A9 02                lda #2		; LOAD
+00114Er 3  20 rr rr             jsr loadfile
+001151r 3  A9 01                lda #1 	; INK
+001153r 3  8D rr rr             sta fontcol
+001156r 3  A9 0B                lda #11		; AT
+001158r 3  85 rr                sta chary
+00115Ar 3  A9 05                lda #5
+00115Cr 3  85 rr                sta charx
+00115Er 3  A9 03                lda #3		; PRINT
+001160r 3  20 rr rr             jsr dmsg
+001163r 3  20 rr rr             jsr prskey	; WAITKEY
+001166r 3  A9 00                lda #0 	; PAPER
+001168r 3  0A                   asl a
+001169r 3  0A                   asl a
+00116Ar 3  0A                   asl a
+00116Br 3  0A                   asl a
+00116Cr 3  85 rr                sta tmp
+00116Er 3  AD 0F 90             lda RegF
+001171r 3  29 8F                and #%10001111
+001173r 3  05 rr                ora tmp
+001175r 3  8D 0F 90             sta RegF
+001178r 3  20 rr rr             jsr cls		; CLS
+00117Br 3  A9 04                lda #4		; LOAD
+00117Dr 3  20 rr rr             jsr loadfile
+001180r 3  A9 05                lda #5		; LOAD
+001182r 3  20 rr rr             jsr loadfile
+001185r 3  20 rr rr             jsr prskey	; WAITKEY
+001188r 3  60                   rts
+001189r 3               evnt13:
+001189r 3  60                   rts
+00118Ar 3               evnt14:
+00118Ar 3  60                   rts
+00118Br 3               evnt15:
+00118Br 3  60                   rts
+00118Cr 3               evnt16:
+00118Cr 3  60                   rts
+00118Dr 3               evnt17:
+00118Dr 3  60                   rts
+00118Er 3               evnt18:
+00118Er 3  60                   rts
+00118Fr 3               evnt19:
+00118Fr 3  60                   rts
+001190r 3               evnt20:
+001190r 3  60                   rts
+001191r 3  60           ptcusr: rts
+001192r 3               data_start:
+001192r 3               msgdat:
+001192r 3  54 45 53 54          .byte "TEST LOA",196
+001196r 3  20 4C 4F 41  
+00119Ar 3  C4           
+00119Br 3  49 4E 54 52          .byte "INTRO1.PR",199
+00119Fr 3  4F 31 2E 50  
+0011A3r 3  52 C7        
+0011A5r 3  49 4E 54 52          .byte "INTRO1COL.PR",199
+0011A9r 3  4F 31 43 4F  
+0011ADr 3  4C 2E 50 52  
+0011B2r 3  50 52 45 53          .byte "PRESS A KE",217
+0011B6r 3  53 20 41 20  
+0011BAr 3  4B 45 D9     
+0011BDr 3  49 4E 54 52          .byte "INTRO2.PR",199
+0011C1r 3  4F 32 2E 50  
+0011C5r 3  52 C7        
+0011C7r 3  49 4E 54 52          .byte "INTRO2COL.PR",199
+0011CBr 3  4F 32 43 4F  
+0011CFr 3  4C 2E 50 52  
+0011D4r 3               nummsg:
+0011D4r 3  06                   .byte 6
+0011D5r 3               chgfx:
+0011D5r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0
+0011D9r 3  00 00 00 00  
+0011DDr 3               bCol:
+0011DDr 3  01                   .byte 1
+0011DEr 3               bprop:
+0011DEr 3  00                   .byte 0
+0011DFr 3               sprgfx:
+0011DFr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0011E3r 3  00 00 00 00  
+0011E7r 3  00 00 00 00  
+0011FFr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+001203r 3  00 00 00 00  
+001207r 3  00 00 00 00  
+00121Fr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+001223r 3  00 00 00 00  
+001227r 3  00 00 00 00  
+00123Fr 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+001243r 3  00 00 00 00  
+001247r 3  00 00 00 00  
+00125Fr 3               frmlst:
+00125Fr 3  00 01 01 00          .byte 0,1,1,0
+001263r 3               scdat:
+001263r 3  06 00                .word 6
+001265r 3  FF 00 00 FF          .byte 255,0,0,255,0,228
+001269r 3  00 E4        
+00126Br 3               numsc:
+00126Br 3  01                   .byte 1
+00126Cr 3               nmedat:
+00126Cr 3  00 00 50 50          .byte 0,0,80,80,255
+001270r 3  FF           
+001271r 3               NUMOBJ = 1
+001271r 3               objdta:
+001271r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,160,32,0,160,32
+001275r 3  00 00 00 00  
+001279r 3  00 00 00 00  
+001298r 3               font:
+001298r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,0
+00129Cr 3  00 00 00 00  
+0012A0r 3  00 30 30 30          .byte 0,48,48,48,48,0,48,0
+0012A4r 3  30 00 30 00  
+0012A8r 3  00 6C 6C 00          .byte 0,108,108,0,0,0,0,0
+0012ACr 3  00 00 00 00  
+0012B0r 3  00 6C FE 6C          .byte 0,108,254,108,108,254,108,0
+0012B4r 3  6C FE 6C 00  
+0012B8r 3  00 18 7E 78          .byte 0,24,126,120,126,30,126,24
+0012BCr 3  7E 1E 7E 18  
+0012C0r 3  00 E6 EC 18          .byte 0,230,236,24,48,110,206,0
+0012C4r 3  30 6E CE 00  
+0012C8r 3  00 30 78 30          .byte 0,48,120,48,126,204,126,0
+0012CCr 3  7E CC 7E 00  
+0012D0r 3  00 18 30 00          .byte 0,24,48,0,0,0,0,0
+0012D4r 3  00 00 00 00  
+0012D8r 3  00 0C 18 18          .byte 0,12,24,24,24,24,12,0
+0012DCr 3  18 18 0C 00  
+0012E0r 3  00 60 30 30          .byte 0,96,48,48,48,48,96,0
+0012E4r 3  30 30 60 00  
+0012E8r 3  00 00 3C 18          .byte 0,0,60,24,126,24,60,0
+0012ECr 3  7E 18 3C 00  
+0012F0r 3  00 00 18 18          .byte 0,0,24,24,126,24,24,0
+0012F4r 3  7E 18 18 00  
+0012F8r 3  00 00 00 00          .byte 0,0,0,0,0,24,24,48
+0012FCr 3  00 18 18 30  
+001300r 3  00 00 00 00          .byte 0,0,0,0,126,0,0,0
+001304r 3  7E 00 00 00  
+001308r 3  00 00 00 00          .byte 0,0,0,0,0,56,56,0
+00130Cr 3  00 38 38 00  
+001310r 3  00 00 06 0C          .byte 0,0,6,12,24,48,96,0
+001314r 3  18 30 60 00  
+001318r 3  00 7C CE DE          .byte 0,124,206,222,246,230,124,0
+00131Cr 3  F6 E6 7C 00  
+001320r 3  00 38 78 18          .byte 0,56,120,24,24,24,126,0
+001324r 3  18 18 7E 00  
+001328r 3  00 7C C6 06          .byte 0,124,198,6,124,192,254,0
+00132Cr 3  7C C0 FE 00  
+001330r 3  00 7C C6 1C          .byte 0,124,198,28,6,198,124,0
+001334r 3  06 C6 7C 00  
+001338r 3  00 18 38 78          .byte 0,24,56,120,216,254,24,0
+00133Cr 3  D8 FE 18 00  
+001340r 3  00 FE C0 FC          .byte 0,254,192,252,6,198,124,0
+001344r 3  06 C6 7C 00  
+001348r 3  00 7C C0 FC          .byte 0,124,192,252,198,198,124,0
+00134Cr 3  C6 C6 7C 00  
+001350r 3  00 FE 06 0C          .byte 0,254,6,12,24,48,48,0
+001354r 3  18 30 30 00  
+001358r 3  00 7C C6 7C          .byte 0,124,198,124,198,198,124,0
+00135Cr 3  C6 C6 7C 00  
+001360r 3  00 7C C6 C6          .byte 0,124,198,198,126,6,124,0
+001364r 3  7E 06 7C 00  
+001368r 3  00 00 00 30          .byte 0,0,0,48,0,0,48,0
+00136Cr 3  00 00 30 00  
+001370r 3  00 00 30 00          .byte 0,0,48,0,0,48,48,96
+001374r 3  00 30 30 60  
+001378r 3  00 00 0C 18          .byte 0,0,12,24,48,24,12,0
+00137Cr 3  30 18 0C 00  
+001380r 3  00 00 00 7E          .byte 0,0,0,126,0,126,0,0
+001384r 3  00 7E 00 00  
+001388r 3  00 00 30 18          .byte 0,0,48,24,12,24,48,0
+00138Cr 3  0C 18 30 00  
+001390r 3  00 7C C6 0C          .byte 0,124,198,12,24,0,24,0
+001394r 3  18 00 18 00  
+001398r 3  00 7C DE FE          .byte 0,124,222,254,254,192,124,0
+00139Cr 3  FE C0 7C 00  
+0013A0r 3  00 7C C6 C6          .byte 0,124,198,198,254,198,198,0
+0013A4r 3  FE C6 C6 00  
+0013A8r 3  00 FC C6 FC          .byte 0,252,198,252,198,198,252,0
+0013ACr 3  C6 C6 FC 00  
+0013B0r 3  00 7C C6 C0          .byte 0,124,198,192,192,198,124,0
+0013B4r 3  C0 C6 7C 00  
+0013B8r 3  00 F8 CC C6          .byte 0,248,204,198,198,204,248,0
+0013BCr 3  C6 CC F8 00  
+0013C0r 3  00 FE C0 FC          .byte 0,254,192,252,192,192,254,0
+0013C4r 3  C0 C0 FE 00  
+0013C8r 3  00 FE C0 FC          .byte 0,254,192,252,192,192,192,0
+0013CCr 3  C0 C0 C0 00  
+0013D0r 3  00 7C C6 C0          .byte 0,124,198,192,222,198,124,0
+0013D4r 3  DE C6 7C 00  
+0013D8r 3  00 C6 C6 FE          .byte 0,198,198,254,198,198,198,0
+0013DCr 3  C6 C6 C6 00  
+0013E0r 3  00 7E 18 18          .byte 0,126,24,24,24,24,126,0
+0013E4r 3  18 18 7E 00  
+0013E8r 3  00 06 06 06          .byte 0,6,6,6,198,198,124,0
+0013ECr 3  C6 C6 7C 00  
+0013F0r 3  00 CC D8 F0          .byte 0,204,216,240,216,204,198,0
+0013F4r 3  D8 CC C6 00  
+0013F8r 3  00 C0 C0 C0          .byte 0,192,192,192,192,192,254,0
+0013FCr 3  C0 C0 FE 00  
+001400r 3  00 C6 EE FE          .byte 0,198,238,254,198,198,198,0
+001404r 3  C6 C6 C6 00  
+001408r 3  00 C6 E6 F6          .byte 0,198,230,246,222,206,198,0
+00140Cr 3  DE CE C6 00  
+001410r 3  00 7C C6 C6          .byte 0,124,198,198,198,198,124,0
+001414r 3  C6 C6 7C 00  
+001418r 3  00 FC C6 C6          .byte 0,252,198,198,252,192,192,0
+00141Cr 3  FC C0 C0 00  
+001420r 3  00 7C C6 C6          .byte 0,124,198,198,246,222,124,0
+001424r 3  F6 DE 7C 00  
+001428r 3  00 FC C6 C6          .byte 0,252,198,198,252,204,198,0
+00142Cr 3  FC CC C6 00  
+001430r 3  00 7C C0 7C          .byte 0,124,192,124,6,198,124,0
+001434r 3  06 C6 7C 00  
+001438r 3  00 FE 30 30          .byte 0,254,48,48,48,48,48,0
+00143Cr 3  30 30 30 00  
+001440r 3  00 C6 C6 C6          .byte 0,198,198,198,198,198,124,0
+001444r 3  C6 C6 7C 00  
+001448r 3  00 C6 C6 C6          .byte 0,198,198,198,198,108,56,0
+00144Cr 3  C6 6C 38 00  
+001450r 3  00 C6 C6 C6          .byte 0,198,198,198,198,254,108,0
+001454r 3  C6 FE 6C 00  
+001458r 3  00 C6 6C 38          .byte 0,198,108,56,56,108,198,0
+00145Cr 3  38 6C C6 00  
+001460r 3  00 86 CC 78          .byte 0,134,204,120,48,48,48,0
+001464r 3  30 30 30 00  
+001468r 3  00 FE 0C 18          .byte 0,254,12,24,48,96,254,0
+00146Cr 3  30 60 FE 00  
+001470r 3  00 1E 18 18          .byte 0,30,24,24,24,24,30,0
+001474r 3  18 18 1E 00  
+001478r 3  00 00 C0 60          .byte 0,0,192,96,48,24,12,0
+00147Cr 3  30 18 0C 00  
+001480r 3  00 F0 30 30          .byte 0,240,48,48,48,48,240,0
+001484r 3  30 30 F0 00  
+001488r 3  00 30 78 FC          .byte 0,48,120,252,48,48,48,0
+00148Cr 3  30 30 30 00  
+001490r 3  00 00 00 00          .byte 0,0,0,0,0,0,0,255
+001494r 3  00 00 00 FF  
+001498r 3  00 3C 66 F8          .byte 0,60,102,248,96,96,254,0
+00149Cr 3  60 60 FE 00  
+0014A0r 3  00 00 78 0C          .byte 0,0,120,12,124,204,124,0
+0014A4r 3  7C CC 7C 00  
+0014A8r 3  00 60 60 7C          .byte 0,96,96,124,102,102,124,0
+0014ACr 3  66 66 7C 00  
+0014B0r 3  00 00 3C 60          .byte 0,0,60,96,96,96,60,0
+0014B4r 3  60 60 3C 00  
+0014B8r 3  00 0C 0C 7C          .byte 0,12,12,124,204,204,124,0
+0014BCr 3  CC CC 7C 00  
+0014C0r 3  00 00 78 CC          .byte 0,0,120,204,248,192,124,0
+0014C4r 3  F8 C0 7C 00  
+0014C8r 3  00 1C 30 38          .byte 0,28,48,56,48,48,48,0
+0014CCr 3  30 30 30 00  
+0014D0r 3  00 00 7C CC          .byte 0,0,124,204,204,124,12,120
+0014D4r 3  CC 7C 0C 78  
+0014D8r 3  00 C0 C0 F8          .byte 0,192,192,248,204,204,204,0
+0014DCr 3  CC CC CC 00  
+0014E0r 3  00 30 00 70          .byte 0,48,0,112,48,48,120,0
+0014E4r 3  30 30 78 00  
+0014E8r 3  00 0C 00 0C          .byte 0,12,0,12,12,12,108,56
+0014ECr 3  0C 0C 6C 38  
+0014F0r 3  00 60 78 70          .byte 0,96,120,112,112,120,108,0
+0014F4r 3  70 78 6C 00  
+0014F8r 3  00 30 30 30          .byte 0,48,48,48,48,48,28,0
+0014FCr 3  30 30 1C 00  
+001500r 3  00 00 F8 FC          .byte 0,0,248,252,252,252,252,0
+001504r 3  FC FC FC 00  
+001508r 3  00 00 F8 CC          .byte 0,0,248,204,204,204,204,0
+00150Cr 3  CC CC CC 00  
+001510r 3  00 00 78 CC          .byte 0,0,120,204,204,204,120,0
+001514r 3  CC CC 78 00  
+001518r 3  00 00 F8 CC          .byte 0,0,248,204,204,248,192,192
+00151Cr 3  CC F8 C0 C0  
+001520r 3  00 00 7C CC          .byte 0,0,124,204,204,124,12,14
+001524r 3  CC 7C 0C 0E  
+001528r 3  00 00 3C 60          .byte 0,0,60,96,96,96,96,0
+00152Cr 3  60 60 60 00  
+001530r 3  00 00 78 C0          .byte 0,0,120,192,120,12,248,0
+001534r 3  78 0C F8 00  
+001538r 3  00 30 78 30          .byte 0,48,120,48,48,48,28,0
+00153Cr 3  30 30 1C 00  
+001540r 3  00 00 CC CC          .byte 0,0,204,204,204,204,120,0
+001544r 3  CC CC 78 00  
+001548r 3  00 00 CC CC          .byte 0,0,204,204,120,120,48,0
+00154Cr 3  78 78 30 00  
+001550r 3  00 00 CC FC          .byte 0,0,204,252,252,252,120,0
+001554r 3  FC FC 78 00  
+001558r 3  00 00 CC 78          .byte 0,0,204,120,48,120,204,0
+00155Cr 3  30 78 CC 00  
+001560r 3  00 00 CC CC          .byte 0,0,204,204,204,124,12,120
+001564r 3  CC 7C 0C 78  
+001568r 3  00 00 FC 18          .byte 0,0,252,24,48,96,252,0
+00156Cr 3  30 60 FC 00  
+001570r 3  00 1E 18 70          .byte 0,30,24,112,24,24,30,0
+001574r 3  18 18 1E 00  
+001578r 3  00 18 18 18          .byte 0,24,24,24,24,24,24,0
+00157Cr 3  18 18 18 00  
+001580r 3  00 F0 30 1C          .byte 0,240,48,28,48,48,240,0
+001584r 3  30 30 F0 00  
+001588r 3  00 3C 78 00          .byte 0,60,120,0,0,0,0,0
+00158Cr 3  00 00 00 00  
+001590r 3  7C C6 BB E3          .byte 124,198,187,227,227,187,198,124
+001594r 3  E3 BB C6 7C  
+001598r 3               jtab:
+001598r 3  63                   .byte 99
+001599r 3  65 14 51 10  keys:   .byte 101,20,81,16,48,68,52,112,0,113,1
+00159Dr 3  30 44 34 70  
+0015A1r 3  00 71 01     
+0015A4r 3               
+0015A4r 2               
+0015A4r 1               	.include "lib.inc"
+0015A4r 2               ;----------------------------------------------------------------------
+0015A4r 2               ; VIC20 Platform Specific functions
+0015A4r 2               ;----------------------------------------------------------------------
+0015A4r 2               
+0015A4r 2               ;============================================================
+0015A4r 2               ; PLATFORM VARIABLES
+0015A4r 2               ;============================================================
+0015A4r 2               ;
+0015A4r 2               ; Memory map:
+0015A4r 2               ;
+0015A4r 2               ;	$0000-$01ff	 0.5kB	CPU WS
+0015A4r 2               ;	$0200-$03ff	 0.5kB	VIDEO RAM
+0015A4r 2               ;	$0400-$0fff	 3,0kB	RAM
+0015A4r 2               ;	$1000-$1fff	 4,0kB	CHAR RAM
+0015A4r 2               ;	$2000-$7fff	24,0kB	RAM
+0015A4r 2               ;	$8000-$8fff	 4,0kB	CHAR ROM
+0015A4r 2               ;	$9000-$93ff	 1,0kB	VIC VIA's
+0015A4r 2               ;	$9600-$97ff	 1,0kB	COLOUR RAM
+0015A4r 2               ;	$9800-$9fff	 2,0kB	I/O
+0015A4r 2               ;	$a000-$bfff	 8,0kB	RAM
+0015A4r 2               ;	$c000-$dfff	 8,0kB	BASIC ROM
+0015A4r 2               ;	$e000-$ffff	 8,0kB	KERNAL ROM
+0015A4r 2               ;
+0015A4r 2               ; Keyboard matrix:
+0015A4r 2               ;                          	  $9121
+0015A4r 2               ;          $9120	b7  b6  b5  b4  b3  b2  b1  b0
+0015A4r 2               ; 	127-0111 1111 	F7  Hom  -   0   8   6   4   2
+0015A4r 2               ;               ASCII   ??  ??  45  48  56  54  52  50
+0015A4r 2               ;                 VIC   07  06  05  04  03  02  01  00
+0015A4r 2               ;
+0015A4r 2               ; 	191-1011 1111 	F5       @   O   U   T   E   Q
+0015A4r 2               ;               ASCII   ??  ??  64  79  85  84  69  81
+0015A4r 2               ;                 VIC   17  16  15  14  13  12  11  10
+0015A4r 2               ;
+0015A4r 2               ; 	223-1101 1111 	F3   =   :   K   H   F   S  Com
+0015A4r 2               ;               ASCII   ??  61  58  75  72  70  83  ??
+0015A4r 2               ;                 VIC   27  26  25  24  23  22  21  20
+0015A4r 2               ;
+0015A4r 2               ; 	239-1110 1111 	F1  RSh  .   M   B   C   Z  Spc
+0015A4r 2               ;               ASCII   ??  ??  46  77  66  67  90  32
+0015A4r 2               ;                 VIC   37  36  35  34  33  32  31  30
+0015A4r 2               ;
+0015A4r 2               ; 	247-1111 0111	Cur  /   ,   N   V   X  LSh Run
+0015A4r 2               ;               ASCII   ??  47  44  78  86  88  ??  ??
+0015A4r 2               ;                 VIC   47  46  45  44  43  42  41  40
+0015A4r 2               ;
+0015A4r 2               ; 	251-1111 1011	Cur  ;   L   J   G   D   A  Ctr
+0015A4r 2               ;               ASCII   ??  59  76  74  71  68  65  ??
+0015A4r 2               ;                 VIC   57  56  55  54  53  52  51  50
+0015A4r 2               ;
+0015A4r 2               ; 	253-1111 1101	Ret  *   P   I   Y   R   W
+0015A4r 2               ;               ASCII   13  42  80  73  89  82  87
+0015A4r 2               ;                 VIC   67  66  65  64  63  62  61  60
+0015A4r 2               ;
+0015A4r 2               ; 	254-1111 1110	Del Pnd  +   9   7   5   3   1
+0015A4r 2               ;               ASCII   08  ??  43  57  55  53  51  49
+0015A4r 2               ;                 VIC   77  76  75  74  73  72  71  70
+0015A4r 2               ;
+0015A4r 2               ;	 P =$65,O=$14,A=$51,Q=$10
+0015A4r 2               ;	SPC=$30,N=$44,M=$34
+0015A4r 2               ;	 1 =$70,2=$00,3=$71,4=$01
+0015A4r 2               ;
+0015A4r 2               ; Joysticks:
+0015A4r 2               ;
+0015A4r 2               ;               b7    b6    b5    b4    b3    b2    b1    b0
+0015A4r 2               ;	$9111	-     -     Fire  Left  Down  Up    -     -
+0015A4r 2               ;	$9120	Right -     -     -     -     -     -     -
+0015A4r 2               ;
+0015A4r 2               ;	$9122	DDRB = Data Direction Register port $9120
+0015A4r 2               ;               0 = input, 1 = output
+0015A4r 2               ;		Bit7 should be 0 to read joystick $9120
+0015A4r 2               ;
+0015A4r 2               ; Video registers:
+0015A4r 2               ;
+0015A4r 2               ;	$9000	horizontal centering
+0015A4r 2               ;		bits 0-6 horizontal centering
+0015A4r 2               ;		bit  7 sets interlace scan
+0015A4r 2               ;	$9001	vertical centering
+0015A4r 2               ;	$9002	set # of columns
+0015A4r 2               ;		bits 0-6 set # of columns
+0015A4r 2               ;		bit 7 is part of video matrix address
+0015A4r 2               ;	$9003	set # of rows
+0015A4r 2               ;		bit 0 sets 8x8 or 16x8 chars
+0015A4r 2               ;		bits 1-6 set # of rows
+0015A4r 2               ;	$9005	start of character memory
+0015A4r 2               ;		bits 0-3 start of character memory (default = 0)
+0015A4r 2               ;		bits 4-7 is rest of video address (default= F)
+0015A4r 2               ;		BITS 3,2,1,0 CM startinq address
+0015A4r 2               ;			     HEX   DEC
+0015A4r 2               ;		0000   ROM   8000  32768
+0015A4r 2               ;		0001	     8400  33792
+0015A4r 2               ;		0010	     8800  34816
+0015A4r 2               ;		0011	     8C00  35840
+0015A4r 2               ;		1000   RAM   0000  0000
+0015A4r 2               ;		1001  xxxx
+0015A4r 2               ;		1010  xxxx   unavail.
+0015A4r 2               ;		1011  xxxx
+0015A4r 2               ;		1100	     1000  4096
+0015A4r 2               ;		1101	     1400  5120
+0015A4r 2               ;		1110	     1800  6144
+0015A4r 2               ;		1111	     1C00  7168
+0015A4r 2               ;	$900f	Screen and border color register
+0015A4r 2               ;		bits 4-7 select background color
+0015A4r 2               ;		bits 0-2 select border color
+0015A4r 2               ;		bit 3 selects inverted or normal mode
+0015A4r 2               ;
+0015A4r 2               ; $9110-$911F 6522 VIA#1
+0015A4r 2               ; $9120-$912F 6522 VIA#2
+0015A4r 2               ;
+0015A4r 2               ;	$9110,$9120 	Port B output register
+0015A4r 2               ;	$9111,$9121 	Port A output register
+0015A4r 2               ;			(PA0) Bit 0=Serial CLK IN
+0015A4r 2               ;			(PA1) Bit 1=Serial DATA IN
+0015A4r 2               ;			(PA2) Bit 2=Joy 0
+0015A4r 2               ;			(PA3) Bit 3=Joy 1
+0015A4r 2               ;			(PA4) Bit 4=Joy 2
+0015A4r 2               ;			(PA5) Bit 5 = Lightpen/Fire button
+0015A4r 2               ;			(PA6) Bit 6=Cassette switch sense
+0015A4r 2               ;			(PA7) Bit 7=Serial ATN out
+0015A4r 2               ;	$9112,$9122	Data direction register B
+0015A4r 2               ;	$9113,$9123	Data direction register A
+0015A4r 2               ;	$9114,$9124	Timer 1 low byte
+0015A4r 2               ;	$9115,$9125	Timer 1 high byte & counter
+0015A4r 2               ;	$9116,$9126	Timer 1 low byte
+0015A4r 2               ;	$9117,$9127	Timer 1 high byte
+0015A4r 2               ;	$9118,$9128	Timer 2 low byte
+0015A4r 2               ;	$9119,$9129	Timer 2 high byte
+0015A4r 2               ;	$911A,$912A	Shift register
+0015A4r 2               ;	$911B,$912B	Auxiliary control register
+0015A4r 2               ;	$911C,$912C	Peripheral control register
+0015A4r 2               ;			(CA1, CA2, CB1, CB2)
+0015A4r 2               ;			CA1 = restore key (Bit 0)
+0015A4r 2               ;			CA2 = cassette motor control (Bits 1-3)
+0015A4r 2               ;			CB1 = interrupt signal for received
+0015A4r 2               ;			RS-232 data (Bit 4)
+0015A4r 2               ;			CB2=transmitted RS-232 data (Bits 5-7)
+0015A4r 2               ;	$911D,$912D	Interrupt flag register
+0015A4r 2               ;	$911E,$912E	Interrupt enable register
+0015A4r 2               ;	$911F,$912F	Port A (Sense cassette switch)
+0015A4r 2               
+0015A4r 2               ; VIC constants
+0015A4r 2               
+0015A4r 2               ;	scrchar 	= 22				; char/line
+0015A4r 2               ;	scrline		= 22				; lines/screen
+0015A4r 2               	ScreenSize	= ScrWidth * ScrHeight * 8	; Screen size bytes
+0015A4r 2               	ScreenRowBytes	= ScrWidth * 16			; bytes/line
+0015A4r 2               	SpriteMaxY	= 161				; maxlines - 16 + 1
+0015A4r 2               
+0015A4r 2               ; VIC variables:
+0015A4r 2               
+0015A4r 2  00           	fontcol:	.byte 0		; Frontcolour text
+0015A5r 2               
+0015A5r 2               ; Addresses
+0015A5r 2               
+0015A5r 2               	MapAddr		= $400		; RAM
+0015A5r 2               	ScreenAddr	= $0200		; VIDEO RAM
+0015A5r 2               	CharAddress	= $1000		; CHAR RAM
+0015A5r 2               	Reg0		= $9000		; Horizontal centering
+0015A5r 2               	Reg1		= $9001		; Vertical centering
+0015A5r 2               	Reg2		= $9002		; Set # of columns
+0015A5r 2               	Reg3		= $9003		; Set # of rows
+0015A5r 2               	Reg4		= $9004		; Vsync signal
+0015A5r 2               	Reg5		= $9005		; Start of character memory
+0015A5r 2               	RegE		= $900e		; Colour and auxcolour register
+0015A5r 2               	RegF		= $900f		; Screen and border color register
+0015A5r 2               
+0015A5r 2               	JoyAddr1	= $9111		; Joystick address 1
+0015A5r 2               	Timer11_Low  	= $9114		; Timer 1 low byte
+0015A5r 2               	Timer11_High 	= $9115		; Timer 1 high byte
+0015A5r 2               	Timer12_Low  	= $9118		; Timer 2 low byte
+0015A5r 2               	Timer12_High 	= $9119		; Timer 2 high byte
+0015A5r 2               	AUX1		= $911b		; Auxiliary control register
+0015A5r 2               	IFR1		= $911d		; Interrupt Flag Register
+0015A5r 2               	IER1		= $911e		; Interrupt Enable Register
+0015A5r 2               
+0015A5r 2               	KeyColAddr	= $9120		; Keyboard column (write)
+0015A5r 2               	JoyAddr2	= $9120		; Joystick address 2
+0015A5r 2               	KeyRowAddr	= $9121		; Keyboard row (read)
+0015A5r 2               	DDRB		= $9122		; Bit7 must be 0 for joystick read
+0015A5r 2               	Timer21_Low  	= $9124		; Timer 1 low byte
+0015A5r 2               	Timer21_High 	= $9125		; Timer 1 high byte
+0015A5r 2               	AUX2		= $912b		; Auxiliary control register
+0015A5r 2               	IFR2		= $912d		; Interrupt Flag Register
+0015A5r 2               	IER2		= $912e		; Interrupt Enable Register
+0015A5r 2               
+0015A5r 2               	ColorAttr	= $9600		; Color attributes
+0015A5r 2               	HiRAM		= $a000		; Hi RAM 8kB
+0015A5r 2               
+0015A5r 2               ;----------------------------------------------------------------------
+0015A5r 2               ; VIC20 video hardware fns
+0015A5r 2               ;----------------------------------------------------------------------
+0015A5r 2               
+0015A5r 2               init:
+0015A5r 2               
+0015A5r 2               ; Disable interrupts
+0015A5r 2               
+0015A5r 2  A9 7F        	lda #$7f
+0015A7r 2  8D 1E 91     	sta $911e
+0015AAr 2  8D 2D 91     	sta $912d
+0015ADr 2  8D 2E 91     	sta $912e
+0015B0r 2               
+0015B0r 2               ; Set audio volume to max
+0015B0r 2  A9 0F        	lda #$0f
+0015B2r 2  8D 0E 90     	sta $900e
 0015B5r 2               
-0015B5r 2               ;--------------------------------------------------------
-0015B5r 2               ; PRSKEY
-0015B5r 2               ;
-0015B5r 2               ; Wait for keypress.
-0015B5r 2               ;--------------------------------------------------------
+0015B5r 2               ; Init screen for NTSC
+0015B5r 2               ; this sets the background and border color of the screen
+0015B5r 2               ; in this case border black and background black
 0015B5r 2               
-0015B5r 2               prskey:
-0015B5r 2  98           	tya
-0015B6r 2  48           	pha
-0015B7r 2               prsloop:
-0015B7r 2  20 rr rr     	jsr vsync
-0015BAr 2  20 rr rr     	jsr readkey
-0015BDr 2  C0 FF        	cpy #255
-0015BFr 2  F0 F6        	beq prsloop		; wait until key pressed
-0015C1r 2               
-0015C1r 2               prsrelease:
-0015C1r 2  20 rr rr     	jsr vsync
-0015C4r 2  20 rr rr     	jsr readkey
-0015C7r 2  C0 FF        	cpy #255
-0015C9r 2  D0 F6        	bne prsrelease		; wait until key released
-0015CBr 2               
-0015CBr 2  20 rr rr     	jsr joykey
-0015CEr 2               
-0015CEr 2  68           	pla
-0015CFr 2  A8           	tay
-0015D0r 2  60           	rts
-0015D1r 2               
-0015D1r 2               ;--------------------------------------------------------
-0015D1r 2               ; KTEST
-0015D1r 2               ;
-0015D1r 2               ; Keyboard test routine with key in A.
-0015D1r 2               ; Scan key and clear carry if key pressed
-0015D1r 2               ;--------------------------------------------------------
-0015D1r 2               
-0015D1r 2               ktest:
-0015D1r 2  85 rr        	sta z80_a		; save key
+0015B5r 2  A9 18        	lda #%00011000
+0015B7r 2  8D 0F 90     	sta RegF
+0015BAr 2               
+0015BAr 2               ; Reset fontcolor
+0015BAr 2  A9 00        	lda #0		; Black
+0015BCr 2  8D rr rr     	sta fontcol
+0015BFr 2               
+0015BFr 2               
+0015BFr 2               ; max num of columns 22
+0015BFr 2               
+0015BFr 2  AD 02 90     	lda Reg2
+0015C2r 2  29 80        	and #%10000000
+0015C4r 2  09 16        	ora #ScrWidth
+0015C6r 2  8D 02 90     	sta Reg2
+0015C9r 2               
+0015C9r 2               ; max num of lines (mult by 2 - 22) for 8x8 chars
+0015C9r 2               ; no multiply for 8x16 chars
+0015C9r 2               
+0015C9r 2  AD 03 90     	lda Reg3
+0015CCr 2  29 81        	and #%10000001
+0015CEr 2  09 16        	ora #ScrWidth		; number of rows multipled by two
+0015D0r 2  8D 03 90     	sta Reg3
 0015D3r 2               
-0015D3r 2  4A           	lsr a
-0015D4r 2  4A           	lsr a
-0015D5r 2  4A           	lsr a
-0015D6r 2  4A           	lsr a
-0015D7r 2  AA           	tax
-0015D8r 2  BD rr rr     	lda colmask,x
-0015DBr 2  8D 20 91     	sta KeyColAddr		; set row
-0015DEr 2               
-0015DEr 2  A5 rr        	lda z80_a
-0015E0r 2  29 0F        	and #$0f
-0015E2r 2  AA           	tax			; get column
-0015E3r 2               
-0015E3r 2  AD 21 91     	lda KeyRowAddr		; read column
-0015E6r 2  3D rr rr     	and keymask,x		; check if key pressed
-0015E9r 2  F0 02        	beq pressed		; Skip if pressed
-0015EBr 2  38           	sec			; key not pressed
-0015ECr 2  60           	rts
-0015EDr 2               pressed:
-0015EDr 2  18           	clc			; key pressed
-0015EEr 2  60           	rts
-0015EFr 2               
-0015EFr 2  7F BF DF EF  colmask:	.byte 127,191,223,239,247,251,253,254
-0015F3r 2  F7 FB FD FE  
-0015F7r 2  01 02 04 08  keymask:	.byte $01,$02,$04,$08,$10,$20,$40,$80
-0015FBr 2  10 20 40 80  
-0015FFr 2               
-0015FFr 2               ;---------------------------------------------------------------
-0015FFr 2               ; KGET
-0015FFr 2               ;
-0015FFr 2               ; Read keyboard matrix if a key is pressed.
-0015FFr 2               ; Return A = high nibble=row and low nibble=col
-0015FFr 2               ;---------------------------------------------------------------
-0015FFr 2               
-0015FFr 2               kget:
-0015FFr 2  86 rr        	stx xtmp		; Save x-reg
-001601r 2               kget0:
-001601r 2  A2 00        	ldx #0			; reset row
-001603r 2               kget1:
-001603r 2  BD rr rr     	lda colmask,x		; Get mask
-001606r 2  8D 20 91     	sta KeyColAddr		; Set row
-001609r 2  AD 21 91     	lda KeyRowAddr		; Read columns
-00160Cr 2  85 rr        	sta tmp			; Save colums
-00160Er 2  C9 FF        	cmp #$ff		; Key pressed?
-001610r 2  D0 08        	bne kget2		; Yes, skip
-001612r 2  E8           	inx			; Next row
-001613r 2  E0 08        	cpx #8			; All rows scanned?
-001615r 2  D0 EC        	bne kget1		; No, repeat
-001617r 2  4C rr rr     	jmp kget0		; No key pressed, a=$ff
-00161Ar 2               kget2:
-00161Ar 2  A0 00        	ldy #0			; Reset column
-00161Cr 2               kget3:
-00161Cr 2  46 rr        	lsr tmp			; Test bit
-00161Er 2  90 04        	bcc kget4		; If clear, key pressed
-001620r 2  C8           	iny			; Next column
-001621r 2  4C rr rr     	jmp kget3		; Repeat
-001624r 2               kget4:
-001624r 2  86 rr        	stx tmp			; Get row
-001626r 2  06 rr        	asl tmp			; Make high nibble
-001628r 2  06 rr        	asl tmp
-00162Ar 2  06 rr        	asl tmp
-00162Cr 2  06 rr        	asl tmp
-00162Er 2  98           	tya			; Get column
-00162Fr 2  18           	clc
-001630r 2  65 rr        	adc tmp			; Add row as low nibble
-001632r 2  85 rr        	sta tmp
-001634r 2               kget5:
-001634r 2  AD 21 91     	lda KeyRowAddr		; Read columns
-001637r 2  C9 FF        	cmp #$ff
-001639r 2  D0 F9        	bne kget5
-00163Br 2               
-00163Br 2  A5 rr        	lda tmp			; Return keycode
-00163Dr 2  A6 rr        	ldx xtmp		; Restore X-reg
-00163Fr 2  60           	rts			; Return
-001640r 2               
-001640r 2               ;-------------------------------------------------------------
-001640r 2               ; READKEY
-001640r 2               ;
-001640r 2               ; Check keyboard matrix if a key is pressed
-001640r 2               ; Return keymask in Y
-001640r 2               ;-------------------------------------------------------------
-001640r 2               
-001640r 2               readkey:
-001640r 2  A9 FF        	lda #$ff		; Keymask
-001642r 2  85 rr        	sta tmp
-001644r 2  A2 07        	ldx #7
-001646r 2               scanrow:
-001646r 2  BD rr rr     	lda colmask,x
-001649r 2  8D 20 91     	sta KeyColAddr		; set row
-00164Cr 2  AD 21 91     	lda KeyRowAddr		; read column
-00164Fr 2  25 rr        	and tmp			; Reset bit is key pressed
-001651r 2  85 rr        	sta tmp
-001653r 2  CA           	dex
-001654r 2  10 F0        	bpl scanrow
-001656r 2  A5 rr        	lda tmp
-001658r 2  A8           	tay
-001659r 2  60           	rts
-00165Ar 2               
-00165Ar 2               ;-------------------------------------------------------------
-00165Ar 2               ; JOY1SCAN
-00165Ar 2               ;
-00165Ar 2               ; Initializes joystick
-00165Ar 2               ;-------------------------------------------------------------
-00165Ar 2               
-00165Ar 2               joyinit:
-00165Ar 2  60           	rts
-00165Br 2               
-00165Br 2               ;-------------------------------------------------------------
-00165Br 2               ; JOY1SCAN
-00165Br 2               ;
-00165Br 2               ; Scan joystick1 and return key in z80_e
-00165Br 2               ; Up, down, left, right and fire are read from the joystick
-00165Br 2               ; Fire2 and fire3 are read from the keyboard
-00165Br 2               ;-------------------------------------------------------------
-00165Br 2               
-00165Br 2               joy1scan:
-00165Br 2  A9 FF        	lda #$ff
-00165Dr 2  85 rr        	sta z80_e
-00165Fr 2               
-00165Fr 2  AD 11 91     	lda JoyAddr1		; Read joystick input
-001662r 2  4A           	lsr a
-001663r 2  4A           	lsr a
-001664r 2               
-001664r 2  4A           	lsr a
-001665r 2  26 rr        	rol z80_e		; Up
-001667r 2  4A           	lsr a
-001668r 2  26 rr        	rol z80_e		; Down
-00166Ar 2  4A           	lsr a
-00166Br 2  26 rr        	rol z80_e		; Left
-00166Dr 2               
-00166Dr 2  A9 7F        	lda #%01111111
-00166Fr 2  8D 22 91     	sta DDRB		; Bit7 = input joystick b7
-001672r 2  AD 20 91     	lda JoyAddr2
-001675r 2  0A           	asl a
-001676r 2  26 rr        	rol z80_e		; Right
-001678r 2  A9 FF        	lda #%11111111
-00167Ar 2  8D 22 91     	sta DDRB		; Reset
-00167Dr 2               
-00167Dr 2  AD 11 91     	lda JoyAddr1
-001680r 2  29 20        	and #%00100000
-001682r 2  D0 06        	bne :+
-001684r 2  A5 rr        	lda z80_e
-001686r 2  29 EF        	and #%11101111		; Fire
-001688r 2  85 rr        	sta z80_e
-00168Ar 2               :
-00168Ar 2  AD rr rr     	lda keys+6		; Scan keys for Fire3
-00168Dr 2  20 rr rr     	jsr ktest
-001690r 2  B0 06        	bcs :+
-001692r 2  A5 rr        	lda z80_e
-001694r 2  29 BF        	and #%10111111
-001696r 2  85 rr        	sta z80_e
-001698r 2               :
-001698r 2  AD rr rr     	lda keys+5		; Scan keys for Fire2
-00169Br 2  20 rr rr     	jsr ktest
-00169Er 2  B0 06        	bcs :+
-0016A0r 2  A5 rr        	lda z80_e
-0016A2r 2  29 DF        	and #%11011111
-0016A4r 2  85 rr        	sta z80_e
-0016A6r 2               :
-0016A6r 2  60           	rts
-0016A7r 2               
-0016A7r 2               ;-------------------------------------------------------------
-0016A7r 2               ; JOY2SCAN
-0016A7r 2               ;
-0016A7r 2               ; TODO, Scan joystick2 and return key in z80_e
-0016A7r 2               ;-------------------------------------------------------------
-0016A7r 2               
-0016A7r 2               joy2scan:
-0016A7r 2  60           	rts
-0016A8r 2               
-0016A8r 2               
-0016A8r 2               
-0016A8r 2               ;========================================================
-0016A8r 2               ; HARDWARE DEPENDING ROUTINES
-0016A8r 2               ;========================================================
-0016A8r 2               
-0016A8r 2               ;----------------------------------------------------
-0016A8r 2               ; DELAY
-0016A8r 2               ;
-0016A8r 2               ; Delay routine A * 1/50 sec
-0016A8r 2               ;----------------------------------------------------
-0016A8r 2               
-0016A8r 2               delay:
-0016A8r 2  85 rr        	sta xtmp		; set delaycounter
-0016AAr 2               del_loop:
-0016AAr 2  AD 04 90     	lda Reg4
-0016ADr 2  D0 FB        	bne del_loop		; wait for flyback (1/60 sec)
-0016AFr 2               
-0016AFr 2  A0 D0        	ldy #208		; wait 208 x 16 = 3328 usec
-0016B1r 2               delay1:
-0016B1r 2  61 80        	adc ($80,x)		;	 6 usec
-0016B3r 2  61 80        	adc ($80,x)		;	 6 usec
-0016B5r 2  88           	dey			;	 2 usec
-0016B6r 2  D0 F9        	bne delay1		;	 2 usec
-0016B8r 2  EA           	nop			; 2 usec
-0016B9r 2  EA           	nop			; 2 usec
-0016BAr 2               				; tot: 20000 usec
-0016BAr 2  C6 rr        	dec xtmp		; Next 1/50 sec delay
-0016BCr 2  D0 EC        	bne del_loop
-0016BEr 2  60           	rts
-0016BFr 2               
-0016BFr 2               ;-------------------------------------------------------------
-0016BFr 2               ; VSYNC
-0016BFr 2               ;
-0016BFr 2               ; - read joystick/keyboard
-0016BFr 2               ; - sync framerate with timer 25Hz
-0016BFr 2               ; - handle shrapnel every even frame
-0016BFr 2               ; - handle sound
-0016BFr 2               ;-------------------------------------------------------------
-0016BFr 2               
-0016BFr 2               vsync:
-0016BFr 2  48           	pha			; save registers
-0016C0r 2  98           	tya
-0016C1r 2  48           	pha
-0016C2r 2  8A           	txa
-0016C3r 2  48           	pha
-0016C4r 2               
-0016C4r 2               ; Read joystick/keyboard.
-0016C4r 2               
-0016C4r 2  20 rr rr     	jsr joykey
-0016C7r 2               
-0016C7r 2               ; Sync framerate with timer 25Hz
-0016C7r 2               
-0016C7r 2  A9 40        	lda #$40		; set Timer1 expired bit
-0016C9r 2               vsync1:
-0016C9r 2  2C 1D 91     	bit IFR1		; check Interrupt Flag Register
-0016CCr 2  F0 FB        	beq vsync1		; wait if timer not expired
-0016CEr 2  AD 14 91     	lda Timer11_Low		; clear Timer interrupt
-0016D1r 2               
-0016D1r 2               ; Handle shrapnel every even frame
-0016D1r 2               
-0016D1r 2  A5 rr        	lda clock		; get clock
-0016D3r 2  29 01        	and #1			; 2 frames expired
-0016D5r 2  D0 03        	bne:+
-0016D7r 2  20 rr rr     	jsr proshr		; process shrapnel
-0016DAr 2               :
+0015D3r 2               ; horizontal and vertical position must be set for
+0015D3r 2               ; non standard screen resolution (standard 22x23)
+0015D3r 2               ; same games even allow the user to change them
+0015D3r 2               ; these values are for PAL for NTSC should be different
+0015D3r 2               ; move horizontal position in the screen
+0015D3r 2               
+0015D3r 2  AD 00 90     	lda Reg0
+0015D6r 2  29 80        	and #%10000000
+0015D8r 2  09 04        	ora #CentreX
+0015DAr 2  8D 00 90     	sta Reg0
+0015DDr 2               
+0015DDr 2               ; move vertical position in the screen
+0015DDr 2               
+0015DDr 2  A9 1B        	lda #CentreY
+0015DFr 2  8D 01 90     	sta Reg1
+0015E2r 2               
+0015E2r 2               ; Set screem memory to $200
+0015E2r 2               ; bit 7 on $9002 has to be set
+0015E2r 2               
+0015E2r 2  AD 02 90     	lda Reg2
+0015E5r 2  09 80        	ora #%10000000
+0015E7r 2  8D 02 90     	sta Reg2
+0015EAr 2               
+0015EAr 2               ; Set character data pointer to CHAR RAM at $1000
+0015EAr 2               ; bit 7 on $9005 has always to be set
+0015EAr 2               ; (based on compute - mapping the vic book)
+0015EAr 2               ; color ram goes to 9600
+0015EAr 2               
+0015EAr 2  AD 05 90     	lda Reg5
+0015EDr 2  29 0C        	and #%00001100
+0015EFr 2  09 8C        	ora #%10001100
+0015F1r 2  8D 05 90     	sta Reg5
+0015F4r 2               
+0015F4r 2               ; This set the char size to 8x16
+0015F4r 2               
+0015F4r 2  AD 03 90     	lda Reg3
+0015F7r 2  09 01        	ora #%00000001
+0015F9r 2  8D 03 90     	sta Reg3
+0015FCr 2               
+0015FCr 2               ; Init screencharacters
+0015FCr 2               ; Fill screen with characters from left to right, up to down
+0015FCr 2               
+0015FCr 2  A2 00        	ldx #0
+0015FEr 2  A0 00        	ldy #0
+001600r 2               scrinit:
+001600r 2  8A           	txa
+001601r 2  9D 00 02     	sta ScreenAddr,x
+001604r 2  98           	tya
+001605r 2  9D 00 96     	sta ColorAttr,x
+001608r 2  E8           	inx
+001609r 2  E0 F2        	cpx#242
+00160Br 2  D0 F3        	bne scrinit
+00160Dr 2               
+00160Dr 2               ; Reset fontcolor
+00160Dr 2               
+00160Dr 2  A9 00        	lda #0			; Black
+00160Fr 2  8D rr rr     	sta fontcol
+001612r 2               
+001612r 2               ; Init music
+001612r 2               
+001612r 2               ;	jsr initmusic
+001612r 2               
+001612r 2               ; Init VIA1 timer11 for timeout 1/25 sec
+001612r 2               
+001612r 2  A9 E0        	lda #$e0		; T1 continuous
+001614r 2  8D 1B 91     	sta AUX1
+001617r 2  A9 7F        	lda #$7f		; No int
+001619r 2  8D 1E 91     	sta IER1
+00161Cr 2  A9 00        	lda #0
+00161Er 2  8D 1D 91     	sta IFR1		; Clear interrupt flags
+001621r 2  A9 20        	lda #<timervalue	; Timer 1/25 sec
+001623r 2  8D 14 91     	sta Timer11_Low
+001626r 2  A9 4E        	lda #>timervalue
+001628r 2  8D 15 91     	sta Timer11_High
+00162Br 2               
+00162Br 2               ; Pre-shifted byte tables if parameter 'r' given
+00162Br 2               ; 4 tables are created which 0,2,4 ad 6 bits pre-shifted
+00162Br 2               ; The bits are shifted to the right and overflow bits are
+00162Br 2               ; inserted to the left. So 1 byte contains a left and right part
+00162Br 2               
+00162Br 2               .if rflag
+00162Br 2               shift0 = HiRAM
+00162Br 2               shift2 = HiRAM+256
+00162Br 2               shift4 = HiRAM+512
+00162Br 2               shift6 = HiRAM+768
+00162Br 2               
+00162Br 2               ; Pre-shifted table 0 pixels
+00162Br 2               
+00162Br 2               	ldx #0
+00162Br 2               shf0:
+00162Br 2               	txa
+00162Br 2               	sta shift0,x
+00162Br 2               	inx
+00162Br 2               	bne shf0
+00162Br 2               
+00162Br 2               ; Pre-shifted table 2 pixels
+00162Br 2               
+00162Br 2               	ldx #0
+00162Br 2               shf2:
+00162Br 2               	ldy #2
+00162Br 2               	txa
+00162Br 2               shf2loop:
+00162Br 2               	lsr a
+00162Br 2               	bcc :+
+00162Br 2               	ora #$80
+00162Br 2               :
+00162Br 2               	dey
+00162Br 2               	bne shf2loop
+00162Br 2               	sta shift2,x
+00162Br 2               	inx
+00162Br 2               	bne shf2
+00162Br 2               
+00162Br 2               ; Pre-shifted table 4 pixels
+00162Br 2               
+00162Br 2               	ldx #0
+00162Br 2               shf4:
+00162Br 2               	ldy #4
+00162Br 2               	txa
+00162Br 2               shf4loop:
+00162Br 2               	lsr a
+00162Br 2               	bcc :+
+00162Br 2               	ora #$80
+00162Br 2               :
+00162Br 2               	dey
+00162Br 2               	bne shf4loop
+00162Br 2               	sta shift4,x
+00162Br 2               	inx
+00162Br 2               	bne shf4
+00162Br 2               
+00162Br 2               ; Pre-shifted table 6 pixels
+00162Br 2               
+00162Br 2               	ldx #0
+00162Br 2               shf6:
+00162Br 2               	ldy #6
+00162Br 2               	txa
+00162Br 2               shf6loop:
+00162Br 2               	lsr a
+00162Br 2               	bcc :+
+00162Br 2               	ora #$80
+00162Br 2               :
+00162Br 2               	dey
+00162Br 2               	bne shf6loop
+00162Br 2               	sta shift6,x
+00162Br 2               	inx
+00162Br 2               	bne shf6
+00162Br 2               .endif
+00162Br 2               
+00162Br 2  60           	rts
+00162Cr 2               
+00162Cr 2               ;========================================================
+00162Cr 2               ; KEY AND JOYSTICK ROUTINES
+00162Cr 2               ;--------------------------------------------------------
+00162Cr 2               ; Keys
+00162Cr 2               ;
+00162Cr 2               ; Out: joyval=x65FUDLR (bit cleared if key pressed)
+00162Cr 2               ;             ||||||||
+00162Cr 2               ;             |||||||+> Right    KEY 0  - X
+00162Cr 2               ;             ||||||+-> Left     KEY 1  - Z
+00162Cr 2               ;             |||||+--> Down     KEY 2  - .
+00162Cr 2               ;             ||||+---> Up       KEY 3  - ;
+00162Cr 2               ;             |||+----> Fire1    KEY 4  - SPC
+00162Cr 2               ;             ||+-----> Fire2    KEY 5  - Q
+00162Cr 2               ;             |+------> Fire3    KEY 6  - P
+00162Cr 2               ;             +-------> Not used
+00162Cr 2               ;
+00162Cr 2               ;                       Option1  KEY 7  - 1
+00162Cr 2               ;                       Option2  KEY 8  - 2
+00162Cr 2               ;                       Option3  KEY 9  - 3
+00162Cr 2               ;                       Option4  KEY 10 - 4
+00162Cr 2               ;--------------------------------------------------------
+00162Cr 2               
+00162Cr 2               ;----------------------------------------------------
+00162Cr 2               ; Interrupt service
+00162Cr 2               ;----------------------------------------------------
+00162Cr 2               
+00162Cr 2               intserv:
+00162Cr 2  EE 01 96     	inc $9601	; scroll colour char topleft
+00162Fr 2  68           	pla
+001630r 2  A8           	tay
+001631r 2  68           	pla
+001632r 2  AA           	tax
+001633r 2  68           	pla
+001634r 2  40           	rti
+001635r 2               
+001635r 2               ;--------------------------------------------------------
+001635r 2               ; PRSKEY
+001635r 2               ;
+001635r 2               ; Wait for keypress.
+001635r 2               ;--------------------------------------------------------
+001635r 2               
+001635r 2               prskey:
+001635r 2  98           	tya
+001636r 2  48           	pha
+001637r 2               prsloop:
+001637r 2  20 rr rr     	jsr vsync
+00163Ar 2  20 rr rr     	jsr readkey
+00163Dr 2  C0 FF        	cpy #255
+00163Fr 2  F0 F6        	beq prsloop		; wait until key pressed
+001641r 2               
+001641r 2               prsrelease:
+001641r 2  20 rr rr     	jsr vsync
+001644r 2  20 rr rr     	jsr readkey
+001647r 2  C0 FF        	cpy #255
+001649r 2  D0 F6        	bne prsrelease		; wait until key released
+00164Br 2               
+00164Br 2  20 rr rr     	jsr joykey
+00164Er 2               
+00164Er 2  68           	pla
+00164Fr 2  A8           	tay
+001650r 2  60           	rts
+001651r 2               
+001651r 2               ;--------------------------------------------------------
+001651r 2               ; KTEST
+001651r 2               ;
+001651r 2               ; Keyboard test routine with key in A.
+001651r 2               ; Scan key and clear carry if key pressed
+001651r 2               ;--------------------------------------------------------
+001651r 2               
+001651r 2               ktest:
+001651r 2  85 rr        	sta z80_a		; save key
+001653r 2               
+001653r 2  4A           	lsr a
+001654r 2  4A           	lsr a
+001655r 2  4A           	lsr a
+001656r 2  4A           	lsr a
+001657r 2  AA           	tax
+001658r 2  BD rr rr     	lda colmask,x
+00165Br 2  8D 20 91     	sta KeyColAddr		; set row
+00165Er 2               
+00165Er 2  A5 rr        	lda z80_a
+001660r 2  29 0F        	and #$0f
+001662r 2  AA           	tax			; get column
+001663r 2               
+001663r 2  AD 21 91     	lda KeyRowAddr		; read column
+001666r 2  3D rr rr     	and keymask,x		; check if key pressed
+001669r 2  F0 02        	beq pressed		; Skip if pressed
+00166Br 2  38           	sec			; key not pressed
+00166Cr 2  60           	rts
+00166Dr 2               pressed:
+00166Dr 2  18           	clc			; key pressed
+00166Er 2  60           	rts
+00166Fr 2               
+00166Fr 2  7F BF DF EF  colmask:	.byte 127,191,223,239,247,251,253,254
+001673r 2  F7 FB FD FE  
+001677r 2  01 02 04 08  keymask:	.byte $01,$02,$04,$08,$10,$20,$40,$80
+00167Br 2  10 20 40 80  
+00167Fr 2               
+00167Fr 2               ;---------------------------------------------------------------
+00167Fr 2               ; KGET
+00167Fr 2               ;
+00167Fr 2               ; Read keyboard matrix if a key is pressed.
+00167Fr 2               ; Return A = high nibble=row and low nibble=col
+00167Fr 2               ;---------------------------------------------------------------
+00167Fr 2               
+00167Fr 2               kget:
+00167Fr 2  86 rr        	stx xtmp		; Save x-reg
+001681r 2               kget0:
+001681r 2  A2 00        	ldx #0			; reset row
+001683r 2               kget1:
+001683r 2  BD rr rr     	lda colmask,x		; Get mask
+001686r 2  8D 20 91     	sta KeyColAddr		; Set row
+001689r 2  AD 21 91     	lda KeyRowAddr		; Read columns
+00168Cr 2  85 rr        	sta tmp			; Save colums
+00168Er 2  C9 FF        	cmp #$ff		; Key pressed?
+001690r 2  D0 08        	bne kget2		; Yes, skip
+001692r 2  E8           	inx			; Next row
+001693r 2  E0 08        	cpx #8			; All rows scanned?
+001695r 2  D0 EC        	bne kget1		; No, repeat
+001697r 2  4C rr rr     	jmp kget0		; No key pressed, a=$ff
+00169Ar 2               kget2:
+00169Ar 2  A0 00        	ldy #0			; Reset column
+00169Cr 2               kget3:
+00169Cr 2  46 rr        	lsr tmp			; Test bit
+00169Er 2  90 04        	bcc kget4		; If clear, key pressed
+0016A0r 2  C8           	iny			; Next column
+0016A1r 2  4C rr rr     	jmp kget3		; Repeat
+0016A4r 2               kget4:
+0016A4r 2  86 rr        	stx tmp			; Get row
+0016A6r 2  06 rr        	asl tmp			; Make high nibble
+0016A8r 2  06 rr        	asl tmp
+0016AAr 2  06 rr        	asl tmp
+0016ACr 2  06 rr        	asl tmp
+0016AEr 2  98           	tya			; Get column
+0016AFr 2  18           	clc
+0016B0r 2  65 rr        	adc tmp			; Add row as low nibble
+0016B2r 2  85 rr        	sta tmp
+0016B4r 2               kget5:
+0016B4r 2  AD 21 91     	lda KeyRowAddr		; Read columns
+0016B7r 2  C9 FF        	cmp #$ff
+0016B9r 2  D0 F9        	bne kget5
+0016BBr 2               
+0016BBr 2  A5 rr        	lda tmp			; Return keycode
+0016BDr 2  A6 rr        	ldx xtmp		; Restore X-reg
+0016BFr 2  60           	rts			; Return
+0016C0r 2               
+0016C0r 2               ;-------------------------------------------------------------
+0016C0r 2               ; READKEY
+0016C0r 2               ;
+0016C0r 2               ; Check keyboard matrix if a key is pressed
+0016C0r 2               ; Return keymask in Y
+0016C0r 2               ;-------------------------------------------------------------
+0016C0r 2               
+0016C0r 2               readkey:
+0016C0r 2  A9 FF        	lda #$ff		; Keymask
+0016C2r 2  85 rr        	sta tmp
+0016C4r 2  A2 07        	ldx #7
+0016C6r 2               scanrow:
+0016C6r 2  BD rr rr     	lda colmask,x
+0016C9r 2  8D 20 91     	sta KeyColAddr		; set row
+0016CCr 2  AD 21 91     	lda KeyRowAddr		; read column
+0016CFr 2  25 rr        	and tmp			; Reset bit is key pressed
+0016D1r 2  85 rr        	sta tmp
+0016D3r 2  CA           	dex
+0016D4r 2  10 F0        	bpl scanrow
+0016D6r 2  A5 rr        	lda tmp
+0016D8r 2  A8           	tay
+0016D9r 2  60           	rts
 0016DAr 2               
-0016DAr 2               ; Handle sound
+0016DAr 2               ;-------------------------------------------------------------
+0016DAr 2               ; JOY1SCAN
+0016DAr 2               ;
+0016DAr 2               ; Initializes joystick
+0016DAr 2               ;-------------------------------------------------------------
 0016DAr 2               
-0016DAr 2  AD rr rr         lda sndtyp
-0016DDr 2  F0 33            beq sndskip
+0016DAr 2               joyinit:
+0016DAr 2  60           	rts
+0016DBr 2               
+0016DBr 2               ;-------------------------------------------------------------
+0016DBr 2               ; JOY1SCAN
+0016DBr 2               ;
+0016DBr 2               ; Scan joystick1 and return key in z80_e
+0016DBr 2               ; Up, down, left, right and fire are read from the joystick
+0016DBr 2               ; Fire2 and fire3 are read from the keyboard
+0016DBr 2               ;-------------------------------------------------------------
+0016DBr 2               
+0016DBr 2               joy1scan:
+0016DBr 2  A9 FF        	lda #$ff
+0016DDr 2  85 rr        	sta z80_e
 0016DFr 2               
-0016DFr 2               sndloop:
-0016DFr 2  AC rr rr         ldy sndtyp
-0016E2r 2               sndwait:
-0016E2r 2  88               dey
-0016E3r 2  D0 FD            bne sndwait
-0016E5r 2               
-0016E5r 2  AD rr rr         lda sndtyp
-0016E8r 2  30 11            bmi crashaudio
-0016EAr 2               
-0016EAr 2               
-0016EAr 2               beepaudio:
-0016EAr 2                   ; enable sound on channel 2
-0016EAr 2                   ; add 128 because sound is in range 128-255
-0016EAr 2  4A               lsr
-0016EBr 2  A9 FF            lda #$ff
-0016EDr 2  38               sec
-0016EEr 2  ED rr rr         sbc sndtyp
-0016F1r 2  4A               lsr
-0016F2r 2  4A               lsr
-0016F3r 2  09 C0            ora #%11000000
-0016F5r 2  8D 0C 90         sta $900c
-0016F8r 2               
-0016F8r 2  4C rr rr         jmp endaudiotype
-0016FBr 2               crashaudio:
-0016FBr 2  A9 FF            lda #$ff
-0016FDr 2  38               sec
-0016FEr 2  ED rr rr         sbc sndtyp
-001701r 2  09 80            ora #%10000000
-001703r 2  8D 0D 90         sta $900d
-001706r 2               
-001706r 2               endaudiotype:
-001706r 2               
-001706r 2  CE rr rr         dec sndtyp
-001709r 2  F0 07            beq sndskip
-00170Br 2  C9 80            cmp #128
-00170Dr 2  F0 03            beq sndskip
-00170Fr 2  4C rr rr         jmp sndloop
-001712r 2               sndskip:
-001712r 2                   ; disable sound
-001712r 2  A9 00            lda #$00
-001714r 2  8D 0C 90         sta $900c
-001717r 2  8D 0D 90         sta $900d
-00171Ar 2               
-00171Ar 2  68               pla
-00171Br 2  AA               tax
-00171Cr 2  68               pla
-00171Dr 2  A8               tay
-00171Er 2  68               pla
-00171Fr 2  60               rts
-001720r 2  00           sndtyp:		.byte 0		; Beep sound parameter
-001721r 2               
-001721r 2               
-001721r 2               
-001721r 2               
-001721r 2               
-001721r 2               
-001721r 2               ;========================================================
-001721r 2               ; SPRITE HANDLING ROUTINES
-001721r 2               ;========================================================
-001721r 2               
-001721r 2               ;----------------------------------------------------
-001721r 2               ; SPRITE
-001721r 2               ;
-001721r 2               ; Draw object sprite
-001721r 2               ;----------------------------------------------------
-001721r 2               
-001721r 2               .if oflag
-001721r 2               sprite:
-001721r 2               	stx xtmp		; Save X-reg
-001721r 2               	jsr scadd 		; get screen address in scraddr.
-001721r 2               
-001721r 2               	lda dispx 		; x position.
-001721r 2               	and #7 			; position straddling cells.
-001721r 2               	sta z80_b		; store in b register.
-001721r 2               
-001721r 2               	lda z80_l		; store sprite graphic address.
-001721r 2               	sta sprit1+1
-001721r 2               	sta sprit2+1
-001721r 2               	lda z80_h
-001721r 2               	sta sprit1+2
-001721r 2               	sta sprit2+2
-001721r 2               
-001721r 2               	ldx #0			; pixel height.
-001721r 2               	ldy #0
-001721r 2               sprit1:
-001721r 2               	lda objdta,x		; fetch first byte.
-001721r 2               	sta spr
-001721r 2               	inx
-001721r 2               sprit2:
-001721r 2               	lda objdta,x
-001721r 2               	sta spr+1
-001721r 2               
-001721r 2               	lda #0
-001721r 2               	sta spr+2
-001721r 2               	jsr sprit7		; shift sprite
-001721r 2               
-001721r 2               	lda spr			; fetch graphic.
-001721r 2               	ldy #0			; _BEEB
-001721r 2               	eor (scraddr),y		; merge with screen image.
-001721r 2               	sta (scraddr),y		; write to screen.
-001721r 2               
-001721r 2               	lda spr+1		; fetch graphic.
-001721r 2               	ldy #16			; _BEEB
-001721r 2               	eor (scraddr),y		; merge with screen image.
-001721r 2               	sta (scraddr),y		; write to screen.
-001721r 2               
-001721r 2               	lda spr+2		; fetch graphic.
-001721r 2               	ldy #32			; _BEEB
-001721r 2               	eor (scraddr),y		; merge with screen image.
-001721r 2               	sta (scraddr),y		; write to screen.
-001721r 2               
-001721r 2               	jsr nline
-001721r 2               
-001721r 2               	inx			; next source byte.
-001721r 2               	cpx #32
-001721r 2               	bne sprit1		; repeat
-001721r 2               
-001721r 2               	ldx xtmp		; retreive X-reg
-001721r 2               	rts
-001721r 2               
-001721r 2               .endif
-001721r 2               
-001721r 2               ;------------------------------------------------------------------
-001721r 2               ; SCADD
-001721r 2               ;
-001721r 2               ; This routine returns a screen address for X,Y in scraddr.
-001721r 2               ;------------------------------------------------------------------
-001721r 2               
-001721r 2               scadd:
-001721r 2  A5 rr        	lda dispx		; get x
-001723r 2  29 F8        	and #$f8		; reset bit 0-2 for get block pos
-001725r 2  85 rr        	sta scraddr		; set lb scraddr
-001727r 2  A9 00        	lda #0
-001729r 2  85 rr        	sta scraddr+1		; set hb scraddr
-00172Br 2  06 rr        	asl scraddr		; multiply X by 2
-00172Dr 2  26 rr        	rol scraddr+1
+0016DFr 2  AD 11 91     	lda JoyAddr1		; Read joystick input
+0016E2r 2  4A           	lsr a
+0016E3r 2  4A           	lsr a
+0016E4r 2               
+0016E4r 2  4A           	lsr a
+0016E5r 2  26 rr        	rol z80_e		; Up
+0016E7r 2  4A           	lsr a
+0016E8r 2  26 rr        	rol z80_e		; Down
+0016EAr 2  4A           	lsr a
+0016EBr 2  26 rr        	rol z80_e		; Left
+0016EDr 2               
+0016EDr 2  A9 7F        	lda #%01111111
+0016EFr 2  8D 22 91     	sta DDRB		; Bit7 = input joystick b7
+0016F2r 2  AD 20 91     	lda JoyAddr2
+0016F5r 2  0A           	asl a
+0016F6r 2  26 rr        	rol z80_e		; Right
+0016F8r 2  A9 FF        	lda #%11111111
+0016FAr 2  8D 22 91     	sta DDRB		; Reset
+0016FDr 2               
+0016FDr 2  AD 11 91     	lda JoyAddr1
+001700r 2  29 20        	and #%00100000
+001702r 2  D0 06        	bne :+
+001704r 2  A5 rr        	lda z80_e
+001706r 2  29 EF        	and #%11101111		; Fire
+001708r 2  85 rr        	sta z80_e
+00170Ar 2               :
+00170Ar 2  AD rr rr     	lda keys+6		; Scan keys for Fire3
+00170Dr 2  20 rr rr     	jsr ktest
+001710r 2  B0 06        	bcs :+
+001712r 2  A5 rr        	lda z80_e
+001714r 2  29 BF        	and #%10111111
+001716r 2  85 rr        	sta z80_e
+001718r 2               :
+001718r 2  AD rr rr     	lda keys+5		; Scan keys for Fire2
+00171Br 2  20 rr rr     	jsr ktest
+00171Er 2  B0 06        	bcs :+
+001720r 2  A5 rr        	lda z80_e
+001722r 2  29 DF        	and #%11011111
+001724r 2  85 rr        	sta z80_e
+001726r 2               :
+001726r 2  60           	rts
+001727r 2               
+001727r 2               ;-------------------------------------------------------------
+001727r 2               ; JOY2SCAN
+001727r 2               ;
+001727r 2               ; TODO, Scan joystick2 and return key in z80_e
+001727r 2               ;-------------------------------------------------------------
+001727r 2               
+001727r 2               joy2scan:
+001727r 2  60           	rts
+001728r 2               
+001728r 2               
+001728r 2               
+001728r 2               ;========================================================
+001728r 2               ; HARDWARE DEPENDING ROUTINES
+001728r 2               ;========================================================
+001728r 2               
+001728r 2               ;----------------------------------------------------
+001728r 2               ; DELAY
+001728r 2               ;
+001728r 2               ; Delay routine A * 1/50 sec
+001728r 2               ;----------------------------------------------------
+001728r 2               
+001728r 2               delay:
+001728r 2  85 rr        	sta xtmp		; set delaycounter
+00172Ar 2               del_loop:
+00172Ar 2  AD 04 90     	lda Reg4
+00172Dr 2  D0 FB        	bne del_loop		; wait for flyback (1/60 sec)
 00172Fr 2               
-00172Fr 2               ; Add line address Y pos to X
-00172Fr 2               
-00172Fr 2  A6 rr        	ldx dispy		; get row address Y pos
-001731r 2  18           	clc
-001732r 2  A5 rr        	lda scraddr
-001734r 2  7D 00 07     	adc SCADTB_lb,x
-001737r 2  85 rr        	sta scraddr
-001739r 2  A5 rr        	lda scraddr+1
-00173Br 2  7D 00 08     	adc SCADTB_hb,x
-00173Er 2  85 rr        	sta scraddr+1
-001740r 2               
-001740r 2  60           	rts
-001741r 2               
-001741r 2               ;------------------------------------------------------------------
-001741r 2               ; SSPRIA
-001741r 2               ;
-001741r 2               ; Erase single sprite, old (ix+0).
-001741r 2               ;------------------------------------------------------------------
-001741r 2               
-001741r 2               sspria:
-001741r 2  20 rr rr     	jsr gsprad		; get old sprite address.
-001744r 2               sspri2:
-001744r 2               .if rflag
-001744r 2               	lda z80_e		; 3c
-001744r 2               	sta dline_spraddr1+1	; 4c
-001744r 2               	sta dline_spraddr2+1	; 4c
-001744r 2               	lda z80_d		; 3c
-001744r 2               	sta dline_spraddr1+2	; 4c
-001744r 2               	sta dline_spraddr2+2	; 4c
+00172Fr 2  A0 D0        	ldy #208		; wait 208 x 16 = 3328 usec
+001731r 2               delay1:
+001731r 2  61 80        	adc ($80,x)		;	 6 usec
+001733r 2  61 80        	adc ($80,x)		;	 6 usec
+001735r 2  88           	dey			;	 2 usec
+001736r 2  D0 F9        	bne delay1		;	 2 usec
+001738r 2  EA           	nop			; 2 usec
+001739r 2  EA           	nop			; 2 usec
+00173Ar 2               				; tot: 20000 usec
+00173Ar 2  C6 rr        	dec xtmp		; Next 1/50 sec delay
+00173Cr 2  D0 EC        	bne del_loop
+00173Er 2  60           	rts
+00173Fr 2               
+00173Fr 2               ;-------------------------------------------------------------
+00173Fr 2               ; VSYNC
+00173Fr 2               ;
+00173Fr 2               ; - read joystick/keyboard
+00173Fr 2               ; - sync framerate with timer 25Hz
+00173Fr 2               ; - handle shrapnel every even frame
+00173Fr 2               ; - handle sound
+00173Fr 2               ;-------------------------------------------------------------
+00173Fr 2               
+00173Fr 2               vsync:
+00173Fr 2  48           	pha			; save registers
+001740r 2  98           	tya
+001741r 2  48           	pha
+001742r 2  8A           	txa
+001743r 2  48           	pha
 001744r 2               
-001744r 2               	ldx sprshft
-001744r 2               	lda shift_table,x
-001744r 2               	sta dline_shift1+1
-001744r 2               	sta dline_shift2+1
-001744r 2               	lda shift_table+1,x
-001744r 2               	sta dline_shift1+2
-001744r 2               	sta dline_shift2+2
+001744r 2               ; Read joystick/keyboard.
 001744r 2               
-001744r 2               	ldx #0			; byte counter.
-001744r 2               sspri0:
-001744r 2               	jsr dline		; draw a line.
-001744r 2                 .if bflag
-001744r 2               	cpx #48			; big sprites have 24 bytes
-001744r 2                 .else
-001744r 2               	cpx #32			; normal sprites have 32 bytes
-001744r 2                 .endif
-001744r 2               	bne sspri0		; repeat 16 times x 2 bytes
-001744r 2               	rts
-001744r 2               .else
-001744r 2                 .if bflag
-001744r 2               	lda #24			; big sprites have 24 lines
-001744r 2                 .else
-001744r 2  A9 10        	lda #16			; normal sprites have 16 lines.
-001746r 2                 .endif
-001746r 2  8D rr rr     	sta acnt
-001749r 2               sspri0:
-001749r 2  20 rr rr     	jsr dline		; draw a line.
-00174Cr 2  CE rr rr     	dec acnt
-00174Fr 2  D0 F8        	bne sspri0		; repeat 16 times
-001751r 2  60           	rts
-001752r 2               
-001752r 2  00           acnt:	.byte 0			; line counter
-001753r 2               
-001753r 2               .endif
-001753r 2               
-001753r 2               ;------------------------------------------------------------------
-001753r 2               ; SSPRIB
-001753r 2               ;
-001753r 2               ; Display single sprite, new (ix+5).
-001753r 2               ;------------------------------------------------------------------
-001753r 2               
-001753r 2               ssprib:
-001753r 2  20 rr rr     	jsr gspran 		; get new sprite address.
-001756r 2  4C rr rr     	jmp sspri2		; Display sprite
-001759r 2               
-001759r 2               ;------------------------------------------------------------------
-001759r 2               ; SSPRIC
-001759r 2               ;
-001759r 2               ; Erase old (ix+0) and display new (ix+5) sprite line by line.
-001759r 2               ;------------------------------------------------------------------
-001759r 2               
-001759r 2               sspric:
-001759r 2               .if rflag
-001759r 2               	jsr gsprad 		; get old sprite address.
-001759r 2               
-001759r 2               	lda z80_e		; 3c
-001759r 2               	sta ddline_spraddr3+1	; 4c
-001759r 2               	sta ddline_spraddr4+1	; 4c
-001759r 2               
-001759r 2               	lda z80_d		; 3c
-001759r 2               	sta ddline_spraddr3+2	; 4c
-001759r 2               	sta ddline_spraddr4+2	; 4c
-001759r 2               
-001759r 2               	ldx sprshft		; set spriteshift table addresses
-001759r 2               	lda shift_table,x
-001759r 2               	sta ddline_shift3+1
-001759r 2               	sta ddline_shift4+1
-001759r 2               	lda shift_table+1,x
-001759r 2               	sta ddline_shift3+2
-001759r 2               	sta ddline_shift4+2
-001759r 2               
-001759r 2               	jsr exx  		; store addresses.
-001759r 2               	jsr gspran 		; get new sprite addresses.
-001759r 2               
-001759r 2               	lda z80_e		; 3c
-001759r 2               	sta ddline_spraddr1+1	; 4c
-001759r 2               	sta ddline_spraddr2+1	; 4c
-001759r 2               
-001759r 2               	lda z80_d		; 3c
-001759r 2               	sta ddline_spraddr1+2	; 4c
-001759r 2               	sta ddline_spraddr2+2	; 4c
-001759r 2               
-001759r 2               	ldx sprshft
-001759r 2               	lda shift_table,x
-001759r 2               	sta ddline_shift1+1
-001759r 2               	sta ddline_shift2+1
-001759r 2               	lda shift_table+1,x
-001759r 2               	sta ddline_shift1+2
-001759r 2               	sta ddline_shift2+2
-001759r 2               
-001759r 2               	ldx #0
-001759r 2               lloop:
-001759r 2               	jsr ddline 		; draw a line.
-001759r 2                 .if bflag
-001759r 2               	cpx #48
-001759r 2                 .else
-001759r 2               	cpx #32
-001759r 2                 .endif
-001759r 2               	bne lloop
-001759r 2               	rts
-001759r 2               
-001759r 2               shift_table:
-001759r 2               	.word shift0
-001759r 2               	.word shift2
-001759r 2               	.word shift4
-001759r 2               	.word shift6
-001759r 2               
-001759r 2               ;------------------------------------------------------------------
-001759r 2               ; DLINE
-001759r 2               ;
-001759r 2               ; Draw a sprite line, now work out next target address.
-001759r 2               ;
-001759r 2               ; Input:
-001759r 2               ;  B  = right mask
-001759r 2               ;  C  = left mask
-001759r 2               ;  DE = spriteaddress
-001759r 2               ;  scraddr = screen address
-001759r 2               ;------------------------------------------------------------------
-001759r 2               
-001759r 2               dline:
-001759r 2               
-001759r 2               dline_spraddr1:
-001759r 2               	ldy $ffff,x 		; get graphic data as pointer.
-001759r 2               dline_shift1:
-001759r 2               	lda $ffff,y		; get pre-shifted data
-001759r 2               	sta sprtmp		; save byte
-001759r 2               	and z80_c 		; mask right for left byte
-001759r 2               
-001759r 2               	ldy #0
-001759r 2               	eor (scraddr),y 	; XOR with what's there.
-001759r 2               	sta (scraddr),y 	; display left byte
-001759r 2               
-001759r 2               ; carry to next screen byte
-001759r 2               
-001759r 2               	lda sprtmp		; fetch data.
-001759r 2               	and z80_b 		; mask for left part
-001759r 2               	sta sprtmp
-001759r 2               
-001759r 2               ; middle screen byte
-001759r 2               
-001759r 2               	inx
-001759r 2               dline_spraddr2:
-001759r 2               	ldy $ffff,x 		; second bit of data.
-001759r 2               dline_shift2:
-001759r 2               	lda $ffff,y
-001759r 2               	sta sprtmp2
-001759r 2               	and z80_c 		; mask away what's not needed.
-001759r 2               	ora sprtmp
-001759r 2               	ldy #16
-001759r 2               	eor (scraddr),y 	; XOR with what's there.
-001759r 2               	sta (scraddr),y 	; display middle bye.
-001759r 2               
-001759r 2               ; carry to last screen byte
-001759r 2               
-001759r 2               	lda sprtmp2
-001759r 2               	and z80_b 		; mask away unwanted
-001759r 2               
-001759r 2               	ldy #32
-001759r 2               	eor (scraddr),y 	; XOR with what's there.
-001759r 2               	sta (scraddr),y 	; display right byte.
-001759r 2               
-001759r 2               	inx
-001759r 2               .else
-001759r 2               
-001759r 2  20 rr rr     	jsr gsprad 		; get old sprite address.
-00175Cr 2  20 rr rr     	jsr exx  		; store addresses.
-00175Fr 2  20 rr rr     	jsr gspran 		; get new sprite addresses.
-001762r 2               
-001762r 2               .if bflag
-001762r 2               	lda #23
-001762r 2               .else
-001762r 2  A9 0F        	lda #15
-001764r 2               .endif
-001764r 2  85 rr        	sta ccnt
-001766r 2               lloop:
-001766r 2  20 rr rr     	jsr dline 		; draw a line.
-001769r 2  20 rr rr     	jsr exx  		; restore old addresses.
-00176Cr 2  20 rr rr     	jsr dline 		; delete a line.
-00176Fr 2  20 rr rr     	jsr exx  		; flip to new sprite addresses.
-001772r 2  C6 rr        	dec ccnt
-001774r 2  D0 F0        	bne lloop
-001776r 2               
-001776r 2  20 rr rr     	jsr dline		; draw a line.
-001779r 2  20 rr rr     	jsr exx 		; restore old addresses.
-00177Cr 2               
-00177Cr 2               ;-------------------------------------------------------------
-00177Cr 2               ; Drop through.
-00177Cr 2               ; Line drawn, now work out next target address.
-00177Cr 2               ;
-00177Cr 2               ; Input:
-00177Cr 2               ;  B  = right mask
-00177Cr 2               ;  C  = left mask
-00177Cr 2               ;  DE = spriteaddress
-00177Cr 2               ;  scraddr = screen address
-00177Cr 2               ;-------------------------------------------------------------
-00177Cr 2               
-00177Cr 2               dline:
-00177Cr 2  A0 00        	ldy #0
-00177Er 2  B1 rr        	lda (z80_de),y 		; graphic data.
-001780r 2  48           	pha
-001781r 2  25 rr        	and z80_c 		; mask away what's not needed.
-001783r 2  51 rr        	eor (scraddr),y 	; XOR with what's there.
-001785r 2  91 rr        	sta (scraddr),y 	; left byte on screen.
-001787r 2               
-001787r 2  68           	pla
-001788r 2  25 rr        	and z80_b 		; mask away unwanted bits.
-00178Ar 2  A0 20        	ldy #32
-00178Cr 2  51 rr        	eor (scraddr),y 	; XOR with what's there.
-00178Er 2  91 rr        	sta (scraddr),y 	; right byte on screen
-001790r 2               
-001790r 2  E6 rr        	inc z80_e 		; next graphic.
-001792r 2  D0 02        	bne :+
-001794r 2  E6 rr        	inc z80_d
-001796r 2               :
-001796r 2               ; _BEEB screen arrangement
-001796r 2               ;	sec
-001796r 2               ;	lda scraddr 		; one character cell to the left.
-001796r 2               ;	sbc #8
-001796r 2               ;	sta scraddr
-001796r 2               ;	lda scraddr+1
-001796r 2               ;	sbc #0
-001796r 2               ;	sta scraddr+1
-001796r 2  A0 00        	ldy #0
-001798r 2  B1 rr        	lda (z80_de),y 		; second bit of data.
-00179Ar 2  A0 10        	ldy #16
-00179Cr 2  51 rr        	eor (scraddr),y 	; XOR with what's there.
-00179Er 2  91 rr        	sta (scraddr),y 	; middle byte on screen.
-0017A0r 2               
-0017A0r 2  E6 rr        	inc z80_e 		; point to next line of data.
-0017A2r 2  D0 02        	bne :+
-0017A4r 2  E6 rr        	inc z80_d
-0017A6r 2               :
-0017A6r 2               ; _BEEB screen arrangement
-0017A6r 2               ;	sec
-0017A6r 2               ;	lda scraddr 		; another char left.
-0017A6r 2               ;	sbc #8
-0017A6r 2               ;	sta scraddr
-0017A6r 2               ;	lda scraddr+1
-0017A6r 2               ;	sbc #0
-0017A6r 2               ;	sta scraddr+1
-0017A6r 2               .endif
-0017A6r 2               
-0017A6r 2               ;----------------------------------------------------------------------
-0017A6r 2               ; Line drawn, now work out next target address.
-0017A6r 2               ;----------------------------------------------------------------------
-0017A6r 2               
-0017A6r 2               ; _BEEB screen arrangement
-0017A6r 2               
-0017A6r 2               nline:
-0017A6r 2  A5 rr        	lda scraddr 			; get low byte of address.
-0017A8r 2  29 0F        	and #15
-0017AAr 2  C9 0F        	cmp #15				; is this last line of row?
-0017ACr 2  F0 03        	beq beeb_next_row
-0017AEr 2               
-0017AEr 2               	; within same row
-0017AEr 2  E6 rr        	inc scraddr			; new low byte of address.
-0017B0r 2  60           	rts
-0017B1r 2               
-0017B1r 2               beeb_next_row:
+001744r 2  20 rr rr     	jsr joykey
+001747r 2               
+001747r 2               ; Sync framerate with timer 25Hz
+001747r 2               
+001747r 2  A9 40        	lda #$40		; set Timer1 expired bit
+001749r 2               vsync1:
+001749r 2  2C 1D 91     	bit IFR1		; check Interrupt Flag Register
+00174Cr 2  F0 FB        	beq vsync1		; wait if timer not expired
+00174Er 2  AD 14 91     	lda Timer11_Low		; clear Timer interrupt
+001751r 2               
+001751r 2               ; Handle shrapnel every even frame
+001751r 2               
+001751r 2  A5 rr        	lda clock		; get clock
+001753r 2  29 01        	and #1			; 2 frames expired
+001755r 2  D0 03        	bne:+
+001757r 2  20 rr rr     	jsr proshr		; process shrapnel
+00175Ar 2               :
+00175Ar 2               
+00175Ar 2               ; Handle sound
+00175Ar 2               
+00175Ar 2  AD rr rr         lda sndtyp
+00175Dr 2  F0 33            beq sndskip
+00175Fr 2               
+00175Fr 2               sndloop:
+00175Fr 2  AC rr rr         ldy sndtyp
+001762r 2               sndwait:
+001762r 2  88               dey
+001763r 2  D0 FD            bne sndwait
+001765r 2               
+001765r 2  AD rr rr         lda sndtyp
+001768r 2  30 11            bmi crashaudio
+00176Ar 2               
+00176Ar 2               
+00176Ar 2               beepaudio:
+00176Ar 2                   ; enable sound on channel 2
+00176Ar 2                   ; add 128 because sound is in range 128-255
+00176Ar 2  4A               lsr
+00176Br 2  A9 FF            lda #$ff
+00176Dr 2  38               sec
+00176Er 2  ED rr rr         sbc sndtyp
+001771r 2  4A               lsr
+001772r 2  4A               lsr
+001773r 2  09 C0            ora #%11000000
+001775r 2  8D 0C 90         sta $900c
+001778r 2               
+001778r 2  4C rr rr         jmp endaudiotype
+00177Br 2               crashaudio:
+00177Br 2  A9 FF            lda #$ff
+00177Dr 2  38               sec
+00177Er 2  ED rr rr         sbc sndtyp
+001781r 2  09 80            ora #%10000000
+001783r 2  8D 0D 90         sta $900d
+001786r 2               
+001786r 2               endaudiotype:
+001786r 2               
+001786r 2  CE rr rr         dec sndtyp
+001789r 2  F0 07            beq sndskip
+00178Br 2  C9 80            cmp #128
+00178Dr 2  F0 03            beq sndskip
+00178Fr 2  4C rr rr         jmp sndloop
+001792r 2               sndskip:
+001792r 2                   ; disable sound
+001792r 2  A9 00            lda #$00
+001794r 2  8D 0C 90         sta $900c
+001797r 2  8D 0D 90         sta $900d
+00179Ar 2               
+00179Ar 2  68               pla
+00179Br 2  AA               tax
+00179Cr 2  68               pla
+00179Dr 2  A8               tay
+00179Er 2  68               pla
+00179Fr 2  60               rts
+0017A0r 2  00           sndtyp:		.byte 0		; Beep sound parameter
+0017A1r 2               
+0017A1r 2               
+0017A1r 2               
+0017A1r 2               
+0017A1r 2               
+0017A1r 2               
+0017A1r 2               ;========================================================
+0017A1r 2               ; SPRITE HANDLING ROUTINES
+0017A1r 2               ;========================================================
+0017A1r 2               
+0017A1r 2               ;----------------------------------------------------
+0017A1r 2               ; SPRITE
+0017A1r 2               ;
+0017A1r 2               ; Draw object sprite
+0017A1r 2               ;----------------------------------------------------
+0017A1r 2               
+0017A1r 2               .if oflag
+0017A1r 2               sprite:
+0017A1r 2               	stx xtmp		; Save X-reg
+0017A1r 2               	jsr scadd 		; get screen address in scraddr.
+0017A1r 2               
+0017A1r 2               	lda dispx 		; x position.
+0017A1r 2               	and #7 			; position straddling cells.
+0017A1r 2               	sta z80_b		; store in b register.
+0017A1r 2               
+0017A1r 2               	lda z80_l		; store sprite graphic address.
+0017A1r 2               	sta sprit1+1
+0017A1r 2               	sta sprit2+1
+0017A1r 2               	lda z80_h
+0017A1r 2               	sta sprit1+2
+0017A1r 2               	sta sprit2+2
+0017A1r 2               
+0017A1r 2               	ldx #0			; pixel height.
+0017A1r 2               	ldy #0
+0017A1r 2               sprit1:
+0017A1r 2               	lda objdta,x		; fetch first byte.
+0017A1r 2               	sta spr
+0017A1r 2               	inx
+0017A1r 2               sprit2:
+0017A1r 2               	lda objdta,x
+0017A1r 2               	sta spr+1
+0017A1r 2               
+0017A1r 2               	lda #0
+0017A1r 2               	sta spr+2
+0017A1r 2               	jsr sprit7		; shift sprite
+0017A1r 2               
+0017A1r 2               	lda spr			; fetch graphic.
+0017A1r 2               	ldy #0			; _BEEB
+0017A1r 2               	eor (scraddr),y		; merge with screen image.
+0017A1r 2               	sta (scraddr),y		; write to screen.
+0017A1r 2               
+0017A1r 2               	lda spr+1		; fetch graphic.
+0017A1r 2               	ldy #16			; _BEEB
+0017A1r 2               	eor (scraddr),y		; merge with screen image.
+0017A1r 2               	sta (scraddr),y		; write to screen.
+0017A1r 2               
+0017A1r 2               	lda spr+2		; fetch graphic.
+0017A1r 2               	ldy #32			; _BEEB
+0017A1r 2               	eor (scraddr),y		; merge with screen image.
+0017A1r 2               	sta (scraddr),y		; write to screen.
+0017A1r 2               
+0017A1r 2               	jsr nline
+0017A1r 2               
+0017A1r 2               	inx			; next source byte.
+0017A1r 2               	cpx #32
+0017A1r 2               	bne sprit1		; repeat
+0017A1r 2               
+0017A1r 2               	ldx xtmp		; retreive X-reg
+0017A1r 2               	rts
+0017A1r 2               
+0017A1r 2               .endif
+0017A1r 2               
+0017A1r 2               ;------------------------------------------------------------------
+0017A1r 2               ; SCADD
+0017A1r 2               ;
+0017A1r 2               ; This routine returns a screen address for X,Y in scraddr.
+0017A1r 2               ;------------------------------------------------------------------
+0017A1r 2               
+0017A1r 2               scadd:
+0017A1r 2  A5 rr        	lda dispx		; get x
+0017A3r 2  29 F8        	and #$f8		; reset bit 0-2 for get block pos
+0017A5r 2  85 rr        	sta scraddr		; set lb scraddr
+0017A7r 2  A9 00        	lda #0
+0017A9r 2  85 rr        	sta scraddr+1		; set hb scraddr
+0017ABr 2  06 rr        	asl scraddr		; multiply X by 2
+0017ADr 2  26 rr        	rol scraddr+1
+0017AFr 2               
+0017AFr 2               ; Add line address Y pos to X
+0017AFr 2               
+0017AFr 2  A6 rr        	ldx dispy		; get row address Y pos
 0017B1r 2  18           	clc
 0017B2r 2  A5 rr        	lda scraddr
-0017B4r 2  69 51        	adc #<(ScreenRowBytes-15)
-0017B6r 2  85 rr        	sta scraddr			; new low byte of address.
-0017B8r 2  A5 rr        	lda scraddr+1
-0017BAr 2  69 01        	adc #>(ScreenRowBytes-15)
-0017BCr 2  85 rr        	sta scraddr+1			; new high byte of address.
-0017BEr 2  60           	rts
-0017BFr 2               
-0017BFr 2               .if rflag
-0017BFr 2               ;-------------------------------------------------------------
-0017BFr 2               ; Drop through.
-0017BFr 2               ; Line drawn, now work out next target address.
-0017BFr 2               ;
-0017BFr 2               ; Input:
-0017BFr 2               ;  B  = right mask
-0017BFr 2               ;  C  = left mask
-0017BFr 2               ;  DE = spriteaddress
-0017BFr 2               ;  scraddr = screen address
-0017BFr 2               ;-------------------------------------------------------------
-0017BFr 2               
-0017BFr 2               ddline:
-0017BFr 2               
-0017BFr 2               ; NEW SPRITE
-0017BFr 2               
-0017BFr 2               ; first screen byte
-0017BFr 2               
-0017BFr 2               ddline_spraddr1:
-0017BFr 2               	ldy $ffff,x 		; graphic data.
-0017BFr 2               ddline_shift1:
-0017BFr 2               	lda $ffff,y
-0017BFr 2               	sta sprtmp
-0017BFr 2               	and z80_c 			; mask away what's not needed.
-0017BFr 2               
-0017BFr 2               	ldy #0
-0017BFr 2               	eor (scraddr),y 	; XOR with what's there.
-0017BFr 2               	sta (scraddr),y 	; bung it in.
-0017BFr 2               
-0017BFr 2               ; carry to next screen byte
-0017BFr 2               
-0017BFr 2               	lda sprtmp			; fetch data.
-0017BFr 2               	and z80_b 			; mask away unwanted
-0017BFr 2               	sta sprtmp
-0017BFr 2               
-0017BFr 2               ; middle screen byte
-0017BFr 2               
-0017BFr 2               	inx
-0017BFr 2               ddline_spraddr2:
-0017BFr 2               	ldy $ffff,x 		; second bit of data.
-0017BFr 2               ddline_shift2:
-0017BFr 2               	lda $ffff,y
-0017BFr 2               	sta sprtmp2
-0017BFr 2               	and z80_c 			; mask away what's not needed.
-0017BFr 2               	ora sprtmp
-0017BFr 2               
-0017BFr 2               	ldy #16
-0017BFr 2               	eor (scraddr),y 	; XOR with what's there.
-0017BFr 2               	sta (scraddr),y 	; bung it in.
-0017BFr 2               
-0017BFr 2               ; carry to last screen byte
-0017BFr 2               
-0017BFr 2               	lda sprtmp2
-0017BFr 2               	and z80_b 			; mask away unwanted
-0017BFr 2               
-0017BFr 2               	ldy #32
-0017BFr 2               	eor (scraddr),y 	; XOR with what's there.
-0017BFr 2               	sta (scraddr),y 	; bung it in.
-0017BFr 2               
-0017BFr 2               ; _BEEB next row
-0017BFr 2               
-0017BFr 2               	lda scraddr 		; get low byte of address.
-0017BFr 2               	and #15
-0017BFr 2               	cmp #15				; is this last line of row?
-0017BFr 2               	beq :+
-0017BFr 2               
-0017BFr 2               	; within same row can't increment page
-0017BFr 2               	inc scraddr			; new low byte of address.
-0017BFr 2               	bne ddline2
-0017BFr 2               
-0017BFr 2               :
-0017BFr 2               	clc
-0017BFr 2               	lda scraddr
-0017BFr 2               	adc #<(ScreenRowBytes-15)
-0017BFr 2               	sta scraddr			; new low byte of address.
-0017BFr 2               	lda scraddr+1
-0017BFr 2               	adc #>(ScreenRowBytes-15)
-0017BFr 2               	sta scraddr+1		; new high byte of address.
-0017BFr 2               
-0017BFr 2               ; OLD SPRITE
-0017BFr 2               
-0017BFr 2               ddline2:
-0017BFr 2               
-0017BFr 2               ; still first row but different data!
-0017BFr 2               
-0017BFr 2               	dex
-0017BFr 2               
-0017BFr 2               ; first screen byte
-0017BFr 2               
-0017BFr 2               ddline_spraddr3:
-0017BFr 2               	ldy $ffff,x			; graphic data.
-0017BFr 2               ddline_shift3:
-0017BFr 2               	lda $ffff,y
-0017BFr 2               	sta sprtmp
-0017BFr 2               	and z80_cp 			; mask away what's not needed.
-0017BFr 2               
-0017BFr 2               	ldy #0
-0017BFr 2               	eor (z80_hlp),y 	; XOR with what's there.
-0017BFr 2               	sta (z80_hlp),y 	; bung it in.
-0017BFr 2               
-0017BFr 2               ; carry to next screen byte
-0017BFr 2               
-0017BFr 2               	lda sprtmp			; fetch data.
-0017BFr 2               	and z80_bp 			; mask away unwanted
-0017BFr 2               	sta sprtmp
-0017BFr 2               
-0017BFr 2               ; middle screen byte
-0017BFr 2               
-0017BFr 2               	inx
-0017BFr 2               ddline_spraddr4:
-0017BFr 2               	ldy $ffff,x 		; second bit of data.
-0017BFr 2               ddline_shift4:
-0017BFr 2               	lda $ffff,y
-0017BFr 2               	sta sprtmp2
-0017BFr 2               	and z80_cp 			; mask away what's not needed.
-0017BFr 2               	ora sprtmp
-0017BFr 2               
-0017BFr 2               	ldy #16
-0017BFr 2               	eor (z80_hlp),y 	; XOR with what's there.
-0017BFr 2               	sta (z80_hlp),y 	; bung it in.
-0017BFr 2               
-0017BFr 2               ; last screen byte
-0017BFr 2               
-0017BFr 2               	lda sprtmp2			; fetch data.
-0017BFr 2               	and z80_bp 			; mask away unwanted
-0017BFr 2               
-0017BFr 2               	ldy #32
-0017BFr 2               	eor (z80_hlp),y 	; XOR with what's there.
-0017BFr 2               	sta (z80_hlp),y 	; bung it in.
-0017BFr 2               
-0017BFr 2               ; next row of sprite data
-0017BFr 2               
-0017BFr 2               	inx
-0017BFr 2               
-0017BFr 2               ; _BEEB screen arrangement
-0017BFr 2               
-0017BFr 2               	lda z80_lp 			; get low byte of address.
-0017BFr 2               	and #15
-0017BFr 2               	cmp #15				; is this last line of row?
-0017BFr 2               	beq :+
-0017BFr 2               
-0017BFr 2               	; within same row can't increment page
-0017BFr 2               	inc z80_lp			; new low byte of address.
-0017BFr 2               	rts
-0017BFr 2               
-0017BFr 2               :
-0017BFr 2               	clc
-0017BFr 2               	lda z80_lp
-0017BFr 2               	adc #<(ScreenRowBytes-15)
-0017BFr 2               	sta z80_lp			; new low byte of address.
-0017BFr 2               	lda z80_lp+1
-0017BFr 2               	adc #>(ScreenRowBytes-15)
-0017BFr 2               	sta z80_lp+1		; new high byte of address.
-0017BFr 2               	rts
-0017BFr 2               .endif
-0017BFr 2               
-0017BFr 2               ;----------------------------------------------------
-0017BFr 2               ; Display character in A at dispx,dispy.
-0017BFr 2               ;
-0017BFr 2               ; Input:
-0017BFr 2               ;  A 	   = character to print
-0017BFr 2               ;----------------------------------------------------
-0017BFr 2               
-0017BFr 2               pchar:
-0017BFr 2  85 rr        	sta fntaddr
-0017C1r 2  A9 00        	lda #0
-0017C3r 2  85 rr        	sta fntaddr+1
-0017C5r 2  06 rr        	asl fntaddr  		; multiply char by 8.
-0017C7r 2  26 rr        	rol fntaddr+1
-0017C9r 2  06 rr        	asl fntaddr
-0017CBr 2  26 rr        	rol fntaddr+1
-0017CDr 2  06 rr        	asl fntaddr
-0017CFr 2  26 rr        	rol fntaddr+1
-0017D1r 2               
-0017D1r 2  A5 rr        	lda fntaddr
-0017D3r 2  18           	clc
-0017D4r 2  69 rr        	adc #<(FONT-256)
-0017D6r 2  85 rr        	sta fntaddr		; that's the low byte.
-0017D8r 2  A5 rr        	lda fntaddr+1
-0017DAr 2  69 rr        	adc #>(FONT-256)
-0017DCr 2  85 rr        	sta fntaddr+1		; add displacement.
-0017DEr 2               
-0017DEr 2               pchark:
-0017DEr 2  20 rr rr     	jsr gaadd		; set colour attribute
-0017E1r 2  AD rr rr     	lda fontcol
-0017E4r 2  A0 00        	ldy #0
-0017E6r 2  91 rr        	sta (bufaddr),y
-0017E8r 2               
-0017E8r 2  20 rr rr     	jsr gprad		; get screen address.
-0017EBr 2  A2 07        	ldx #7			; lines to write.
-0017EDr 2               pchar0:
-0017EDr 2  A0 00        	ldy #0
-0017EFr 2  B1 rr        	lda (fntaddr),y 	; get image byte.
-0017F1r 2  BC rr rr     	ldy scrtab,x		; Get rowoffset
-0017F4r 2               .if iflag
-0017F4r 2               	eor #TxtInvert		; Invert
-0017F4r 2               .endif
-0017F4r 2  91 rr        	sta (scraddr),y 	; copy to screen.
-0017F6r 2  E6 rr        	inc fntaddr		; next image byte.
-0017F8r 2  D0 02        	bne :+
-0017FAr 2  E6 rr        	inc fntaddr+1
-0017FCr 2               :
-0017FCr 2  CA           	dex			; next screen row down.
-0017FDr 2  10 EE        	bpl pchar0		; repeat.
-0017FFr 2               
-0017FFr 2  60           	rts
-001800r 2               
-001800r 2  07 06 05 04  scrtab:		.byte $07,$06,$05,$04,$03,$02,$01,$00
-001804r 2  03 02 01 00  
-001808r 2               
-001808r 2               ;----------------------------------------------------
-001808r 2               ; LoadFile
-001808r 2               ;----------------------------------------------------
-001808r 2               
-001808r 2               loadfile:
-001808r 2  AA           	tax
-001809r 2  A9 rr        	lda #<msgdat		; pointer to messages.
-00180Br 2  85 rr        	sta z80_l
-00180Dr 2  A9 rr        	lda #>msgdat
-00180Fr 2  85 rr        	sta z80_h
-001811r 2  20 rr rr     	jsr getwrd		; get message number.
-001814r 2               
-001814r 2               ; z80_hl should point to the textstring now.
-001814r 2               
-001814r 2  60           	rts
-001815r 2               
-001815r 1               ;	.include "music.inc"
-001815r 1               	.include "z80.asm"
-001815r 2               ;------------------------------------------------------
-001815r 2               ; z80.asm
-001815r 2               ; spectrum stuff
-001815r 2               ; adresses
-001815r 2               
-001815r 2               ;ws	 = $60
-001815r 2               
-001815r 2               ;z80_f	 = ws+$00
-001815r 2               ;z80_a	 = ws+$01
-001815r 2               ;z80_af	 = z80_f
-001815r 2               
-001815r 2               ;z80_c	 = ws+$02
-001815r 2               ;z80_b	 = ws+$03
-001815r 2               ;z80_bc	 = z80_c
-001815r 2               
-001815r 2               ;z80_e	 = ws+$04
-001815r 2               ;z80_d	 = ws+$05
-001815r 2               ;z80_de	 = z80_e
-001815r 2               
-001815r 2               ;z80_l	 = ws+$06
-001815r 2               ;z80_h	 = ws+$07
-001815r 2               ;z80_hl	 = z80_l
-001815r 2               
-001815r 2               ;z80_x    = ws+$08
-001815r 2               ;z80_i    = ws+$09
-001815r 2               ;z80_ix	 = z80_x
-001815r 2               
-001815r 2               ;z80_iy	 = ws+$0a
-001815r 2               
-001815r 2               ;z80_fp	 = ws+$0c
-001815r 2               ;z80_ap	 = ws+$0d
-001815r 2               
-001815r 2               ;z80_cp	 = ws+$0e
-001815r 2               ;z80_bp	 = ws+$0f
-001815r 2               ;z80_bcp = z80_cp
-001815r 2               
-001815r 2               ;z80_ep	 = ws+$10
-001815r 2               ;z80_dp	 = ws+$11
-001815r 2               ;z80_dep = z80_ep
-001815r 2               
-001815r 2               ;z80_lp	 = ws+$12
-001815r 2               ;z80_hp	 = ws+$13
-001815r 2               ;z80_hlp = z80_lp
-001815r 2               
-001815r 2               ;z80_sp   = ws+$14
-001815r 2               
-001815r 2               ;z80_reg0 = ws+$16
-001815r 2               ;z80_reg1 = ws+$17
-001815r 2               ;z80_reg2 = ws+$18
-001815r 2               ;z80_reg3 = ws+$19
-001815r 2               
-001815r 2               ;z80_r	 = ws+$1a
-001815r 2               
-001815r 2               ; Contains seperatly 1 bit set
-001815r 2               ; _BEEB this is not safe memory to use as required by MOS
-001815r 2               
-001815r 2               _bitmem0	= $f8
-001815r 2               _bitmem1	= $f9
-001815r 2               _bitmem2	= $fa
-001815r 2               _bitmem3	= $fb
-001815r 2               _bitmem4	= $fc
-001815r 2               _bitmem5	= $fd
-001815r 2               _bitmem6	= $fe
-001815r 2               _bitmem7	= $ff
-001815r 2               
-001815r 2               ; constants
-001815r 2               _bitvalue0	= $01
-001815r 2               _bitvalue1	= $02
-001815r 2               _bitvalue2	= $04
-001815r 2               _bitvalue3	= $08
-001815r 2               _bitvalue4	= $10
-001815r 2               _bitvalue5	= $20
-001815r 2               _bitvalue6	= $40
-001815r 2               _bitvalue7	= $80
-001815r 2               
-001815r 2               _notbitvalue0	= $fe
-001815r 2               _notbitvalue1	= $fd
-001815r 2               _notbitvalue2	= $fb
-001815r 2               _notbitvalue3	= $f7
-001815r 2               _notbitvalue4	= $ef
-001815r 2               _notbitvalue5	= $df
-001815r 2               _notbitvalue6	= $bf
-001815r 2               _notbitvalue7	= $7f
-001815r 2               
-001815r 2               
-001815r 2               ;add_hl_bc:
-001815r 2               ;		lda z80_l
-001815r 2               ;		clc
-001815r 2               ;		adc z80_c
-001815r 2               ;		sta z80_l
-001815r 2               ;		lda z80_h
-001815r 2               ;		adc z80_b
-001815r 2               ;		sta z80_h
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;add_ix_de:
-001815r 2               ;		lda z80_ix
-001815r 2               ;		clc
-001815r 2               ;		adc z80_e
-001815r 2               ;		sta z80_ix
-001815r 2               ;		lda z80_ix+1
-001815r 2               ;		adc z80_d
-001815r 2               ;		sta z80_ix+1
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;add_iy_de:
-001815r 2               ;		lda z80_iy
-001815r 2               ;		clc
-001815r 2               ;		adc z80_e
-001815r 2               ;		sta z80_iy
-001815r 2               ;		lda z80_iy+1
-001815r 2               ;		adc z80_d
-001815r 2               ;		sta z80_iy+1
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;add_hl_de:
-001815r 2               ;		lda z80_l
-001815r 2               ;		clc
-001815r 2               ;		adc z80_e
-001815r 2               ;		sta z80_l
-001815r 2               ;		lda z80_h
-001815r 2               ;		adc z80_d
-001815r 2               ;		sta z80_h
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;add_ix_bc:
-001815r 2               ;		lda z80_ix
-001815r 2               ;		clc
-001815r 2               ;		adc z80_c
-001815r 2               ;		sta z80_ix
-001815r 2               ;		lda z80_ix+1
-001815r 2               ;		adc z80_b
-001815r 2               ;		sta z80_ix+1
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;add_iy_bc:
-001815r 2               ;		lda z80_iy
-001815r 2               ;		clc
-001815r 2               ;		adc z80_c
-001815r 2               ;		sta z80_iy
-001815r 2               ;		lda z80_iy+1
-001815r 2               ;		adc z80_b
-001815r 2               ;		sta z80_iy+1
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;sbc_hl_de:
-001815r 2               ;		lda z80_l
-001815r 2               ;		sbc z80_e
-001815r 2               ;		sta z80_l
-001815r 2               ;		lda z80_h
-001815r 2               ;		sbc z80_d
-001815r 2               ;		sta z80_h
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;sbc_hl_bc:
-001815r 2               ;		lda z80_l
-001815r 2               ;		sbc z80_c
-001815r 2               ;		sta z80_l
-001815r 2               ;		lda z80_h
-001815r 2               ;		sbc z80_b
-001815r 2               ;		sta z80_h
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;cmp_hl_bc:
-001815r 2               ;		lda z80_l
-001815r 2               ;		cmp z80_c
-001815r 2               ;		bne cmp_hl_bc_end
-001815r 2               ;		lda z80_h
-001815r 2               ;		cmp z80_b
-001815r 2               ;cmp_hl_bc_end:
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;cmp_iy_ix:
-001815r 2               ;		lda z80_iy
-001815r 2               ;		cmp z80_ix
-001815r 2               ;		bne cmp_iy_ix_end
-001815r 2               ;		lda z80_iy+1
-001815r 2               ;		cmp z80_ix+1
-001815r 2               ;cmp_iy_ix_end:
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;dec_hl:
-001815r 2               ;		lda z80_l
-001815r 2               ;		bne dec_hl_no_dec_h
-001815r 2               ;		dec z80_h
-001815r 2               ;dec_hl_no_dec_h:
-001815r 2               ;		dec z80_l
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;dec_ix:
-001815r 2               ;		lda z80_ix
-001815r 2               ;		bne dec_ix_no_dec_h
-001815r 2               ;		dec z80_ix+1
-001815r 2               ;dec_ix_no_dec_h:
-001815r 2               ;		dec z80_ix
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;dec_bc:
-001815r 2               ;		lda z80_c
-001815r 2               ;		bne dec_bc_no_dec_b
-001815r 2               ;		dec z80_b
-001815r 2               ;dec_bc_no_dec_b:
-001815r 2               ;		dec z80_c
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;dec_de:
-001815r 2               ;		lda z80_e
-001815r 2               ;		bne dec_de_no_dec_d
-001815r 2               ;		dec z80_d
-001815r 2               ;dec_de_no_dec_d:
-001815r 2               ;		dec z80_e
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               ;ex_af_afs:
-001815r 2               ;	rts
-001815r 2               ;ex_de_hl:
-001815r 2               ;		lda z80_e
-001815r 2               ;		ldx z80_l
-001815r 2               ;		stx z80_e
-001815r 2               ;		sta z80_l
-001815r 2               ;		lda z80_d
-001815r 2               ;		ldx z80_h
-001815r 2               ;		stx z80_d
-001815r 2               ;		sta z80_h
-001815r 2               ;		rts
-001815r 2               ;
-001815r 2               exx:
-001815r 2  A5 rr        		lda z80_c
-001817r 2  A4 rr        		ldy z80_cp
-001819r 2  84 rr        		sty z80_c
-00181Br 2  85 rr        		sta z80_cp
-00181Dr 2  A5 rr        		lda z80_b
-00181Fr 2  A4 rr        		ldy z80_bp
-001821r 2  84 rr        		sty z80_b
-001823r 2  85 rr        		sta z80_bp
-001825r 2  A5 rr        		lda z80_e
-001827r 2  A4 rr        		ldy z80_ep
-001829r 2  84 rr        		sty z80_e
-00182Br 2  85 rr        		sta z80_ep
-00182Dr 2  A5 rr        		lda z80_d
-00182Fr 2  A4 rr        		ldy z80_dp
-001831r 2  84 rr        		sty z80_d
-001833r 2  85 rr        		sta z80_dp
-001835r 2  A5 rr        		lda scraddr
-001837r 2  A4 rr        		ldy z80_lp
-001839r 2  84 rr        		sty scraddr
-00183Br 2  85 rr        		sta z80_lp
-00183Dr 2  A5 rr        		lda scraddr+1
-00183Fr 2  A4 rr        		ldy z80_hp
-001841r 2  84 rr        		sty scraddr+1
-001843r 2  85 rr        		sta z80_hp
-001845r 2  60           		rts
-001846r 2               
-001846r 2               ;ex_sp_hl:
-001846r 2               ;		tsx
-001846r 2               ;		lda $0103,x
-001846r 2               ;		ldy z80_h
-001846r 2               ;		sta z80_h
-001846r 2               ;		tya
-001846r 2               ;		sta $0103,x
-001846r 2               ;		lda $0104,x
-001846r 2               ;		ldy z80_l
-001846r 2               ;		sta z80_l
-001846r 2               ;		tya
-001846r 2               ;		sta $104,x
-001846r 2               ;		rts
-001846r 2               ;
-001846r 2               ;ldi:
-001846r 2               ;	rts
-001846r 2               ;ldir:
-001846r 2               ;		ldy #$00
-001846r 2               ;		ldx z80_b
-001846r 2               ;		beq ldir_last_page
-001846r 2               ;ldir_loop:
-001846r 2               ;		lda (z80_hl),y
-001846r 2               ;		sta (z80_de),y
-001846r 2               ;		iny
-001846r 2               ;		bne ldir_loop
-001846r 2               ;		inc z80_h
-001846r 2               ;		inc z80_d
-001846r 2               ;		dex
-001846r 2               ;		bne ldir_loop
-001846r 2               ;ldir_last_page:
-001846r 2               ;		lda z80_c
-001846r 2               ;		beq ldir_end
-001846r 2               ;ldir_last_page_loop:
-001846r 2               ;		lda (z80_hl),y
-001846r 2               ;		sta (z80_de),y
-001846r 2               ;		iny
-001846r 2               ;		cpy z80_c
-001846r 2               ;		bne ldir_last_page_loop
-001846r 2               ;ldir_end:
-001846r 2               ;		stx z80_c
-001846r 2               ;		stx z80_b
-001846r 2               ;		tya
-001846r 2               ;		clc
-001846r 2               ;		adc z80_l
-001846r 2               ;		sta z80_l
-001846r 2               ;		bcc *+4
-001846r 2               ;		inc z80_h
-001846r 2               ;		tya
-001846r 2               ;		clc
-001846r 2               ;		adc z80_e
-001846r 2               ;		sta z80_e
-001846r 2               ;		bcc *+4
-001846r 2               ;		inc z80_d
-001846r 2               ;		rts
-001846r 2               ;
-001846r 2               ;lddr:		ldy #$00
-001846r 2               ;lddr_loop:
-001846r 2               ;		lda (z80_hl),y
-001846r 2               ;		sta (z80_de),y
-001846r 2               ;		jsr dec_hl
-001846r 2               ;		jsr dec_de
-001846r 2               ;		jsr dec_bc
-001846r 2               ;		lda z80_b
-001846r 2               ;		ora z80_c
-001846r 2               ;		bne lddr_loop
-001846r 2               ;		rts
-001846r 2               ;ei:
-001846r 2               ;		rts
-001846r 2               ;di:
-001846r 2               ;		rts
-001846r 2               
-001846r 2               ;-------------------------------------------------------------
-001846r 2               ; Set bits in bitmem
-001846r 2               ;-------------------------------------------------------------
-001846r 2               
-001846r 2               .if 0
-001846r 2               z80_init:
-001846r 2               	ldx #$00
-001846r 2               	lda #$01
-001846r 2               z80_init_loop:
-001846r 2               	sta _bitmem0,x
-001846r 2               	inx
-001846r 2               	asl a
-001846r 2               	bne z80_init_loop
-001846r 2               	rts
-001846r 2               .endif
-001846r 2               
-001846r 2               push_af:
-001846r 2               push_bc:
-001846r 2               push_de:
-001846r 2               push_hl:
-001846r 2               
-001846r 2               pop_af:
-001846r 2               pop_bc:
-001846r 2               pop_de:
-001846r 2               pop_ix:
-001846r 2               pop_hl:
-001846r 2               
-001846r 2               add_hl_hl:
-001846r 2               
-001846r 2               inc_bc:
-001846r 2               inc_de:
-001846r 2               inc_hl:
-001846r 2               inc_ix:
-001846r 2               inc_sp:
-001846r 2               
-001846r 2               cpir:
-001846r 2               
-001846r 2               ex_af_af:
-001846r 2               ;	rts
-001846r 2               
-001846r 1               
-001846r 1               eind_asm:
-001846r 1               eop:					; End Of Program
-001846r 1               
-001846r 1               .out .sprintf("Gamecode size = %d bytes, free space = %d bytes", (eind_asm - main),(24576-eind_asm + main))
-001846r 1               
+0017B4r 2  7D 00 07     	adc SCADTB_lb,x
+0017B7r 2  85 rr        	sta scraddr
+0017B9r 2  A5 rr        	lda scraddr+1
+0017BBr 2  7D 00 08     	adc SCADTB_hb,x
+0017BEr 2  85 rr        	sta scraddr+1
+0017C0r 2               
+0017C0r 2  60           	rts
+0017C1r 2               
+0017C1r 2               ;------------------------------------------------------------------
+0017C1r 2               ; SSPRIA
+0017C1r 2               ;
+0017C1r 2               ; Erase single sprite, old (ix+0).
+0017C1r 2               ;------------------------------------------------------------------
+0017C1r 2               
+0017C1r 2               sspria:
+0017C1r 2  20 rr rr     	jsr gsprad		; get old sprite address.
+0017C4r 2               sspri2:
+0017C4r 2               .if rflag
+0017C4r 2               	lda z80_e		; 3c
+0017C4r 2               	sta dline_spraddr1+1	; 4c
+0017C4r 2               	sta dline_spraddr2+1	; 4c
+0017C4r 2               	lda z80_d		; 3c
+0017C4r 2               	sta dline_spraddr1+2	; 4c
+0017C4r 2               	sta dline_spraddr2+2	; 4c
+0017C4r 2               
+0017C4r 2               	ldx sprshft
+0017C4r 2               	lda shift_table,x
+0017C4r 2               	sta dline_shift1+1
+0017C4r 2               	sta dline_shift2+1
+0017C4r 2               	lda shift_table+1,x
+0017C4r 2               	sta dline_shift1+2
+0017C4r 2               	sta dline_shift2+2
+0017C4r 2               
+0017C4r 2               	ldx #0			; byte counter.
+0017C4r 2               sspri0:
+0017C4r 2               	jsr dline		; draw a line.
+0017C4r 2                 .if bflag
+0017C4r 2               	cpx #48			; big sprites have 24 bytes
+0017C4r 2                 .else
+0017C4r 2               	cpx #32			; normal sprites have 32 bytes
+0017C4r 2                 .endif
+0017C4r 2               	bne sspri0		; repeat 16 times x 2 bytes
+0017C4r 2               	rts
+0017C4r 2               .else
+0017C4r 2                 .if bflag
+0017C4r 2               	lda #24			; big sprites have 24 lines
+0017C4r 2                 .else
+0017C4r 2  A9 10        	lda #16			; normal sprites have 16 lines.
+0017C6r 2                 .endif
+0017C6r 2  8D rr rr     	sta acnt
+0017C9r 2               sspri0:
+0017C9r 2  20 rr rr     	jsr dline		; draw a line.
+0017CCr 2  CE rr rr     	dec acnt
+0017CFr 2  D0 F8        	bne sspri0		; repeat 16 times
+0017D1r 2  60           	rts
+0017D2r 2               
+0017D2r 2  00           acnt:	.byte 0			; line counter
+0017D3r 2               
+0017D3r 2               .endif
+0017D3r 2               
+0017D3r 2               ;------------------------------------------------------------------
+0017D3r 2               ; SSPRIB
+0017D3r 2               ;
+0017D3r 2               ; Display single sprite, new (ix+5).
+0017D3r 2               ;------------------------------------------------------------------
+0017D3r 2               
+0017D3r 2               ssprib:
+0017D3r 2  20 rr rr     	jsr gspran 		; get new sprite address.
+0017D6r 2  4C rr rr     	jmp sspri2		; Display sprite
+0017D9r 2               
+0017D9r 2               ;------------------------------------------------------------------
+0017D9r 2               ; SSPRIC
+0017D9r 2               ;
+0017D9r 2               ; Erase old (ix+0) and display new (ix+5) sprite line by line.
+0017D9r 2               ;------------------------------------------------------------------
+0017D9r 2               
+0017D9r 2               sspric:
+0017D9r 2               .if rflag
+0017D9r 2               	jsr gsprad 		; get old sprite address.
+0017D9r 2               
+0017D9r 2               	lda z80_e		; 3c
+0017D9r 2               	sta ddline_spraddr3+1	; 4c
+0017D9r 2               	sta ddline_spraddr4+1	; 4c
+0017D9r 2               
+0017D9r 2               	lda z80_d		; 3c
+0017D9r 2               	sta ddline_spraddr3+2	; 4c
+0017D9r 2               	sta ddline_spraddr4+2	; 4c
+0017D9r 2               
+0017D9r 2               	ldx sprshft		; set spriteshift table addresses
+0017D9r 2               	lda shift_table,x
+0017D9r 2               	sta ddline_shift3+1
+0017D9r 2               	sta ddline_shift4+1
+0017D9r 2               	lda shift_table+1,x
+0017D9r 2               	sta ddline_shift3+2
+0017D9r 2               	sta ddline_shift4+2
+0017D9r 2               
+0017D9r 2               	jsr exx  		; store addresses.
+0017D9r 2               	jsr gspran 		; get new sprite addresses.
+0017D9r 2               
+0017D9r 2               	lda z80_e		; 3c
+0017D9r 2               	sta ddline_spraddr1+1	; 4c
+0017D9r 2               	sta ddline_spraddr2+1	; 4c
+0017D9r 2               
+0017D9r 2               	lda z80_d		; 3c
+0017D9r 2               	sta ddline_spraddr1+2	; 4c
+0017D9r 2               	sta ddline_spraddr2+2	; 4c
+0017D9r 2               
+0017D9r 2               	ldx sprshft
+0017D9r 2               	lda shift_table,x
+0017D9r 2               	sta ddline_shift1+1
+0017D9r 2               	sta ddline_shift2+1
+0017D9r 2               	lda shift_table+1,x
+0017D9r 2               	sta ddline_shift1+2
+0017D9r 2               	sta ddline_shift2+2
+0017D9r 2               
+0017D9r 2               	ldx #0
+0017D9r 2               lloop:
+0017D9r 2               	jsr ddline 		; draw a line.
+0017D9r 2                 .if bflag
+0017D9r 2               	cpx #48
+0017D9r 2                 .else
+0017D9r 2               	cpx #32
+0017D9r 2                 .endif
+0017D9r 2               	bne lloop
+0017D9r 2               	rts
+0017D9r 2               
+0017D9r 2               shift_table:
+0017D9r 2               	.word shift0
+0017D9r 2               	.word shift2
+0017D9r 2               	.word shift4
+0017D9r 2               	.word shift6
+0017D9r 2               
+0017D9r 2               ;------------------------------------------------------------------
+0017D9r 2               ; DLINE
+0017D9r 2               ;
+0017D9r 2               ; Draw a sprite line, now work out next target address.
+0017D9r 2               ;
+0017D9r 2               ; Input:
+0017D9r 2               ;  B  = right mask
+0017D9r 2               ;  C  = left mask
+0017D9r 2               ;  DE = spriteaddress
+0017D9r 2               ;  scraddr = screen address
+0017D9r 2               ;------------------------------------------------------------------
+0017D9r 2               
+0017D9r 2               dline:
+0017D9r 2               
+0017D9r 2               dline_spraddr1:
+0017D9r 2               	ldy $ffff,x 		; get graphic data as pointer.
+0017D9r 2               dline_shift1:
+0017D9r 2               	lda $ffff,y		; get pre-shifted data
+0017D9r 2               	sta sprtmp		; save byte
+0017D9r 2               	and z80_c 		; mask right for left byte
+0017D9r 2               
+0017D9r 2               	ldy #0
+0017D9r 2               	eor (scraddr),y 	; XOR with what's there.
+0017D9r 2               	sta (scraddr),y 	; display left byte
+0017D9r 2               
+0017D9r 2               ; carry to next screen byte
+0017D9r 2               
+0017D9r 2               	lda sprtmp		; fetch data.
+0017D9r 2               	and z80_b 		; mask for left part
+0017D9r 2               	sta sprtmp
+0017D9r 2               
+0017D9r 2               ; middle screen byte
+0017D9r 2               
+0017D9r 2               	inx
+0017D9r 2               dline_spraddr2:
+0017D9r 2               	ldy $ffff,x 		; second bit of data.
+0017D9r 2               dline_shift2:
+0017D9r 2               	lda $ffff,y
+0017D9r 2               	sta sprtmp2
+0017D9r 2               	and z80_c 		; mask away what's not needed.
+0017D9r 2               	ora sprtmp
+0017D9r 2               	ldy #16
+0017D9r 2               	eor (scraddr),y 	; XOR with what's there.
+0017D9r 2               	sta (scraddr),y 	; display middle bye.
+0017D9r 2               
+0017D9r 2               ; carry to last screen byte
+0017D9r 2               
+0017D9r 2               	lda sprtmp2
+0017D9r 2               	and z80_b 		; mask away unwanted
+0017D9r 2               
+0017D9r 2               	ldy #32
+0017D9r 2               	eor (scraddr),y 	; XOR with what's there.
+0017D9r 2               	sta (scraddr),y 	; display right byte.
+0017D9r 2               
+0017D9r 2               	inx
+0017D9r 2               .else
+0017D9r 2               
+0017D9r 2  20 rr rr     	jsr gsprad 		; get old sprite address.
+0017DCr 2  20 rr rr     	jsr exx  		; store addresses.
+0017DFr 2  20 rr rr     	jsr gspran 		; get new sprite addresses.
+0017E2r 2               
+0017E2r 2               .if bflag
+0017E2r 2               	lda #23
+0017E2r 2               .else
+0017E2r 2  A9 0F        	lda #15
+0017E4r 2               .endif
+0017E4r 2  85 rr        	sta ccnt
+0017E6r 2               lloop:
+0017E6r 2  20 rr rr     	jsr dline 		; draw a line.
+0017E9r 2  20 rr rr     	jsr exx  		; restore old addresses.
+0017ECr 2  20 rr rr     	jsr dline 		; delete a line.
+0017EFr 2  20 rr rr     	jsr exx  		; flip to new sprite addresses.
+0017F2r 2  C6 rr        	dec ccnt
+0017F4r 2  D0 F0        	bne lloop
+0017F6r 2               
+0017F6r 2  20 rr rr     	jsr dline		; draw a line.
+0017F9r 2  20 rr rr     	jsr exx 		; restore old addresses.
+0017FCr 2               
+0017FCr 2               ;-------------------------------------------------------------
+0017FCr 2               ; Drop through.
+0017FCr 2               ; Line drawn, now work out next target address.
+0017FCr 2               ;
+0017FCr 2               ; Input:
+0017FCr 2               ;  B  = right mask
+0017FCr 2               ;  C  = left mask
+0017FCr 2               ;  DE = spriteaddress
+0017FCr 2               ;  scraddr = screen address
+0017FCr 2               ;-------------------------------------------------------------
+0017FCr 2               
+0017FCr 2               dline:
+0017FCr 2  A0 00        	ldy #0
+0017FEr 2  B1 rr        	lda (z80_de),y 		; graphic data.
+001800r 2  48           	pha
+001801r 2  25 rr        	and z80_c 		; mask away what's not needed.
+001803r 2  51 rr        	eor (scraddr),y 	; XOR with what's there.
+001805r 2  91 rr        	sta (scraddr),y 	; left byte on screen.
+001807r 2               
+001807r 2  68           	pla
+001808r 2  25 rr        	and z80_b 		; mask away unwanted bits.
+00180Ar 2  A0 20        	ldy #32
+00180Cr 2  51 rr        	eor (scraddr),y 	; XOR with what's there.
+00180Er 2  91 rr        	sta (scraddr),y 	; right byte on screen
+001810r 2               
+001810r 2  E6 rr        	inc z80_e 		; next graphic.
+001812r 2  D0 02        	bne :+
+001814r 2  E6 rr        	inc z80_d
+001816r 2               :
+001816r 2               ; _BEEB screen arrangement
+001816r 2               ;	sec
+001816r 2               ;	lda scraddr 		; one character cell to the left.
+001816r 2               ;	sbc #8
+001816r 2               ;	sta scraddr
+001816r 2               ;	lda scraddr+1
+001816r 2               ;	sbc #0
+001816r 2               ;	sta scraddr+1
+001816r 2  A0 00        	ldy #0
+001818r 2  B1 rr        	lda (z80_de),y 		; second bit of data.
+00181Ar 2  A0 10        	ldy #16
+00181Cr 2  51 rr        	eor (scraddr),y 	; XOR with what's there.
+00181Er 2  91 rr        	sta (scraddr),y 	; middle byte on screen.
+001820r 2               
+001820r 2  E6 rr        	inc z80_e 		; point to next line of data.
+001822r 2  D0 02        	bne :+
+001824r 2  E6 rr        	inc z80_d
+001826r 2               :
+001826r 2               ; _BEEB screen arrangement
+001826r 2               ;	sec
+001826r 2               ;	lda scraddr 		; another char left.
+001826r 2               ;	sbc #8
+001826r 2               ;	sta scraddr
+001826r 2               ;	lda scraddr+1
+001826r 2               ;	sbc #0
+001826r 2               ;	sta scraddr+1
+001826r 2               .endif
+001826r 2               
+001826r 2               ;----------------------------------------------------------------------
+001826r 2               ; Line drawn, now work out next target address.
+001826r 2               ;----------------------------------------------------------------------
+001826r 2               
+001826r 2               ; _BEEB screen arrangement
+001826r 2               
+001826r 2               nline:
+001826r 2  A5 rr        	lda scraddr 			; get low byte of address.
+001828r 2  29 0F        	and #15
+00182Ar 2  C9 0F        	cmp #15				; is this last line of row?
+00182Cr 2  F0 03        	beq beeb_next_row
+00182Er 2               
+00182Er 2               	; within same row
+00182Er 2  E6 rr        	inc scraddr			; new low byte of address.
+001830r 2  60           	rts
+001831r 2               
+001831r 2               beeb_next_row:
+001831r 2  18           	clc
+001832r 2  A5 rr        	lda scraddr
+001834r 2  69 51        	adc #<(ScreenRowBytes-15)
+001836r 2  85 rr        	sta scraddr			; new low byte of address.
+001838r 2  A5 rr        	lda scraddr+1
+00183Ar 2  69 01        	adc #>(ScreenRowBytes-15)
+00183Cr 2  85 rr        	sta scraddr+1			; new high byte of address.
+00183Er 2  60           	rts
+00183Fr 2               
+00183Fr 2               .if rflag
+00183Fr 2               ;-------------------------------------------------------------
+00183Fr 2               ; Drop through.
+00183Fr 2               ; Line drawn, now work out next target address.
+00183Fr 2               ;
+00183Fr 2               ; Input:
+00183Fr 2               ;  B  = right mask
+00183Fr 2               ;  C  = left mask
+00183Fr 2               ;  DE = spriteaddress
+00183Fr 2               ;  scraddr = screen address
+00183Fr 2               ;-------------------------------------------------------------
+00183Fr 2               
+00183Fr 2               ddline:
+00183Fr 2               
+00183Fr 2               ; NEW SPRITE
+00183Fr 2               
+00183Fr 2               ; first screen byte
+00183Fr 2               
+00183Fr 2               ddline_spraddr1:
+00183Fr 2               	ldy $ffff,x 		; graphic data.
+00183Fr 2               ddline_shift1:
+00183Fr 2               	lda $ffff,y
+00183Fr 2               	sta sprtmp
+00183Fr 2               	and z80_c 			; mask away what's not needed.
+00183Fr 2               
+00183Fr 2               	ldy #0
+00183Fr 2               	eor (scraddr),y 	; XOR with what's there.
+00183Fr 2               	sta (scraddr),y 	; bung it in.
+00183Fr 2               
+00183Fr 2               ; carry to next screen byte
+00183Fr 2               
+00183Fr 2               	lda sprtmp			; fetch data.
+00183Fr 2               	and z80_b 			; mask away unwanted
+00183Fr 2               	sta sprtmp
+00183Fr 2               
+00183Fr 2               ; middle screen byte
+00183Fr 2               
+00183Fr 2               	inx
+00183Fr 2               ddline_spraddr2:
+00183Fr 2               	ldy $ffff,x 		; second bit of data.
+00183Fr 2               ddline_shift2:
+00183Fr 2               	lda $ffff,y
+00183Fr 2               	sta sprtmp2
+00183Fr 2               	and z80_c 			; mask away what's not needed.
+00183Fr 2               	ora sprtmp
+00183Fr 2               
+00183Fr 2               	ldy #16
+00183Fr 2               	eor (scraddr),y 	; XOR with what's there.
+00183Fr 2               	sta (scraddr),y 	; bung it in.
+00183Fr 2               
+00183Fr 2               ; carry to last screen byte
+00183Fr 2               
+00183Fr 2               	lda sprtmp2
+00183Fr 2               	and z80_b 			; mask away unwanted
+00183Fr 2               
+00183Fr 2               	ldy #32
+00183Fr 2               	eor (scraddr),y 	; XOR with what's there.
+00183Fr 2               	sta (scraddr),y 	; bung it in.
+00183Fr 2               
+00183Fr 2               ; _BEEB next row
+00183Fr 2               
+00183Fr 2               	lda scraddr 		; get low byte of address.
+00183Fr 2               	and #15
+00183Fr 2               	cmp #15				; is this last line of row?
+00183Fr 2               	beq :+
+00183Fr 2               
+00183Fr 2               	; within same row can't increment page
+00183Fr 2               	inc scraddr			; new low byte of address.
+00183Fr 2               	bne ddline2
+00183Fr 2               
+00183Fr 2               :
+00183Fr 2               	clc
+00183Fr 2               	lda scraddr
+00183Fr 2               	adc #<(ScreenRowBytes-15)
+00183Fr 2               	sta scraddr			; new low byte of address.
+00183Fr 2               	lda scraddr+1
+00183Fr 2               	adc #>(ScreenRowBytes-15)
+00183Fr 2               	sta scraddr+1		; new high byte of address.
+00183Fr 2               
+00183Fr 2               ; OLD SPRITE
+00183Fr 2               
+00183Fr 2               ddline2:
+00183Fr 2               
+00183Fr 2               ; still first row but different data!
+00183Fr 2               
+00183Fr 2               	dex
+00183Fr 2               
+00183Fr 2               ; first screen byte
+00183Fr 2               
+00183Fr 2               ddline_spraddr3:
+00183Fr 2               	ldy $ffff,x			; graphic data.
+00183Fr 2               ddline_shift3:
+00183Fr 2               	lda $ffff,y
+00183Fr 2               	sta sprtmp
+00183Fr 2               	and z80_cp 			; mask away what's not needed.
+00183Fr 2               
+00183Fr 2               	ldy #0
+00183Fr 2               	eor (z80_hlp),y 	; XOR with what's there.
+00183Fr 2               	sta (z80_hlp),y 	; bung it in.
+00183Fr 2               
+00183Fr 2               ; carry to next screen byte
+00183Fr 2               
+00183Fr 2               	lda sprtmp			; fetch data.
+00183Fr 2               	and z80_bp 			; mask away unwanted
+00183Fr 2               	sta sprtmp
+00183Fr 2               
+00183Fr 2               ; middle screen byte
+00183Fr 2               
+00183Fr 2               	inx
+00183Fr 2               ddline_spraddr4:
+00183Fr 2               	ldy $ffff,x 		; second bit of data.
+00183Fr 2               ddline_shift4:
+00183Fr 2               	lda $ffff,y
+00183Fr 2               	sta sprtmp2
+00183Fr 2               	and z80_cp 			; mask away what's not needed.
+00183Fr 2               	ora sprtmp
+00183Fr 2               
+00183Fr 2               	ldy #16
+00183Fr 2               	eor (z80_hlp),y 	; XOR with what's there.
+00183Fr 2               	sta (z80_hlp),y 	; bung it in.
+00183Fr 2               
+00183Fr 2               ; last screen byte
+00183Fr 2               
+00183Fr 2               	lda sprtmp2			; fetch data.
+00183Fr 2               	and z80_bp 			; mask away unwanted
+00183Fr 2               
+00183Fr 2               	ldy #32
+00183Fr 2               	eor (z80_hlp),y 	; XOR with what's there.
+00183Fr 2               	sta (z80_hlp),y 	; bung it in.
+00183Fr 2               
+00183Fr 2               ; next row of sprite data
+00183Fr 2               
+00183Fr 2               	inx
+00183Fr 2               
+00183Fr 2               ; _BEEB screen arrangement
+00183Fr 2               
+00183Fr 2               	lda z80_lp 			; get low byte of address.
+00183Fr 2               	and #15
+00183Fr 2               	cmp #15				; is this last line of row?
+00183Fr 2               	beq :+
+00183Fr 2               
+00183Fr 2               	; within same row can't increment page
+00183Fr 2               	inc z80_lp			; new low byte of address.
+00183Fr 2               	rts
+00183Fr 2               
+00183Fr 2               :
+00183Fr 2               	clc
+00183Fr 2               	lda z80_lp
+00183Fr 2               	adc #<(ScreenRowBytes-15)
+00183Fr 2               	sta z80_lp			; new low byte of address.
+00183Fr 2               	lda z80_lp+1
+00183Fr 2               	adc #>(ScreenRowBytes-15)
+00183Fr 2               	sta z80_lp+1		; new high byte of address.
+00183Fr 2               	rts
+00183Fr 2               .endif
+00183Fr 2               
+00183Fr 2               ;----------------------------------------------------
+00183Fr 2               ; Display character in A at dispx,dispy.
+00183Fr 2               ;
+00183Fr 2               ; Input:
+00183Fr 2               ;  A 	   = character to print
+00183Fr 2               ;----------------------------------------------------
+00183Fr 2               
+00183Fr 2               pchar:
+00183Fr 2  85 rr        	sta fntaddr
+001841r 2  A9 00        	lda #0
+001843r 2  85 rr        	sta fntaddr+1
+001845r 2  06 rr        	asl fntaddr  		; multiply char by 8.
+001847r 2  26 rr        	rol fntaddr+1
+001849r 2  06 rr        	asl fntaddr
+00184Br 2  26 rr        	rol fntaddr+1
+00184Dr 2  06 rr        	asl fntaddr
+00184Fr 2  26 rr        	rol fntaddr+1
+001851r 2               
+001851r 2  A5 rr        	lda fntaddr
+001853r 2  18           	clc
+001854r 2  69 rr        	adc #<(FONT-256)
+001856r 2  85 rr        	sta fntaddr		; that's the low byte.
+001858r 2  A5 rr        	lda fntaddr+1
+00185Ar 2  69 rr        	adc #>(FONT-256)
+00185Cr 2  85 rr        	sta fntaddr+1		; add displacement.
+00185Er 2               
+00185Er 2               pchark:
+00185Er 2  20 rr rr     	jsr gaadd		; set colour attribute
+001861r 2  AD rr rr     	lda fontcol
+001864r 2  A0 00        	ldy #0
+001866r 2  91 rr        	sta (bufaddr),y
+001868r 2               
+001868r 2  20 rr rr     	jsr gprad		; get screen address.
+00186Br 2  A2 07        	ldx #7			; lines to write.
+00186Dr 2               pchar0:
+00186Dr 2  A0 00        	ldy #0
+00186Fr 2  B1 rr        	lda (fntaddr),y 	; get image byte.
+001871r 2  BC rr rr     	ldy scrtab,x		; Get rowoffset
+001874r 2               .if iflag
+001874r 2               	eor #TxtInvert		; Invert
+001874r 2               .endif
+001874r 2  91 rr        	sta (scraddr),y 	; copy to screen.
+001876r 2  E6 rr        	inc fntaddr		; next image byte.
+001878r 2  D0 02        	bne :+
+00187Ar 2  E6 rr        	inc fntaddr+1
+00187Cr 2               :
+00187Cr 2  CA           	dex			; next screen row down.
+00187Dr 2  10 EE        	bpl pchar0		; repeat.
+00187Fr 2               
+00187Fr 2  60           	rts
+001880r 2               
+001880r 2  07 06 05 04  scrtab:		.byte $07,$06,$05,$04,$03,$02,$01,$00
+001884r 2  03 02 01 00  
+001888r 2               
+001888r 2               ;----------------------------------------------------
+001888r 2               ; LoadFile
+001888r 2               ;----------------------------------------------------
+001888r 2               
+001888r 2               loadfile:
+001888r 2  AA           	tax
+001889r 2  A9 rr        	lda #<msgdat		; pointer to messages.
+00188Br 2  85 rr        	sta z80_l
+00188Dr 2  A9 rr        	lda #>msgdat
+00188Fr 2  85 rr        	sta z80_h
+001891r 2  20 rr rr     	jsr getwrd		; get message number.
+001894r 2               
+001894r 2               ; Init screen for NTSC
+001894r 2               ; this sets the background and border color of the screen
+001894r 2               ; in this case border black and background black
+001894r 2               
+001894r 2  A9 08        	lda #%00001000
+001896r 2  8D 0F 90     	sta RegF
+001899r 2               
+001899r 2               ; z80_hl should point to the textstring now.
+001899r 2               ; Read filename +length into buffer
+001899r 2               
+001899r 2  A0 00        	ldy #0
+00189Br 2               nameloop:
+00189Br 2  B1 rr        	lda (z80_hl),y
+00189Dr 2  30 07        	bmi lastchar
+00189Fr 2  99 rr rr     	sta filename,y
+0018A2r 2  C8           	iny
+0018A3r 2  4C rr rr     	jmp nameloop
+0018A6r 2               lastchar:
+0018A6r 2  29 7F        	and #$7f
+0018A8r 2  99 rr rr     	sta filename,y
+0018ABr 2  C8           	iny
+0018ACr 2  8C rr rr     	sty filelen
+0018AFr 2               
+0018AFr 2               ; Load the file name (in accumulator the size of the string
+0018AFr 2               ;                      containing the name, x low address for FileName,
+0018AFr 2               ;                      y high address for FileName)
+0018AFr 2  AD rr rr     	lda filelen
+0018B2r 2  A2 rr        	ldx #<filename
+0018B4r 2  A0 rr        	ldy #>filename
+0018B6r 2  20 BD FF     	jsr $ffbd
+0018B9r 2               
+0018B9r 2               ; Which device to use (in A the file num 1 is OK - x with 8 is the type of device
+0018B9r 2               ;                       usually the first drive, and y set to 1 reads from the header
+0018B9r 2               ;                       of the file the location where to save it)
+0018B9r 2  A9 01        	lda #1
+0018BBr 2  A2 08        	ldx #8		; Disk device
+0018BDr 2  A0 01        	ldy #1
+0018BFr 2  20 BA FF     	jsr $ffba
+0018C2r 2               
+0018C2r 2               ; load from disk to ram
+0018C2r 2  A9 00        	lda #0		; accumulator must be set to 0 to load the image
+0018C4r 2  A2 FF        	ldx #<$ff	; target location low not set (got from header)
+0018C6r 2  A0 00        	ldy #>$ff	; target location high (got from header)
+0018C8r 2  20 D5 FF     	jsr $ffd5
+0018CBr 2               
+0018CBr 2               
+0018CBr 2  60           	rts
+0018CCr 2               
+0018CCr 2               filename:
+0018CCr 2  00 00 00 00  	.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0018D0r 2  00 00 00 00  
+0018D4r 2  00 00 00 00  
+0018DCr 2  00 00 00 00  	.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+0018E0r 2  00 00 00 00  
+0018E4r 2  00 00 00 00  
+0018ECr 2               filelen:
+0018ECr 2  00           	.byte 0
+0018EDr 2               
+0018EDr 1               ;	.include "music.inc"
+0018EDr 1               	.include "z80.asm"
+0018EDr 2               ;------------------------------------------------------
+0018EDr 2               ; z80.asm
+0018EDr 2               ; spectrum stuff
+0018EDr 2               ; adresses
+0018EDr 2               
+0018EDr 2               ;ws	 = $60
+0018EDr 2               
+0018EDr 2               ;z80_f	 = ws+$00
+0018EDr 2               ;z80_a	 = ws+$01
+0018EDr 2               ;z80_af	 = z80_f
+0018EDr 2               
+0018EDr 2               ;z80_c	 = ws+$02
+0018EDr 2               ;z80_b	 = ws+$03
+0018EDr 2               ;z80_bc	 = z80_c
+0018EDr 2               
+0018EDr 2               ;z80_e	 = ws+$04
+0018EDr 2               ;z80_d	 = ws+$05
+0018EDr 2               ;z80_de	 = z80_e
+0018EDr 2               
+0018EDr 2               ;z80_l	 = ws+$06
+0018EDr 2               ;z80_h	 = ws+$07
+0018EDr 2               ;z80_hl	 = z80_l
+0018EDr 2               
+0018EDr 2               ;z80_x    = ws+$08
+0018EDr 2               ;z80_i    = ws+$09
+0018EDr 2               ;z80_ix	 = z80_x
+0018EDr 2               
+0018EDr 2               ;z80_iy	 = ws+$0a
+0018EDr 2               
+0018EDr 2               ;z80_fp	 = ws+$0c
+0018EDr 2               ;z80_ap	 = ws+$0d
+0018EDr 2               
+0018EDr 2               ;z80_cp	 = ws+$0e
+0018EDr 2               ;z80_bp	 = ws+$0f
+0018EDr 2               ;z80_bcp = z80_cp
+0018EDr 2               
+0018EDr 2               ;z80_ep	 = ws+$10
+0018EDr 2               ;z80_dp	 = ws+$11
+0018EDr 2               ;z80_dep = z80_ep
+0018EDr 2               
+0018EDr 2               ;z80_lp	 = ws+$12
+0018EDr 2               ;z80_hp	 = ws+$13
+0018EDr 2               ;z80_hlp = z80_lp
+0018EDr 2               
+0018EDr 2               ;z80_sp   = ws+$14
+0018EDr 2               
+0018EDr 2               ;z80_reg0 = ws+$16
+0018EDr 2               ;z80_reg1 = ws+$17
+0018EDr 2               ;z80_reg2 = ws+$18
+0018EDr 2               ;z80_reg3 = ws+$19
+0018EDr 2               
+0018EDr 2               ;z80_r	 = ws+$1a
+0018EDr 2               
+0018EDr 2               ; Contains seperatly 1 bit set
+0018EDr 2               ; _BEEB this is not safe memory to use as required by MOS
+0018EDr 2               
+0018EDr 2               _bitmem0	= $f8
+0018EDr 2               _bitmem1	= $f9
+0018EDr 2               _bitmem2	= $fa
+0018EDr 2               _bitmem3	= $fb
+0018EDr 2               _bitmem4	= $fc
+0018EDr 2               _bitmem5	= $fd
+0018EDr 2               _bitmem6	= $fe
+0018EDr 2               _bitmem7	= $ff
+0018EDr 2               
+0018EDr 2               ; constants
+0018EDr 2               _bitvalue0	= $01
+0018EDr 2               _bitvalue1	= $02
+0018EDr 2               _bitvalue2	= $04
+0018EDr 2               _bitvalue3	= $08
+0018EDr 2               _bitvalue4	= $10
+0018EDr 2               _bitvalue5	= $20
+0018EDr 2               _bitvalue6	= $40
+0018EDr 2               _bitvalue7	= $80
+0018EDr 2               
+0018EDr 2               _notbitvalue0	= $fe
+0018EDr 2               _notbitvalue1	= $fd
+0018EDr 2               _notbitvalue2	= $fb
+0018EDr 2               _notbitvalue3	= $f7
+0018EDr 2               _notbitvalue4	= $ef
+0018EDr 2               _notbitvalue5	= $df
+0018EDr 2               _notbitvalue6	= $bf
+0018EDr 2               _notbitvalue7	= $7f
+0018EDr 2               
+0018EDr 2               
+0018EDr 2               ;add_hl_bc:
+0018EDr 2               ;		lda z80_l
+0018EDr 2               ;		clc
+0018EDr 2               ;		adc z80_c
+0018EDr 2               ;		sta z80_l
+0018EDr 2               ;		lda z80_h
+0018EDr 2               ;		adc z80_b
+0018EDr 2               ;		sta z80_h
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;add_ix_de:
+0018EDr 2               ;		lda z80_ix
+0018EDr 2               ;		clc
+0018EDr 2               ;		adc z80_e
+0018EDr 2               ;		sta z80_ix
+0018EDr 2               ;		lda z80_ix+1
+0018EDr 2               ;		adc z80_d
+0018EDr 2               ;		sta z80_ix+1
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;add_iy_de:
+0018EDr 2               ;		lda z80_iy
+0018EDr 2               ;		clc
+0018EDr 2               ;		adc z80_e
+0018EDr 2               ;		sta z80_iy
+0018EDr 2               ;		lda z80_iy+1
+0018EDr 2               ;		adc z80_d
+0018EDr 2               ;		sta z80_iy+1
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;add_hl_de:
+0018EDr 2               ;		lda z80_l
+0018EDr 2               ;		clc
+0018EDr 2               ;		adc z80_e
+0018EDr 2               ;		sta z80_l
+0018EDr 2               ;		lda z80_h
+0018EDr 2               ;		adc z80_d
+0018EDr 2               ;		sta z80_h
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;add_ix_bc:
+0018EDr 2               ;		lda z80_ix
+0018EDr 2               ;		clc
+0018EDr 2               ;		adc z80_c
+0018EDr 2               ;		sta z80_ix
+0018EDr 2               ;		lda z80_ix+1
+0018EDr 2               ;		adc z80_b
+0018EDr 2               ;		sta z80_ix+1
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;add_iy_bc:
+0018EDr 2               ;		lda z80_iy
+0018EDr 2               ;		clc
+0018EDr 2               ;		adc z80_c
+0018EDr 2               ;		sta z80_iy
+0018EDr 2               ;		lda z80_iy+1
+0018EDr 2               ;		adc z80_b
+0018EDr 2               ;		sta z80_iy+1
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;sbc_hl_de:
+0018EDr 2               ;		lda z80_l
+0018EDr 2               ;		sbc z80_e
+0018EDr 2               ;		sta z80_l
+0018EDr 2               ;		lda z80_h
+0018EDr 2               ;		sbc z80_d
+0018EDr 2               ;		sta z80_h
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;sbc_hl_bc:
+0018EDr 2               ;		lda z80_l
+0018EDr 2               ;		sbc z80_c
+0018EDr 2               ;		sta z80_l
+0018EDr 2               ;		lda z80_h
+0018EDr 2               ;		sbc z80_b
+0018EDr 2               ;		sta z80_h
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;cmp_hl_bc:
+0018EDr 2               ;		lda z80_l
+0018EDr 2               ;		cmp z80_c
+0018EDr 2               ;		bne cmp_hl_bc_end
+0018EDr 2               ;		lda z80_h
+0018EDr 2               ;		cmp z80_b
+0018EDr 2               ;cmp_hl_bc_end:
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;cmp_iy_ix:
+0018EDr 2               ;		lda z80_iy
+0018EDr 2               ;		cmp z80_ix
+0018EDr 2               ;		bne cmp_iy_ix_end
+0018EDr 2               ;		lda z80_iy+1
+0018EDr 2               ;		cmp z80_ix+1
+0018EDr 2               ;cmp_iy_ix_end:
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;dec_hl:
+0018EDr 2               ;		lda z80_l
+0018EDr 2               ;		bne dec_hl_no_dec_h
+0018EDr 2               ;		dec z80_h
+0018EDr 2               ;dec_hl_no_dec_h:
+0018EDr 2               ;		dec z80_l
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;dec_ix:
+0018EDr 2               ;		lda z80_ix
+0018EDr 2               ;		bne dec_ix_no_dec_h
+0018EDr 2               ;		dec z80_ix+1
+0018EDr 2               ;dec_ix_no_dec_h:
+0018EDr 2               ;		dec z80_ix
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;dec_bc:
+0018EDr 2               ;		lda z80_c
+0018EDr 2               ;		bne dec_bc_no_dec_b
+0018EDr 2               ;		dec z80_b
+0018EDr 2               ;dec_bc_no_dec_b:
+0018EDr 2               ;		dec z80_c
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;dec_de:
+0018EDr 2               ;		lda z80_e
+0018EDr 2               ;		bne dec_de_no_dec_d
+0018EDr 2               ;		dec z80_d
+0018EDr 2               ;dec_de_no_dec_d:
+0018EDr 2               ;		dec z80_e
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               ;ex_af_afs:
+0018EDr 2               ;	rts
+0018EDr 2               ;ex_de_hl:
+0018EDr 2               ;		lda z80_e
+0018EDr 2               ;		ldx z80_l
+0018EDr 2               ;		stx z80_e
+0018EDr 2               ;		sta z80_l
+0018EDr 2               ;		lda z80_d
+0018EDr 2               ;		ldx z80_h
+0018EDr 2               ;		stx z80_d
+0018EDr 2               ;		sta z80_h
+0018EDr 2               ;		rts
+0018EDr 2               ;
+0018EDr 2               exx:
+0018EDr 2  A5 rr        		lda z80_c
+0018EFr 2  A4 rr        		ldy z80_cp
+0018F1r 2  84 rr        		sty z80_c
+0018F3r 2  85 rr        		sta z80_cp
+0018F5r 2  A5 rr        		lda z80_b
+0018F7r 2  A4 rr        		ldy z80_bp
+0018F9r 2  84 rr        		sty z80_b
+0018FBr 2  85 rr        		sta z80_bp
+0018FDr 2  A5 rr        		lda z80_e
+0018FFr 2  A4 rr        		ldy z80_ep
+001901r 2  84 rr        		sty z80_e
+001903r 2  85 rr        		sta z80_ep
+001905r 2  A5 rr        		lda z80_d
+001907r 2  A4 rr        		ldy z80_dp
+001909r 2  84 rr        		sty z80_d
+00190Br 2  85 rr        		sta z80_dp
+00190Dr 2  A5 rr        		lda scraddr
+00190Fr 2  A4 rr        		ldy z80_lp
+001911r 2  84 rr        		sty scraddr
+001913r 2  85 rr        		sta z80_lp
+001915r 2  A5 rr        		lda scraddr+1
+001917r 2  A4 rr        		ldy z80_hp
+001919r 2  84 rr        		sty scraddr+1
+00191Br 2  85 rr        		sta z80_hp
+00191Dr 2  60           		rts
+00191Er 2               
+00191Er 2               ;ex_sp_hl:
+00191Er 2               ;		tsx
+00191Er 2               ;		lda $0103,x
+00191Er 2               ;		ldy z80_h
+00191Er 2               ;		sta z80_h
+00191Er 2               ;		tya
+00191Er 2               ;		sta $0103,x
+00191Er 2               ;		lda $0104,x
+00191Er 2               ;		ldy z80_l
+00191Er 2               ;		sta z80_l
+00191Er 2               ;		tya
+00191Er 2               ;		sta $104,x
+00191Er 2               ;		rts
+00191Er 2               ;
+00191Er 2               ;ldi:
+00191Er 2               ;	rts
+00191Er 2               ;ldir:
+00191Er 2               ;		ldy #$00
+00191Er 2               ;		ldx z80_b
+00191Er 2               ;		beq ldir_last_page
+00191Er 2               ;ldir_loop:
+00191Er 2               ;		lda (z80_hl),y
+00191Er 2               ;		sta (z80_de),y
+00191Er 2               ;		iny
+00191Er 2               ;		bne ldir_loop
+00191Er 2               ;		inc z80_h
+00191Er 2               ;		inc z80_d
+00191Er 2               ;		dex
+00191Er 2               ;		bne ldir_loop
+00191Er 2               ;ldir_last_page:
+00191Er 2               ;		lda z80_c
+00191Er 2               ;		beq ldir_end
+00191Er 2               ;ldir_last_page_loop:
+00191Er 2               ;		lda (z80_hl),y
+00191Er 2               ;		sta (z80_de),y
+00191Er 2               ;		iny
+00191Er 2               ;		cpy z80_c
+00191Er 2               ;		bne ldir_last_page_loop
+00191Er 2               ;ldir_end:
+00191Er 2               ;		stx z80_c
+00191Er 2               ;		stx z80_b
+00191Er 2               ;		tya
+00191Er 2               ;		clc
+00191Er 2               ;		adc z80_l
+00191Er 2               ;		sta z80_l
+00191Er 2               ;		bcc *+4
+00191Er 2               ;		inc z80_h
+00191Er 2               ;		tya
+00191Er 2               ;		clc
+00191Er 2               ;		adc z80_e
+00191Er 2               ;		sta z80_e
+00191Er 2               ;		bcc *+4
+00191Er 2               ;		inc z80_d
+00191Er 2               ;		rts
+00191Er 2               ;
+00191Er 2               ;lddr:		ldy #$00
+00191Er 2               ;lddr_loop:
+00191Er 2               ;		lda (z80_hl),y
+00191Er 2               ;		sta (z80_de),y
+00191Er 2               ;		jsr dec_hl
+00191Er 2               ;		jsr dec_de
+00191Er 2               ;		jsr dec_bc
+00191Er 2               ;		lda z80_b
+00191Er 2               ;		ora z80_c
+00191Er 2               ;		bne lddr_loop
+00191Er 2               ;		rts
+00191Er 2               ;ei:
+00191Er 2               ;		rts
+00191Er 2               ;di:
+00191Er 2               ;		rts
+00191Er 2               
+00191Er 2               ;-------------------------------------------------------------
+00191Er 2               ; Set bits in bitmem
+00191Er 2               ;-------------------------------------------------------------
+00191Er 2               
+00191Er 2               .if 0
+00191Er 2               z80_init:
+00191Er 2               	ldx #$00
+00191Er 2               	lda #$01
+00191Er 2               z80_init_loop:
+00191Er 2               	sta _bitmem0,x
+00191Er 2               	inx
+00191Er 2               	asl a
+00191Er 2               	bne z80_init_loop
+00191Er 2               	rts
+00191Er 2               .endif
+00191Er 2               
+00191Er 2               push_af:
+00191Er 2               push_bc:
+00191Er 2               push_de:
+00191Er 2               push_hl:
+00191Er 2               
+00191Er 2               pop_af:
+00191Er 2               pop_bc:
+00191Er 2               pop_de:
+00191Er 2               pop_ix:
+00191Er 2               pop_hl:
+00191Er 2               
+00191Er 2               add_hl_hl:
+00191Er 2               
+00191Er 2               inc_bc:
+00191Er 2               inc_de:
+00191Er 2               inc_hl:
+00191Er 2               inc_ix:
+00191Er 2               inc_sp:
+00191Er 2               
+00191Er 2               cpir:
+00191Er 2               
+00191Er 2               ex_af_af:
+00191Er 2               ;	rts
+00191Er 2               
+00191Er 1               
+00191Er 1               eind_asm:
+00191Er 1               eop:					; End Of Program
+00191Er 1               
+00191Er 1               .out .sprintf("Gamecode size = %d bytes, free space = %d bytes", (eind_asm - main),(24576-eind_asm + main))
+00191Er 1               

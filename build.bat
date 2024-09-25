@@ -38,6 +38,8 @@ rem Create discimage
  c1541 -attach %1.d64 -write ..\TAPES\%1.prg %1.prg
  c1541 -attach %1.d64 -write ..\..\CC65\titledata.prg intro1.prg
  c1541 -attach %1.d64 -write ..\..\CC65\titlecol.prg intro1col.prg 
+ c1541 -attach %1.d64 -write ..\..\CC65\gameover.prg intro2.prg
+ c1541 -attach %1.d64 -write ..\..\CC65\gameovercol.prg intro2col.prg 
  move %1.d64 ..\discs >nul
 
 rem Start emulator
