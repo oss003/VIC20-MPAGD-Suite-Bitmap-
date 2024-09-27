@@ -56,11 +56,11 @@ x Colourmode, think of easy way to implement multicolour mode
 ---------------------------------------------------------------------
 Compiler:
 ---------------------------------------------------------------------
-- DEFINEBLOCK, handle colour
-- DEFINEOBJECT, handle colour
+x DEFINEBLOCK, handle colour
+x DEFINEOBJECT, handle colour
 
 TODO:
 - SCROLL UP/DOWN command
-- AUXCOLOUR command
+x AUXCOLOUR command
 - FADE command
 - PALETTE command
