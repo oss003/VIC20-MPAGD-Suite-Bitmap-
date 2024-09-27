@@ -40,6 +40,7 @@ x TICKER, check command
 x CRASH, add white noise
 - SOUND, check fx sounds
 - SILENCE, check command
+x CLW, check command
 x Collectable blocks, check adventure mode
 x Big sprites, check 16x24 sprites
 x Colourmode, think of easy way to implement multicolour mode

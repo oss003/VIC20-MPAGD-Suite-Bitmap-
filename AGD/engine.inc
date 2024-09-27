@@ -5534,14 +5534,8 @@ clw3:
 	sta rcol
 clw2:
 	jsr gprad 			; get print address.
-	lda #0				; zero byte to write.
-	ldx #7				; pixel height of each cell.
-clw1:
-	ldy scrtab,x
-	sta (scraddr),y 			; copy to screen.
-	dex				; next screen row down.
-	bpl clw1
-
+	lda #32
+	jsr pchar
 	inc dispx			; next column.
 	dec rcol			; one less to do.
 	bne clw2			; repeat for remaining columns.

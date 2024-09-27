@@ -3,7 +3,7 @@ rem Assemble game
  echo.
  echo Assemble: %1
 
- ca65 -l -o %1.o %1.inc
+ ca65 -l -o %1.o %1.asm
  if not "%errorlevel%" == "0" goto failed
 rem del %1.inc
 

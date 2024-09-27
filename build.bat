@@ -30,16 +30,14 @@ rem Assemble file
  copy %1.bin "..\GTK3VICE-3.8-win64\TAPES\%1.prg"
  del %1.bin
 
-rem Create discimage 
+rem Create discimage and add pictures + fastloader to diskimage 
  echo.
  echo Creating diskimage %1.d64
  cd ..\GTK3VICE-3.8-win64\bin
  c1541 -format "diskimage,id" d64 %1.d64 
  c1541 -attach %1.d64 -write ..\TAPES\%1.prg %1.prg
- c1541 -attach %1.d64 -write ..\..\CC65\titledata.prg intro1.prg
- c1541 -attach %1.d64 -write ..\..\CC65\titlecol.prg intro1col.prg 
- c1541 -attach %1.d64 -write ..\..\CC65\gameover.prg intro2.prg
- c1541 -attach %1.d64 -write ..\..\CC65\gameovercol.prg intro2col.prg 
+ c1541 -attach %1.d64 -write ..\..\CC65\turbodisk.bin turbodiskbin 
+ for %%f in (..\..\pictures\%1*.*) do c1541 -attach %1.d64 -write %%f %%~nf
  move %1.d64 ..\discs >nul
 
 rem Start emulator
