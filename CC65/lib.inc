@@ -706,7 +706,12 @@ sndwait:
 beepaudio:
     ; enable sound on channel 2
     ; add 128 because sound is in range 128-255
-    lsr
+    ;lsr
+
+	lda SOUNDS_STATUS
+	ora #%01000000
+	sta SOUNDS_STATUS
+
     lda #$ff
     sec
     sbc sndtyp
@@ -714,21 +719,19 @@ beepaudio:
     lsr
     ora #%11000000
     sta $900c
-	lda SOUNDS_STATUS
-	ora #%01000000
-	sta SOUNDS_STATUS
-
 
     jmp endaudiotype
 crashaudio:
+
+	lda SOUNDS_STATUS
+	ora #%10000000
+	sta SOUNDS_STATUS
+
     lda #$ff
     sec
     sbc sndtyp
     ora #%10000000
     sta $900d
-	lda SOUNDS_STATUS
-	ora #%10000000
-	sta SOUNDS_STATUS
 
 endaudiotype:
 
@@ -741,18 +744,21 @@ sndskip:
     ; disable sound
 	bit SOUNDS_STATUS
 	bvc :+
-	lda SOUNDS_STATUS
-	and #%10111111
-	sta SOUNDS_STATUS
-	lda #$00
-    sta $900c
-:
-	bit SOUNDS_STATUS
-	bpl :+
 
 	lda SOUNDS_STATUS
 	and #%10111111
 	sta SOUNDS_STATUS
+
+	lda #$00
+    sta $900c
+:git a
+	bit SOUNDS_STATUS
+	bpl :+
+
+	lda SOUNDS_STATUS
+	and #%01111111
+	sta SOUNDS_STATUS
+
 	lda #$00
     sta $900d
 :
