@@ -199,9 +199,12 @@ init:
 	sta $912d
 	sta $912e
 
-; Set audio volume to max
+; Set audio volume to max and flag to check when disabling
+; beep and crash
 	lda #$0f
 	sta $900e
+	lda #$00
+	sta SOUNDS_STATUS
 
 ; Init screen for NTSC
 ; this sets the background and border color of the screen
@@ -711,6 +714,10 @@ beepaudio:
     lsr
     ora #%11000000
     sta $900c
+	lda SOUNDS_STATUS
+	ora #%01000000
+	sta SOUNDS_STATUS
+
 
     jmp endaudiotype
 crashaudio:
@@ -719,6 +726,9 @@ crashaudio:
     sbc sndtyp
     ora #%10000000
     sta $900d
+	lda SOUNDS_STATUS
+	ora #%10000000
+	sta SOUNDS_STATUS
 
 endaudiotype:
 
@@ -729,9 +739,23 @@ endaudiotype:
     jmp sndloop
 sndskip: 
     ; disable sound
-    lda #$00
+	bit SOUNDS_STATUS
+	bvc :+
+	lda SOUNDS_STATUS
+	and #%10111111
+	sta SOUNDS_STATUS
+	lda #$00
     sta $900c
+:
+	bit SOUNDS_STATUS
+	bpl :+
+
+	lda SOUNDS_STATUS
+	and #%10111111
+	sta SOUNDS_STATUS
+	lda #$00
     sta $900d
+:
 
     pla
     tax

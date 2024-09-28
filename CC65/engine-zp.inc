@@ -148,6 +148,7 @@ CH1_PATTERN_POS:	.res 2	; = $96
 CH2_PATTERN_POS:	.res 2	; = $98
 CH3_PATTERN_POS:	.res 2	; = $9a
 CH4_PATTERN_POS:	.res 2	; = $9c
+SOUNDS_STATUS:      .res 1  ; = $9e
 
 ; #$00 == inactive mode
 CH1_ACTIVE:		.res 1	; = $a0
