@@ -751,14 +751,14 @@ sndskip:
 
 	lda #$00
     sta $900c
-:git a
+:
 	bit SOUNDS_STATUS
 	bpl :+
 
 	lda SOUNDS_STATUS
 	and #%01111111
 	sta SOUNDS_STATUS
-
+	
 	lda #$00
     sta $900d
 :
