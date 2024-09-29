@@ -45,29 +45,38 @@
 ; Constants
 ;---------------------------------------------------------------
 
-	TEXT_TITLE        = songpos
-	TEXT_ARTIST       = songpos+$10
-	TEXT_COPY         = songpos+$20
-	TABLE_SPEED       = songpos+$30
-	TABLE_VOLUME      = songpos+$40
-	PATTERNS          = songpos+$50
-	SONG_PAGE_1       = songpos+$850
-	SONG_PAGE_2       = songpos+$950
+	TEXT_TITLE	= songpos
+	TEXT_ARTIST	= songpos+$10
+	TEXT_COPY	= songpos+$20
+	TABLE_SPEED	= songpos+$30
+	TABLE_VOLUME	= songpos+$40
+	PATTERNS	= songpos+$50
+	SONG_PAGE_1	= songpos+$850
+	SONG_PAGE_2	= songpos+$950
 
 ; VIC-I chip audio registers
-	VIC_CHAN_1        = $900a
-	VIC_CHAN_2        = $900b
-	VIC_CHAN_3        = $900c
-	VIC_CHAN_4        = $900d
-	VIC_VOLUME        = $900e
+	VIC_CHAN_1	= $900a
+	VIC_CHAN_2	= $900b
+	VIC_CHAN_3	= $900c
+	VIC_CHAN_4	= $900d
+	VIC_VOLUME	= $900e
 
 
 ; bit masks for pattern data / effects
-	NOTE_IS           = %10000000
-	NOTE_OFF          = %00000001
-	NOTE_NEXT         = %00000010
-	NOTE_END          = %00000011
-	NOTE_NOTHING      = %00000000
+	NOTE_IS		= %10000000
+	NOTE_OFF	= %00000001
+	NOTE_NEXT	= %00000010
+	NOTE_END	= %00000011
+	NOTE_NOTHING	= %00000000
+
+; VIC VIA constants
+
+	Timer21_Low  	= $9124		; Timer 1 low byte
+	Timer21_High 	= $9125		; Timer 1 high byte
+	AUX2		= $912b		; Auxiliary control register
+	IFR2		= $912d		; Interrupt Flag Register
+	IER2		= $912e		; Interrupt Enable Register
+	timerint	= 20000		; Interrupt timer 1/50 sec
 
 ;---------------------------------------------------------------
 ; API calls, entry with A = API call

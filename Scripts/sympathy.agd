@@ -1,18 +1,18 @@
 
-DEFINEWINDOW    1 1 20 30
+DEFINEWINDOW    0 0 20 21
 
 DEFINEMESSAGES
-    "TEA AND SYMPATHY"
-    "SCORE"
-    "SHIPS"
-    "GAME"
-    "OVER"
-    "1. KEYS QAOPM"
-    "2. JOYSTICK 1"
-    "3. JOYSTICK 2"
-    "GAME BY JONATHAN CAULDWELL"
-    "SPRITES BY JARROD BENTLEY"
-    ""
+    "TEA AND SYMPATHY"
+    "SCORE"
+    "SHIPS"
+    "GAME"
+    "OVER"
+    "1. KEYS QAOPM"
+    "2. JOYSTICK 1"
+    "3. JOYSTICK 2"
+    "GAME BY JONATHAN CAULDWELL"
+    "SPRITES BY JARROD BENTLEY"
+    ""
 
 DEFINEFONT      0 0 0 0 0 0 0 0
                 0 48 48 48 48 0 48 0
@@ -113,15 +113,15 @@ DEFINEFONT      0 0 0 0 0 0 0 0
 
 DEFINEBLOCK     EMPTYBLOCK
                 0 0 0 0 0 0 0 0
-                71
+                1
 
 DEFINEBLOCK     EMPTYBLOCK
                 0 0 0 0 0 0 0 0
-                69
+                2
 
 DEFINEBLOCK     EMPTYBLOCK
                 0 0 0 0 0 0 0 0
-                70
+                3
 
 
 DEFINESPRITE    1
@@ -176,29 +176,29 @@ DEFINESPRITE    1
                 142 5 56 244 112 250 56 122 14 64 0 23 5 215 0 23
 
 
-DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2
-                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1
-SPRITEPOSITION  0 0 80 64
+DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1  
+                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2  
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1  
+                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2 
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1  
+                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2  
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1  
+                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2  
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1  
+                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2  
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1  
+                  2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   2   
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  
+                  1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   1   
+SPRITEPOSITION  0 0 80 34
 
-DEFINEOBJECT    71 254 56 120
+DEFINEOBJECT    1 254 56 120
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
@@ -211,23 +211,24 @@ ENDMAP
 
 
 EVENT PLAYER
+waitkey
 IF KEY UP
-    IF Y > 8
+    IF Y > TOPEDGE
         SPRITEUP
     ENDIF
 ENDIF
 IF KEY DOWN
-    IF Y <= 144
+    IF Y <= BOTTOMEDGE
         SPRITEDOWN
     ENDIF
 ENDIF
 IF KEY RIGHT
-    IF X <= 136
+    IF X <= RIGHTEDGE
         SPRITERIGHT
     ENDIF
 ENDIF
 IF KEY LEFT
-    IF X > 16
+    IF X > LEFTEDGE
         SPRITELEFT
     ENDIF
 ENDIF
@@ -235,12 +236,10 @@ IF KEY FIRE
     IF F = 0
         LASER 1
         LET F = 1
-        ; SOUND 1
     ENDIF
 ELSE
     LET F = 0
 ENDIF
-; SPRITEINK 70
 LET H = Y
 LET I = H
 LET J = H
@@ -273,7 +272,6 @@ ELSE
     ENDIF
 ENDIF
 IF K <> 0
-    ; SOUND 0
     EXPLODE 30
     REMOVE
     LET L = 1
@@ -281,7 +279,7 @@ ENDIF
 
 
 EVENT SPRITETYPE1
-IF X <= 2
+IF X <= LEFTEDGE
     REMOVE
     EXIT
 ENDIF
@@ -301,8 +299,8 @@ IF SETTINGA > 1
     LET SETTINGA = 0
     ANIMATE
 ENDIF
-IF X <= 232
-    IF X > 7
+IF X <= RIGHTEDGE
+    IF X > LEFTEDGE
         ; SPRITEINK 69
     ENDIF
 ENDIF
@@ -319,25 +317,25 @@ ENDIF
 
 EVENT SPRITETYPE2
 SPRITELEFT
-IF X <= 2
+IF X <= LEFTEDGE
     REMOVE
     EXIT
 ENDIF
 IF FRAME = 1
-    IF Y > 12
+    IF Y > BOTTOMEDGE
         SPRITEUP
     ELSE
         LET FRAME = 0
     ENDIF
 ENDIF
 IF FRAME = 2
-    IF Y <= 142
+    IF Y <= TOPEDGE
         SPRITEDOWN
     ELSE
         LET FRAME = 0
     ENDIF
 ENDIF
-IF X = 200
+IF X = RIGHTEDGE
     IF Y <= 80
         LET FRAME = 2
     ELSE
@@ -354,21 +352,21 @@ IF COLLISION 10
         EXIT
     ENDIF
 ENDIF
-IF X <= 232
-    IF X > 7
+IF X <= RIGHTEDGE
+    IF X > LEFTEDGE
         ; SPRITEINK 67
     ENDIF
 ENDIF
 
 
 EVENT SPRITETYPE3
-IF X <= 2
+IF X <= LEFTEDGE
     REMOVE
     EXIT
 ENDIF
 SPRITELEFT
-IF X <= 232
-    IF X > 7
+IF X <= RIGHTEDGE
+    IF X > LEFTEDGE
         ; SPRITEINK 66
     ENDIF
 ENDIF
@@ -396,13 +394,13 @@ ENDIF
 
 
 EVENT SPRITETYPE4
-IF Y > 8
-    IF Y <= 143
+IF Y > TOPEDGE
+    IF Y <= BOTTOMEDGE
         ADD SETTINGA TO Y
     ENDIF
 ENDIF
-IF X > 210
-    IF X > 230
+IF X > RIGHTEDGE
+    IF X > RIGHTEDGE
         LET TYPE = 7
         LET IMAGE = 5
         LET DIRECTION = 1
@@ -634,7 +632,7 @@ IF A > B
         SPAWNED
         LET Y = RND
         ADD 8 TO Y
-        LET X = 240
+        LET X = RIGHTEDGE
         GETRANDOM 80
         LET DIRECTION = RND
         ADD 112 TO DIRECTION
@@ -648,11 +646,11 @@ IF A > B
         SPAWN 2 1
         SPAWNED
         IF G = 0
-            LET Y = 12
+            LET Y = TOPEDGE
         ELSE
-            LET Y = 140
+            LET Y = BOTTOMEDGE
         ENDIF
-        LET X = 240
+        LET X = RIGHTEDGE
     ENDIF
     IF C = 2
         SPAWN 3 3
@@ -662,7 +660,7 @@ IF A > B
         GETRANDOM 63
         LET Y = RND
         ADD 24 TO Y
-        LET X = 240
+        LET X = RIGHTEDGE
     ENDIF
     IF C = 4
         SPAWN 4 4
@@ -685,7 +683,7 @@ IF A > B
         LET Y = RND
         ADD 20 TO Y
         LET SETTINGA = RND
-        LET X = 240
+        LET X = RIGHTEDGE
     ENDIF
     IF C = 5
         LET N = 0
@@ -695,7 +693,7 @@ IF A > B
         IF RND <= 112
             LET Y = RND
             ADD 8 TO Y
-            LET X = 240
+            LET X = RIGHTEDGE
         ELSE
             LET Y = 0
             LET X = RND
@@ -713,7 +711,7 @@ IF A > B
     IF C > 5
         SPAWN 8 8
         SPAWNED
-        LET X = 240
+        LET X = RIGHTEDGE
         LET Y = 80
         LET SETTINGB = 6
         LET D = 1
@@ -736,107 +734,79 @@ ENDIF
 
 
 EVENT MAINLOOP2
-IF P = 0
-    LET LINE = 23
-    LET COLUMN = 5
-    SHOWSCORE
-ENDIF
-ADD 1 TO P
-IF P > 1
+  IF P = 0
+    AT 21,0:SHOWSCORE
+  ENDIF
+  ADD 1 TO P
+  IF P > 1
     IF N <> 0
         LET P = 0
-        STAR LEFT
+        STAR RIGHT
     ENDIF
-ENDIF
-IF L > 0
+  ENDIF
+  IF L > 0
     ADD 1 TO L
     IF L > 50
         KILL
     ENDIF
-ENDIF
-
+  ENDIF
 
 EVENT INTROMENU
-; COLOUR 0
-CLS
-; COLOUR 6
-LET LINE = 4
-LET COLUMN = 8
-MESSAGE 0
-LET LINE = 16
-LET COLUMN = 3
-MESSAGE 8
-LET LINE = 18
-LET COLUMN = 3
-MESSAGE 9
-; COLOUR 7
-LET LINE = 8
-LET COLUMN = 9
-MESSAGE 5
-LET LINE = 10
-LET COLUMN = 9
-MESSAGE 6
-LET LINE = 12
-LET COLUMN = 9
-MESSAGE 7
-WAITKEY
+  PAPER 0
+  INK 1
+  BORDER 0
+  CLS
+  INK 2:AT  4, 3:PRINT "TEA AND SYMPATHY"
+  INK 7
+  AT 16, 2:PRINT "GAME BY J.CAULDWELL"
+  AT 18, 2:PRINT "SPRITES BY J.BENTLEY"
+  INK 5
+  AT  9, 4:PRINT "1. KEYS QAOPM"
+  AT 11, 4:PRINT "2. JOYSTICK"
+  CONTROLMENU
 
 
 EVENT GAMEINIT
-LET E = 8
-LET LIVES = 3
-; COLOUR 0
-; BORDER 0
-CLS
-LET LINE = 22
-LET COLUMN = 5
-; COLOUR 6
-MESSAGE 1
-LET COLUMN = 21
-LET LINE = 22
-MESSAGE 2
-LET LINE = 23
-LET COLUMN = 5
-SHOWSCORE
-LET B = 40
-LET C = 0
-LET D = 12
-LET N = 1
+  LET E = 8
+  LET LIVES = 3
+  PAPER 0
+  INK 1
+  CLS
+  INK 5
+  AT 20, 0:PRINT "SCORE"
+  AT 20,17:PRINT "SHIPS"
+  AT 21,0:SHOWSCORE
+  LET B = 40
+  LET C = 0
+  LET D = 12
+  LET N = 1
 
 
 EVENT RESTARTSCREEN
-LET A = 0
-LET F = 0
-LET L = 0
-LET LINE = 23
-LET COLUMN = 23
-DISPLAY LIVES
+  LET A = 0
+  LET F = 0
+  LET L = 0
+  AT 21,19:DISPLAY LIVES
 
 
 EVENT FELLTOOFAR
-IF TYPE = 0
+  IF TYPE = 0
     KILL
-ENDIF
+  ENDIF
 
 
 EVENT KILLPLAYER
-; FADE
-SUBTRACT 1 FROM LIVES
+  SUBTRACT 1 FROM LIVES
 
 
 EVENT LOSTGAME
-LET LINE = 22
-LET COLUMN = 14
-; COLOUR 194
-MESSAGE 3
-LET COLUMN = 14
-MESSAGE 4
-DELAY 75
+  AT 20, 9:PRINT"GAME"
+  AT 21, 9:PRINT"OVER"
+  DELAY 75
 
 
 EVENT COMPLETEDGAME
-; FADE
-DELAY 50
+  DELAY 50
 
 
 EVENT NEWHIGHSCORE

@@ -35,7 +35,7 @@ x LASER, check command
 x DIG, check command
 x TICKER, check command
 - SPRITEINK, check command
-- CALL, check command
+x CALL, check command
 - COLOUR, check command
 x CRASH, add white noise
 - SOUND, check fx sounds
@@ -48,7 +48,6 @@ x Colourmode, think of easy way to implement multicolour mode
    BORDER, border colour
    INK, front colour
    PAPER, background colour
-- hflag, hidden sprites behind tiles not implemented
 - xflag, check metablocks
 - Check map movements
 - Check sprite outside screen, eg y=200

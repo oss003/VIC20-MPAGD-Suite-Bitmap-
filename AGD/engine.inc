@@ -16,16 +16,14 @@
 ;	cflag			; collectable blocks
 ;	oflag			; objects
 ;	lflag			; ladders
+;	bflag			; big sprites (16x24)
+;	rflag			; Pre-shifted byte tables
 ;
 ; Flags set manually
 ;	aflag			; adventure mode
-;	bflag			; big sprites (16x24)
-;	fflag			; floppy version (skip #0axx)
-;	gflag			; graphic colour mode
-;	hflag			; hidden sprite mode
 ;	iflag			; invert mode
 
-swrflag = 0
+;swrflag = 0
 
 .if mflag 
 	.out "- MEN/INV enabled"  
@@ -54,20 +52,11 @@ swrflag = 0
 .if bflag
 	.out "- Big Sprites (16x24) enabled" 
 .endif
-.if gflag
-	.out "- Colourmode enabled" 
-.endif
-.if hflag
-	.out "- Hidden sprites/foregroundblocks enabled" 
-.endif
 .if iflag
 	.out "- Invert mode enabled" 
 .endif
 .if rflag
-	.out "- RAM saving sprites enabled" 
-.endif
-.if xflag
-	.out "- Metablocks 16x6" 
+	.out "- Pre-shifted byte tables enabled" 
 .endif
 
 ;------------------------------------------------------------
@@ -2210,7 +2199,7 @@ imul1:
 	sta z80_h
 	clc 			; reset carry.
 imul2:
-	asl z80_e 		; shift de 1 bit left.
+	rol z80_e 		; shift de 1 bit left.
 	rol z80_d
 	dec z80_b
 	bne imul1		; repeat 8 times.
@@ -3914,16 +3903,16 @@ doEor:	eor #$1d
 noEor:	sta seed
 	rts
 
-	lda seed		; get last random number.
-	asl a
-	asl a
-	clc
-	adc seed
-	clc
-	adc #$45
-	sta seed		; store new seed.
-	sta varrnd		; return number in variable.
-	rts
+;	lda seed		; get last random number.
+;	asl a
+;	asl a
+;	clc
+;	adc seed
+;	clc
+;	adc #$45
+;	sta seed		; store new seed.
+;	sta varrnd		; return number in variable.
+;	rts
 
 ;-------------------------------------------------------
 ; Joystick and keyboard reading routines.

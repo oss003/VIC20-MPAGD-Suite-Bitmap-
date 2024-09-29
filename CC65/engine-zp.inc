@@ -132,31 +132,33 @@ pbptr:      .res 2
 tmp1:       .res 1
 tmp2:       .res 1
 
+SOUNDS_STATUS:      .res 1 
+
 ;----------------------------------------------------
 ; Music player variables
 ;----------------------------------------------------
 
-SONG_POS:		.res 1	; = $90
-PATTERN_POS:		.res 1	; = $91
-FRAME_COUNT:		.res 1	; = $92
-FRAME_LENGTH:		.res 1	; = $93
-SONG_NEXT_TRUE:		.res 1	; = $94
-SONG_END_TRUE:		.res 1	; = $95
+;SONG_POS:		.res 1	; = $90
+;PATTERN_POS:		.res 1	; = $91
+;FRAME_COUNT:		.res 1	; = $92
+;FRAME_LENGTH:		.res 1	; = $93
+;SONG_NEXT_TRUE:		.res 1	; = $94
+;SONG_END_TRUE:		.res 1	; = $95
 
 ; 2 byte address of pattern data
-CH1_PATTERN_POS:	.res 2	; = $96
-CH2_PATTERN_POS:	.res 2	; = $98
-CH3_PATTERN_POS:	.res 2	; = $9a
-CH4_PATTERN_POS:	.res 2	; = $9c
+;CH1_PATTERN_POS:	.res 2	; = $96
+;CH2_PATTERN_POS:	.res 2	; = $98
+;CH3_PATTERN_POS:	.res 2	; = $9a
+;CH4_PATTERN_POS:	.res 2	; = $9c
 
 ; #$00 == inactive mode
-CH1_ACTIVE:		.res 1	; = $a0
-CH2_ACTIVE:		.res 1	; = $a1
-CH3_ACTIVE:		.res 1	; = $a2
-CH4_ACTIVE:		.res 1	; = $a3
+;CH1_ACTIVE:		.res 1	; = $a0
+;CH2_ACTIVE:		.res 1	; = $a1
+;CH3_ACTIVE:		.res 1	; = $a2
+;CH4_ACTIVE:		.res 1	; = $a3
 
-TEMP_GUY:		.res 1	; = $a4
-CHAN_NOTE_DATA:		.res 1	; = $a5
-CHANS_INACTIVE:		.res 1	; = $a6
-FAST_COUNTER:		.res 1	; = $a7
-MEGA_COUNTER:		.res 1	; = $a8
+;TEMP_GUY:		.res 1	; = $a4
+;CHAN_NOTE_DATA:		.res 1	; = $a5
+;CHANS_INACTIVE:		.res 1	; = $a6
+;FAST_COUNTER:		.res 1	; = $a7
+;MEGA_COUNTER:		.res 1	; = $a8

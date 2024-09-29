@@ -1,12 +1,11 @@
 ; Spectrum Next AGD Game Compiler skeleton program
 ; Jonathan Cauldwell, February 2018
 
-
 ; Define the play area in character/block cells
 ; Screen is divided into 32 columns and 24 rows (Spectrum and Next/Timex) or 25 rows (CPC)
 ; The 4 parameters for DEFINEWINDOW are top edge, left edge, height and width respectively
 
-DEFINEWINDOW    4 0 18 22
+DEFINEWINDOW    0 0 22 22
 
 DEFINEFONT      0 0 0 0 0 0 0 0
                 0 48 48 48 48 0 48 0
@@ -112,20 +111,15 @@ DEFINEFONT      0 0 0 0 0 0 0 0
 ; Block 0
 
 DEFINEBLOCK     EMPTYBLOCK      ; property
-                0 0 0 0 0 0 0 0 1                                      ; Spectrum.
-
-DEFINEBLOCK     WALLBLOCK      ; property
-                0 0 0 0 0 0 0 0 1                                      ; Spectrum.
+                0 0 0 0 0 0 0 0 71                                      ; Spectrum.
 
 ; Sprites
 ; First argument defines the number of frames
 ; Then 32 bytes for each sprite frame (Spectrum and Timex) or 80 bytes (CPC).
 
 DEFINESPRITE    1		; number of frames
-         0,0,3,192,15,240,29,248
-         59,252,55,252,111,254,111,254
-         111,254,111,254,55,252,59,252
-         29,248,15,240,3,192,0,0
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0         ; Spectrum and Timex.
+                0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 
 ; Screen layouts are best arranged in monospaced rows and columns
 ; DEFINESCREEN is followed by the block numbers that make up the screen
@@ -133,30 +127,34 @@ DEFINESPRITE    1		; number of frames
 ; The compiler will automatically compress screens
 
 DEFINESCREEN
-	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
-	1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+	0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
 ; Next we define the sprites that appear on the screen
 ; SPRITEPOSITION requires 4 numbers for image, type, Y coordinate and X coordinate in that order
 ; Coordinates are based on Spectrum screen, even for CPC so need to change for conversions
 
-SPRITEPOSITION 1,0,80,64
+SPRITEPOSITION 0,0,88,128
 
 
 ; Define objects
@@ -166,7 +164,7 @@ SPRITEPOSITION 1,0,80,64
 ; Coordinates are based on Spectrum screen, even for CPC so need to change for conversions
 
 ; Spectrum:
-DEFINEOBJECT    0,0,160,32     ; attribute, room, Y, X
+DEFINEOBJECT    66,0,160,32     ; attribute, room, Y, X
                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
                 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 ; Map.
@@ -185,33 +183,6 @@ ENDMAP
 EVENT PLAYER
 
 EVENT SPRITETYPE1
- IF I 0
-  IF CANGOLEFT
-    SPRITELEFT
-  ELSE
-    LET I 1
-  ENDIF
- ELSE
-  IF CANGORIGHT
-    SPRITERIGHT
-  ELSE
-   LET I 0
-  ENDIF
- ENDIF
-
- IF J 0
-  IF CANGOUP
-    SPRITEUP
-  ELSE
-    LET J 1
-  ENDIF
- ELSE
-  IF CANGODOWN
-    SPRITEDOWN
-  ELSE
-   LET J 0
-  ENDIF
- ENDIF
 
 EVENT SPRITETYPE2
 
@@ -230,32 +201,23 @@ EVENT SPRITETYPE8
 EVENT INITSPRITE
 
 EVENT MAINLOOP1
- IF KEY OPTION1
-   USER 1
- ENDIF
- IF KEY OPTION3
-   USER 2
- ENDIF
+ AT 0 1
+ PRINTMODE 1
+ PRINT "RANDOM 4 TEST: "
+ PRINTMODE 0
+
+ GETRANDOM 4
+ AT 3 1
+ PRINT "RANDOM: "
+ DISPLAY RND
+ PRINT "  "
 
 EVENT MAINLOOP2
 
 EVENT INTROMENU
- PAPER 0
- INK 1
  CLS
- AT 0,0
- PRINTMODE 1
- PRINT "MUSIC TEST"
- PRINTMODE 0
- AT 2,3:PRINT "1 - START MUSIC"
- AT 3,3:PRINT "3 - STOP MUSIC"
- LET I 0
- LET J 0
-
 
 EVENT GAMEINIT
- LOAD "PLAYER1.PRG"
- USER 0
 
 EVENT RESTARTSCREEN
 
