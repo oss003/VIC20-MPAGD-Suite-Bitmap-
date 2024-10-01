@@ -1,0 +1,18 @@
+;----------------------------------------------
+; Music player VIC20
+; CC65 conversion by Mauro 2024
+;----------------------------------------------
+
+;----------------------------------------------
+; Header
+;----------------------------------------------
+
+.org $a900-2
+
+	.word main
+main:
+	.include "player1.inc"
+
+eind_asm:
+
+.out .sprintf("Musicplayer size = %d bytes, free space = %d bytes", (eind_asm - main),(8192-eind_asm + main))

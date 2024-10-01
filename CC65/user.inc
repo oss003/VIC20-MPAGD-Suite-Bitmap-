@@ -1,7 +1,7 @@
-music_init	= $a800
-music_on	= $a803
-music_off	= $a806
-music_play	= $a809
+music_init	= $a900
+music_on	= $a903
+music_off	= $a906
+music_play	= $a909
 
 api:
 	cmp #0

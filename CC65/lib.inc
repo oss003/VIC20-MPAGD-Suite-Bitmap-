@@ -202,6 +202,12 @@ init:
 ; Set audio volume to max and flag to check when disabling
 ; beep and crash
 
+	lda #0
+	sta $900a
+	sta $900b
+	sta $900c
+	sta $900d
+
 	lda #$0f
 	sta $900e
 	lda #$00

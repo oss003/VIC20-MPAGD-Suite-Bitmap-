@@ -36,8 +36,8 @@ rem Create discimage and add pictures + fastloader to diskimage
  cd ..\GTK3VICE-3.8-win64\bin
  c1541 -format "diskimage,id" d64 %1.d64 
  c1541 -attach %1.d64 -write ..\TAPES\%1.prg %1.prg
- c1541 -attach %1.d64 -write ..\..\CC65\turbodisk.bin turbodiskbin 
-; c1541 -attach %1.d64 -write ..\..\CC65\player1.prg player1.prg 
+ c1541 -attach %1.d64 -write ..\..\CC65\turbodisk turbodisk 
+ c1541 -attach %1.d64 -write ..\..\MUSIC\player1 player1 
  for %%f in (..\..\pictures\%1*.*) do c1541 -attach %1.d64 -write %%f %%~nf
  move %1.d64 ..\discs >nul
 

@@ -171,7 +171,7 @@
 
 start:
 	jsr game	 		; start the game.
-	rts
+	jmp start
 
 ; Don't change the order of these four.  
 ; Menu routine relies on winlft following wintop.
