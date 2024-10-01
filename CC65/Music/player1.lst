@@ -462,7 +462,7 @@ Current file: player1.asm
 00AA80  2  0A           	asl
 00AA81  2  0A           	asl
 00AA82  2  18           	clc
-00AA83  2  69 50        	adc #$50
+00AA83  2  69 4E        	adc #<PATTERNS	;$50
 00AA85  2  95 96        	sta CH1_PATTERN_POS,x
 00AA87  2  E8           	inx
 00AA88  2               

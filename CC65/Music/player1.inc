@@ -444,7 +444,7 @@ dont_reset:
 	asl
 	asl
 	clc
-	adc #$50
+	adc #<PATTERNS	;$50
 	sta CH1_PATTERN_POS,x
 	inx
 

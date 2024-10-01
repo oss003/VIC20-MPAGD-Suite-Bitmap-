@@ -939,6 +939,7 @@ EVENT INTROMENU
     LOAD "PLAYER1"
     LET Q 1
   ENDIF
+  WAITKEY
   USER 0
 
 ; Display control selection screen
