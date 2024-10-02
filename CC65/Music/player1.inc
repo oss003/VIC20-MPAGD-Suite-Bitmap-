@@ -1,11 +1,11 @@
 ;---------------------------------------------------------------
 ; Music player routine
 ;---------------------------------------------------------------
-; - Music player + data should be loaded at $a800
-; - $a800 = jmp music_init
-; - $a803 = jmp music_on
-; - $a806 = jmp music_off
-; - $a809 = jmp music_play
+; - Music player + data should be loaded at $a900
+; - $a900 = jmp music_init
+; - $a903 = jmp music_on
+; - $a906 = jmp music_off
+; - $a909 = jmp music_play
 ; - Zeropage variables from $90 upwards can be used
 ;---------------------------------------------------------------
 

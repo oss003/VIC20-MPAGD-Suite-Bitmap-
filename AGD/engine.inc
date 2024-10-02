@@ -170,6 +170,16 @@
 ;--------------------------------------------------------------
 
 start:
+
+; Clear variables
+
+	lda #0
+	tax
+clrloop:
+	sta 0,x
+	inx
+	bne clrloop
+
 	jsr game	 		; start the game.
 	jmp start
 

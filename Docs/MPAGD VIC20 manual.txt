@@ -1,0 +1,145 @@
+====================================================================
+MPAGD VIC20 port:
+====================================================================
+
+--------------------------------------------------------------------
+System requirements
+--------------------------------------------------------------------
+
+To run MPAGD games you need a VIC 20 with these specifications:
+
+- VIC20	: MPAGD works for PAL and NTSC
+
+- RAM 	: Standard
+	  Expansion Block 0: $0400-$0fff
+	            Block 1: $2000-$3fff
+	            Block 2: $4000-$5fff
+	            Block 3: $6000-$7fff
+	            Block 5: $a000-$bfff
+
+- Disc	: Turboload is selectable in MPAGD
+
+--------------------------------------------------------------------
+Features
+--------------------------------------------------------------------
+
+- Screen	: hires bitmap mode 178 x 178
+		  multicolour mode   89 x 178 
+
+- Colours	: hiresmode 8
+		  multicolour mode 16
+
+- Sound		: Music 3 channels
+		  Noise 1 channel
+		  Fx sounds 1 channel
+
+- Input		: Keyboard
+		  Joystick
+
+--------------------------------------------------------------------
+Screen
+--------------------------------------------------------------------
+
+The screen is switched to 22 x 11 big character mode (8x16)
+
+Hires:		178 x 178 pixels
+Multicolour:	 89 x 178 pixels
+		 
+
+--------------------------------------------------------------------
+Colour:
+--------------------------------------------------------------------
+
+PAPER:
+	Sets the background colour for the complete screen
+	 0 -  7 = Hires colour mode
+  	 8 - 15 = Multicolour mode (for colours 0-7)
+
+INK:
+	Sets the front colour per attribute colour block
+	 0 -  7 = Hires colour mode
+  	 8 - 15 = Multicolour mode (for colours 0-7)
+
+BORDER:
+	Sets border colour.
+	 0 - 15 
+
+AUXCOLOUR
+	Sets the auxiliary colour for multicolour mode
+
+--------------------------------------------------------------------
+Assembler files
+--------------------------------------------------------------------
+
+----------
+Turboload:
+----------
+
+The Turboload file is stored in the folder ...\CC65\Turboload
+You can compile Turboload with BUILD TURBOLOAD
+This compiles the asm file into a binary file and copies TURBODISK
+into the ...\Suite VIC20 Bitmap\CC65 folder.
+
+The BUILD.BAT for MPAGD adds this file standard to the diskimage.
+
+You can use this file by adding code to the MPAGD file:
+
+	LOAD "TURBODISK"
+	CALL $a400 
+
+Add this code in EVENT INTROMENU and only load it once.
+
+------
+Music:
+------
+
+The music player file is stored in the folder ...\CC65\Music
+You can compile eg PLAYER1 with BUILD PLAYER1
+This compiles the asm file into a binary file and copies it into the 
+...\Suite VIC20 Bitmap\Music folder.
+
+The BUILD.BAT for MPAGD adds this file standard to the diskimage.
+There is an interrupt routine which is called at 50Hz
+
+- Loadaddress	: $a900
+- Filesize	: max $c000-$a900 = 5888 bytes (5,75kB)
+- Zeropage	: $90-$ff
+- API calls	: $a900 = jmp music_init
+		  $a903 = jmp music_on
+		  $a906 = jmp music_off
+		  $a909 = jmp music_play
+
+Add this code in EVENT INTROMENU and only load it once.
+
+	LOAD "PLAYER1"	; load music
+	USER 0		; music_init
+
+The API calls can be called in the code by adding:
+	USER 0	; music_init
+	USER 1	; music_on
+	USER 2	; music_off
+	USER 3	; music_play
+
+--------
+Picture:
+--------
+The picture file is stored in the folder ...\CC65\Picture
+A picture needs 2 files, a data- and a colour file.
+The name of the picture should be the gamename with an addition:
+	1c for colour file
+	1d for data file
+
+If you have more pictures in the same game, call them ...1c, ... 2c, etc
+You can compile eg PICTURE1C with BUILD PICTURE1C
+This compiles the asm file into a binary file and copies it into the 
+...\Suite VIC20 Bitmap\Pictures folder.
+
+The BUILD.BAT for MPAGD looks for pictures with the gamename an adds 
+these files to the diskimage.
+
+You can display a picture by adding code to the MPAGD file:
+	CLS
+	LOAD "GAME1C"
+	LOAD "GAME1C"
+
+
