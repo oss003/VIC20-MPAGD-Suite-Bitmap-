@@ -19,11 +19,11 @@ Current file: player1.asm
 00A900  2               ;---------------------------------------------------------------
 00A900  2               ; Music player routine
 00A900  2               ;---------------------------------------------------------------
-00A900  2               ; - Music player + data should be loaded at $a800
-00A900  2               ; - $a800 = jmp music_init
-00A900  2               ; - $a803 = jmp music_on
-00A900  2               ; - $a806 = jmp music_off
-00A900  2               ; - $a809 = jmp music_play
+00A900  2               ; - Music player + data should be loaded at $a900
+00A900  2               ; - $a900 = jmp music_init
+00A900  2               ; - $a903 = jmp music_on
+00A900  2               ; - $a906 = jmp music_off
+00A900  2               ; - $a909 = jmp music_play
 00A900  2               ; - Zeropage variables from $90 upwards can be used
 00A900  2               ;---------------------------------------------------------------
 00A900  2               
@@ -472,16 +472,17 @@ Current file: player1.asm
 00AA8B  2  4A           	lsr
 00AA8C  2  4A           	lsr
 00AA8D  2  4A           	lsr
-00AA8E  2  69 AB        	adc #>PATTERNS
-00AA90  2  95 96        	sta CH1_PATTERN_POS,x
-00AA92  2  E8           	inx
-00AA93  2  E0 08        	cpx #$08
-00AA95  2  D0 A4        	bne song_pos_loop
-00AA97  2  60           	rts
-00AA98  2               
-00AA98  2  xx xx xx xx  	.align $100
-00AA9C  2  xx xx xx xx  
-00AAA0  2  xx xx xx xx  
+00AA8E  2  18           	clc
+00AA8F  2  69 AB        	adc #>PATTERNS
+00AA91  2  95 96        	sta CH1_PATTERN_POS,x
+00AA93  2  E8           	inx
+00AA94  2  E0 08        	cpx #$08
+00AA96  2  D0 A3        	bne song_pos_loop
+00AA98  2  60           	rts
+00AA99  2               
+00AA99  2  xx xx xx xx  	.align $100
+00AA9D  2  xx xx xx xx  
+00AAA1  2  xx xx xx xx  
 00AAFE  2               songpos:
 00AAFE  2  48 01 0C 0C  	.incbin "songdata_pal.bin"
 00AB02  2  0F 17 05 27  

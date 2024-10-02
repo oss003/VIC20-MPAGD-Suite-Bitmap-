@@ -454,6 +454,7 @@ dont_reset:
 	lsr
 	lsr
 	lsr
+	clc
 	adc #>PATTERNS
 	sta CH1_PATTERN_POS,x
 	inx
