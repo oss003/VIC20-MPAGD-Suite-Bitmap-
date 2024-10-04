@@ -96,7 +96,7 @@ music_init:
 ; Init VIA2 timer21 for IRQ 1/50 sec
 
 	sei			; disable interrupt
-	lda #$c0		; T1 continuous
+	lda #$40		; T1 continuous, no square wave on PB7
 	sta AUX2
 	lda #$c0		; int timer1
 	sta IER2

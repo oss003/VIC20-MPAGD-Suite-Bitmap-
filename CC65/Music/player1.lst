@@ -114,7 +114,7 @@ Current file: player1.asm
 00A90C  2               ; Init VIA2 timer21 for IRQ 1/50 sec
 00A90C  2               
 00A90C  2  78           	sei			; disable interrupt
-00A90D  2  A9 C0        	lda #$c0		; T1 continuous
+00A90D  2  A9 40        	lda #$40		; T1 continuous, no square wave on PB7
 00A90F  2  8D 2B 91     	sta AUX2
 00A912  2  A9 C0        	lda #$c0		; int timer1
 00A914  2  8D 2E 91     	sta IER2

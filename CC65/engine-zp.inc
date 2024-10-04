@@ -47,7 +47,9 @@ gamwon:	.res 1			; game won flag.
 dispx:	.res 1			; cursor x position.
 dispy:	.res 1			; cursor y position.
 
-contrl:	.res 1			; control = keyboard, 1 = Kempston, 2 = Sinclair, 3 = Mouse.
+dummy:  .res 5
+
+contrl:	.res 1			; control 0 = keyboard, 1 = Joystick.
 joyval:	.res 1			; joystick reading.
 frmno:	.res 1			; selected frame.
 
