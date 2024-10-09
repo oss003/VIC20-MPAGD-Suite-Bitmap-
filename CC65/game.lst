@@ -7975,12 +7975,12 @@ Current file: game.asm
 001F37r 3  45 52 A0     
 001F3Ar 3  4C 4F 41 44          .byte "LOADIN",199
 001F3Er 3  49 4E C7     
-001F41r 3  53 4C 41 53          .byte "SLASHER2",195
+001F41r 3  53 4C 41 53          .byte "SLASHER2",196
 001F45r 3  48 45 52 32  
-001F49r 3  C3           
-001F4Ar 3  53 4C 41 53          .byte "SLASHER2",196
+001F49r 3  C4           
+001F4Ar 3  53 4C 41 53          .byte "SLASHER2",195
 001F4Er 3  48 45 52 32  
-001F52r 3  C4           
+001F52r 3  C3           
 001F53r 3  59 4F 55 20          .byte "YOU SURVIVE",196
 001F57r 3  53 55 52 56  
 001F5Br 3  49 56 45 C4  
@@ -10398,28 +10398,27 @@ Current file: game.asm
 003ED5r 2  C8           	iny
 003ED6r 2  8C rr rr     	sty filelen
 003ED9r 2               
-003ED9r 2               ; Load the file name (in accumulator the size of the string
-003ED9r 2               ;                      containing the name, x low address for FileName,
-003ED9r 2               ;                      y high address for FileName)
-003ED9r 2  AD rr rr     	lda filelen
-003EDCr 2  A2 rr        	ldx #<filename
-003EDEr 2  A0 rr        	ldy #>filename
-003EE0r 2  20 BD FF     	jsr $ffbd
-003EE3r 2               
-003EE3r 2               ; Which device to use (in A the file num 1 is OK - x with 8 is the type of device
-003EE3r 2               ;                       usually the first drive, and y set to 1 reads from the header
-003EE3r 2               ;                       of the file the location where to save it)
-003EE3r 2  A9 01        	lda #1
-003EE5r 2  A2 08        	ldx #8		; Disk device
-003EE7r 2  A0 01        	ldy #1
-003EE9r 2  20 BA FF     	jsr $ffba
+003ED9r 2               ; Which device to use (in A the file num 1 is OK - x with 8 is the type of device
+003ED9r 2               ;                       usually the first drive, and y set to 1 reads from the header
+003ED9r 2               ;                       of the file the location where to save it)
+003ED9r 2  A9 01        	lda #1
+003EDBr 2  A2 08        	ldx #8		; Disk device
+003EDDr 2  A0 01        	ldy #1
+003EDFr 2  20 BA FF     	jsr $ffba
+003EE2r 2               
+003EE2r 2               ; Load the file name (in accumulator the size of the string
+003EE2r 2               ;                      containing the name, x low address for FileName,
+003EE2r 2               ;                      y high address for FileName)
+003EE2r 2  AD rr rr     	lda filelen
+003EE5r 2  A2 rr        	ldx #<filename
+003EE7r 2  A0 rr        	ldy #>filename
+003EE9r 2  20 BD FF     	jsr $ffbd
 003EECr 2               
 003EECr 2               ; load from disk to ram
 003EECr 2  A9 00        	lda #0		; accumulator must be set to 0 to load the image
 003EEEr 2  A2 FF        	ldx #<$ff	; target location low not set (got from header)
 003EF0r 2  A0 00        	ldy #>$ff	; target location high (got from header)
 003EF2r 2  20 D5 FF     	jsr $ffd5
-003EF5r 2               
 003EF5r 2               
 003EF5r 2  60           	rts
 003EF6r 2               

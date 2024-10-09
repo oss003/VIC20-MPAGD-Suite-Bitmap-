@@ -14,32 +14,32 @@
 ; Zeropage variables
 ;---------------------------------------------------------------
 
-	SONG_POS          = $e0
-	PATTERN_POS       = $e1
-	FRAME_COUNT       = $e2
-	FRAME_LENGTH      = $e3
-	SONG_NEXT_TRUE    = $e4
-	SONG_END_TRUE     = $e5
+	SONG_POS          = $90
+	PATTERN_POS       = $91
+	FRAME_COUNT       = $92
+	FRAME_LENGTH      = $93
+	SONG_NEXT_TRUE    = $94
+	SONG_END_TRUE     = $95
 
 ; 2 byte address of pattern data
 
-	CH1_PATTERN_POS   = $e6
-	CH2_PATTERN_POS   = $e8
-	CH3_PATTERN_POS   = $ea
-	CH4_PATTERN_POS   = $ec
+	CH1_PATTERN_POS   = $96
+	CH2_PATTERN_POS   = $98
+	CH3_PATTERN_POS   = $9a
+	CH4_PATTERN_POS   = $9c
 
 ; #$00 == inactive mode
 
-	CH1_ACTIVE        = $f0
-	CH2_ACTIVE        = $f1
-	CH3_ACTIVE        = $f2
-	CH4_ACTIVE        = $f3
+	CH1_ACTIVE        = $a0
+	CH2_ACTIVE        = $a1
+	CH3_ACTIVE        = $a2
+	CH4_ACTIVE        = $a3
 
-	TEMP_GUY          = $f4
-	CHAN_NOTE_DATA    = $f5
-	CHANS_INACTIVE    = $f6
-	FAST_COUNTER      = $f7
-	MEGA_COUNTER      = $f8
+	TEMP_GUY          = $a4
+	CHAN_NOTE_DATA    = $a5
+	CHANS_INACTIVE    = $a6
+	FAST_COUNTER      = $a7
+	MEGA_COUNTER      = $a8
 
 ;---------------------------------------------------------------
 ; Constants
