@@ -448,7 +448,7 @@ dont_reset:
 	sta CH1_PATTERN_POS,x
 	inx
 
-; MSB
+; MSB11
 	lda TEMP_GUY
 	lsr
 	lsr

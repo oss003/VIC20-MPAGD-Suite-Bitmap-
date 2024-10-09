@@ -527,16 +527,20 @@ ELSE
         ENDIF
     ENDIF
     IF KEY RIGHT
-        IF CANGORIGHT
+        IF X < 144
+          IF CANGORIGHT
             LET H 1
             SPRITERIGHT
+          ENDIF
         ENDIF
     ENDIF
     IF KEY LEFT
-        IF CANGOLEFT
+       IF X > 16
+         IF CANGOLEFT
             LET H 0
             SPRITELEFT
-        ENDIF
+         ENDIF
+       ENDIF
     ENDIF
     IF KEY FIRE
         IF H = 0
@@ -912,7 +916,9 @@ EVENT MAINLOOP2
     ENDIF
     IF G = 50
         ADD 1 TO M
-        ADD 1 TO A
+        IF A < 3
+          ADD 1 TO A
+        ENDIF
         LET G 1
     ENDIF
   ELSE
@@ -969,7 +975,6 @@ EVENT INTROMENU
 
   INK 4:AT 21,3:PRINT"SELECT CONTROLS"
   CONTROLMENU
-  AT 0,0:DISPLAY CONTROL
   WAITKEY
 
 EVENT GAMEINIT
@@ -1035,9 +1040,11 @@ EVENT LOSTGAME
 
   AT  9,6:PRINT "           "
   AT 11,6:PRINT "           "
+  AT 12,6:PRINT "           "
   LET I 1
   REPEAT 7
     INK I:AT 10,6:PRINT " GAME OVER "
+    AT 11,8:SHOWSCORE
     DELAY 25
     ADD 1 TO I
   ENDREPEAT
