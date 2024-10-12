@@ -36,7 +36,7 @@ x DIG, check command
 x TICKER, check command
 - SPRITEINK, check command
 x CALL, check command
-- COLOUR, check command
+x COLOUR, check command
 x CRASH, add white noise
 - SOUND, check fx sounds
 - SILENCE, check command

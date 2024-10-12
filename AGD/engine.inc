@@ -793,18 +793,29 @@ rpblc1:
 
 cls:
 	lda #>CharAddress	; Character RAM address.
-	sta clsloop+2
+	sta clrdata+2
+
+; Clear bitmap data
 
 	lda #ScrFillByte	; Clear screen
 	ldy #0
 	ldx #16
-clsloop:
+clrdata:
 	sta CharAddress,y
 	iny
-	bne clsloop
-	inc clsloop+2
+	bne clrdata
+	inc clrdata+2
 	dex
-	bne clsloop
+	bne clrdata
+
+; Clear colour attributes
+
+	lda #0
+	ldx #0
+clrcolour:
+	sta ColorAttr,x
+	inx
+	bne clrcolour
 	rts
 
 ;----------------------------------------------------------------------
