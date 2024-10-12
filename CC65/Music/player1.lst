@@ -32,32 +32,32 @@ Current file: player1.asm
 00A900  2               ; Zeropage variables
 00A900  2               ;---------------------------------------------------------------
 00A900  2               
-00A900  2               	SONG_POS          = $e0
-00A900  2               	PATTERN_POS       = $e1
-00A900  2               	FRAME_COUNT       = $e2
-00A900  2               	FRAME_LENGTH      = $e3
-00A900  2               	SONG_NEXT_TRUE    = $e4
-00A900  2               	SONG_END_TRUE     = $e5
+00A900  2               	SONG_POS          = $d0
+00A900  2               	PATTERN_POS       = $d1
+00A900  2               	FRAME_COUNT       = $d2
+00A900  2               	FRAME_LENGTH      = $d3
+00A900  2               	SONG_NEXT_TRUE    = $d4
+00A900  2               	SONG_END_TRUE     = $d5
 00A900  2               
 00A900  2               ; 2 byte address of pattern data
 00A900  2               
-00A900  2               	CH1_PATTERN_POS   = $e6
-00A900  2               	CH2_PATTERN_POS   = $e8
-00A900  2               	CH3_PATTERN_POS   = $ea
-00A900  2               	CH4_PATTERN_POS   = $ec
+00A900  2               	CH1_PATTERN_POS   = $d6
+00A900  2               	CH2_PATTERN_POS   = $d8
+00A900  2               	CH3_PATTERN_POS   = $da
+00A900  2               	CH4_PATTERN_POS   = $dc
 00A900  2               
 00A900  2               ; #$00 == inactive mode
 00A900  2               
-00A900  2               	CH1_ACTIVE        = $f0
-00A900  2               	CH2_ACTIVE        = $f1
-00A900  2               	CH3_ACTIVE        = $f2
-00A900  2               	CH4_ACTIVE        = $f3
+00A900  2               	CH1_ACTIVE        = $e0
+00A900  2               	CH2_ACTIVE        = $e1
+00A900  2               	CH3_ACTIVE        = $e2
+00A900  2               	CH4_ACTIVE        = $e3
 00A900  2               
-00A900  2               	TEMP_GUY          = $f4
-00A900  2               	CHAN_NOTE_DATA    = $f5
-00A900  2               	CHANS_INACTIVE    = $f6
-00A900  2               	FAST_COUNTER      = $f7
-00A900  2               	MEGA_COUNTER      = $f8
+00A900  2               	TEMP_GUY          = $e4
+00A900  2               	CHAN_NOTE_DATA    = $e5
+00A900  2               	CHANS_INACTIVE    = $e6
+00A900  2               	FAST_COUNTER      = $e7
+00A900  2               	MEGA_COUNTER      = $e8
 00A900  2               
 00A900  2               ;---------------------------------------------------------------
 00A900  2               ; Constants
@@ -130,15 +130,15 @@ Current file: player1.asm
 00A92B  2               ; Init music player
 00A92B  2               
 00A92B  2  A9 00        	lda #$00
-00A92D  2  85 E0        	sta SONG_POS
-00A92F  2  85 E1        	sta PATTERN_POS
-00A931  2  85 E4        	sta SONG_NEXT_TRUE
-00A933  2  85 E5        	sta SONG_END_TRUE
-00A935  2  85 E2        	sta FRAME_COUNT
-00A937  2  85 F8        	sta MEGA_COUNTER
+00A92D  2  85 D0        	sta SONG_POS
+00A92F  2  85 D1        	sta PATTERN_POS
+00A931  2  85 D4        	sta SONG_NEXT_TRUE
+00A933  2  85 D5        	sta SONG_END_TRUE
+00A935  2  85 D2        	sta FRAME_COUNT
+00A937  2  85 E8        	sta MEGA_COUNTER
 00A939  2               
 00A939  2  A9 01        	lda #$01		; load first frame length
-00A93B  2  85 E3        	sta FRAME_LENGTH
+00A93B  2  85 D3        	sta FRAME_LENGTH
 00A93D  2  60           	rts
 00A93E  2               
 00A93E  2               
@@ -203,45 +203,45 @@ Current file: player1.asm
 00A968  2  20 A3 A9     	jsr AUDIO_UPDATE
 00A96B  2               
 00A96B  2               ; check if NeXT was called
-00A96B  2  A5 E4        	lda SONG_NEXT_TRUE
+00A96B  2  A5 D4        	lda SONG_NEXT_TRUE
 00A96D  2  C9 00        	cmp #$00
 00A96F  2  F0 11        	beq not_next_effect_called
 00A971  2  A9 00        	lda #$00
-00A973  2  85 E1        	sta PATTERN_POS
-00A975  2  85 E4        	sta SONG_NEXT_TRUE
-00A977  2  E6 E0        	inc SONG_POS
+00A973  2  85 D1        	sta PATTERN_POS
+00A975  2  85 D4        	sta SONG_NEXT_TRUE
+00A977  2  E6 D0        	inc SONG_POS
 00A979  2  20 2D AA     	jsr SONG_POS_UPDATE
 00A97C  2  20 FE A9     	jsr AUDIO_PROCESS_CHANNEL
 00A97F  2  4C 65 A9     	jmp main_loop_skip_raster
 00A982  2               
 00A982  2               ; ready for next music frame?
 00A982  2               not_next_effect_called:
-00A982  2  E6 E2        	inc FRAME_COUNT
-00A984  2  A5 E2        	lda FRAME_COUNT
-00A986  2  C5 E3        	cmp FRAME_LENGTH
+00A982  2  E6 D2        	inc FRAME_COUNT
+00A984  2  A5 D2        	lda FRAME_COUNT
+00A986  2  C5 D3        	cmp FRAME_LENGTH
 00A988  2  D0 18        	bne endmusicplayfunc
 00A98A  2               
 00A98A  2               ; reset frame counter
 00A98A  2  A9 00        	lda #$00
-00A98C  2  85 E2        	sta FRAME_COUNT
+00A98C  2  85 D2        	sta FRAME_COUNT
 00A98E  2               
 00A98E  2               ; increase pattern position
-00A98E  2  E6 E1        	inc PATTERN_POS
-00A990  2  A5 E1        	lda PATTERN_POS
+00A98E  2  E6 D1        	inc PATTERN_POS
+00A990  2  A5 D1        	lda PATTERN_POS
 00A992  2  C9 10        	cmp #$10
 00A994  2  D0 08        	bne not_next_pattern
 00A996  2               
 00A996  2               next_pattern:
 00A996  2  A9 00        	lda #$00
-00A998  2  85 E1        	sta PATTERN_POS
-00A99A  2  E6 E0        	inc SONG_POS
-00A99C  2  A5 E0        	lda SONG_POS
+00A998  2  85 D1        	sta PATTERN_POS
+00A99A  2  E6 D0        	inc SONG_POS
+00A99C  2  A5 D0        	lda SONG_POS
 00A99E  2               
 00A99E  2               not_next_pattern:
 00A99E  2               
 00A99E  2               ; done
-00A99E  2  E6 F8        	inc MEGA_COUNTER
-00A9A0  2  A5 F8        	lda MEGA_COUNTER
+00A99E  2  E6 E8        	inc MEGA_COUNTER
+00A9A0  2  A5 E8        	lda MEGA_COUNTER
 00A9A2  2               
 00A9A2  2               endmusicplayfunc:
 00A9A2  2  60           	rts
@@ -254,9 +254,9 @@ Current file: player1.asm
 00A9A3  2               AUDIO_UPDATE:
 00A9A3  2               
 00A9A3  2               ; y = pattern position
-00A9A3  2  A4 E1        	ldy PATTERN_POS
+00A9A3  2  A4 D1        	ldy PATTERN_POS
 00A9A5  2  B9 2E AB     	lda TABLE_SPEED,y
-00A9A8  2  85 E3        	sta FRAME_LENGTH
+00A9A8  2  85 D3        	sta FRAME_LENGTH
 00A9AA  2  B9 3E AB     	lda TABLE_VOLUME,y
 00A9AD  2  8D 0E 90     	sta VIC_VOLUME
 00A9B0  2               
@@ -264,7 +264,7 @@ Current file: player1.asm
 00A9B0  2  A2 00        	ldx #$00
 00A9B2  2               
 00A9B2  2               ; CHANNEL 1
-00A9B2  2  A5 F0        	lda CH1_ACTIVE
+00A9B2  2  A5 E0        	lda CH1_ACTIVE
 00A9B4  2  C9 00        	cmp #$00
 00A9B6  2  D0 05        	bne channel1_active
 00A9B8  2               
@@ -272,7 +272,7 @@ Current file: player1.asm
 00A9BA  2  4C C4 A9     	jmp channel1_done
 00A9BD  2               
 00A9BD  2               channel1_active:
-00A9BD  2  B1 E6        	lda (CH1_PATTERN_POS),y
+00A9BD  2  B1 D6        	lda (CH1_PATTERN_POS),y
 00A9BF  2  20 FE A9     	jsr AUDIO_PROCESS_CHANNEL
 00A9C2  2  69 20        	adc #$20
 00A9C4  2               
@@ -280,7 +280,7 @@ Current file: player1.asm
 00A9C4  2               
 00A9C4  2               ; CHANNEL 2
 00A9C4  2  E8           	inx
-00A9C5  2  A5 F1        	lda CH2_ACTIVE
+00A9C5  2  A5 E1        	lda CH2_ACTIVE
 00A9C7  2  C9 00        	cmp #$00
 00A9C9  2  D0 05        	bne channel2_active
 00A9CB  2               
@@ -288,7 +288,7 @@ Current file: player1.asm
 00A9CD  2  4C D7 A9     	jmp channel2_done
 00A9D0  2               
 00A9D0  2               channel2_active:
-00A9D0  2  B1 E8        	lda (CH2_PATTERN_POS),y
+00A9D0  2  B1 D8        	lda (CH2_PATTERN_POS),y
 00A9D2  2  20 FE A9     	jsr AUDIO_PROCESS_CHANNEL
 00A9D5  2  69 20        	adc #$20
 00A9D7  2               
@@ -296,14 +296,14 @@ Current file: player1.asm
 00A9D7  2               
 00A9D7  2               ; CHANNEL 3
 00A9D7  2  E8           	inx
-00A9D8  2  A5 F2        	lda CH3_ACTIVE
+00A9D8  2  A5 E2        	lda CH3_ACTIVE
 00A9DA  2  C9 00        	cmp #$00
 00A9DC  2  D0 05        	bne channel3_active
 00A9DE  2  A9 20        	lda #$20
 00A9E0  2  4C EA A9     	jmp channel3_done
 00A9E3  2               
 00A9E3  2               channel3_active:
-00A9E3  2  B1 EA        	lda (CH3_PATTERN_POS),y
+00A9E3  2  B1 DA        	lda (CH3_PATTERN_POS),y
 00A9E5  2  20 FE A9     	jsr AUDIO_PROCESS_CHANNEL
 00A9E8  2  69 20        	adc #$20
 00A9EA  2               
@@ -311,7 +311,7 @@ Current file: player1.asm
 00A9EA  2               
 00A9EA  2               ; CHANNEL 4
 00A9EA  2  E8           	inx
-00A9EB  2  A5 F3        	lda CH4_ACTIVE
+00A9EB  2  A5 E3        	lda CH4_ACTIVE
 00A9ED  2  C9 00        	cmp #$00
 00A9EF  2  D0 05        	bne channel4_active
 00A9F1  2               
@@ -319,7 +319,7 @@ Current file: player1.asm
 00A9F3  2  4C FD A9     	jmp channel4_done
 00A9F6  2               
 00A9F6  2               channel4_active:
-00A9F6  2  B1 EC        	lda (CH4_PATTERN_POS),y
+00A9F6  2  B1 DC        	lda (CH4_PATTERN_POS),y
 00A9F8  2  20 FE A9     	jsr AUDIO_PROCESS_CHANNEL
 00A9FB  2  69 20        	adc #$20
 00A9FD  2               
@@ -330,18 +330,18 @@ Current file: player1.asm
 00A9FE  2               ;---------------------------------------------------------------
 00A9FE  2               
 00A9FE  2               AUDIO_PROCESS_CHANNEL:
-00A9FE  2  85 F5        	sta CHAN_NOTE_DATA
+00A9FE  2  85 E5        	sta CHAN_NOTE_DATA
 00AA00  2  29 80        	and #%10000000
 00AA02  2  C9 80        	cmp #%10000000
 00AA04  2  D0 06        	bne not_note
 00AA06  2               
 00AA06  2               is_note:
-00AA06  2  A5 F5        	lda CHAN_NOTE_DATA
+00AA06  2  A5 E5        	lda CHAN_NOTE_DATA
 00AA08  2  9D 0A 90     	sta VIC_CHAN_1,x
 00AA0B  2  60           	rts
 00AA0C  2               
 00AA0C  2               not_note:
-00AA0C  2  A5 F5        	lda CHAN_NOTE_DATA
+00AA0C  2  A5 E5        	lda CHAN_NOTE_DATA
 00AA0E  2  C9 01        	cmp #%00000001
 00AA10  2  D0 06        	bne not_note_off
 00AA12  2               
@@ -350,12 +350,12 @@ Current file: player1.asm
 00AA17  2  60           	rts
 00AA18  2               
 00AA18  2               not_note_off:
-00AA18  2  A5 F5        	lda CHAN_NOTE_DATA
+00AA18  2  A5 E5        	lda CHAN_NOTE_DATA
 00AA1A  2  C9 02        	cmp #%00000010
 00AA1C  2  D0 03        	bne not_note_next
 00AA1E  2               
 00AA1E  2               ; move song to next song row
-00AA1E  2  E6 E4        	inc SONG_NEXT_TRUE
+00AA1E  2  E6 D4        	inc SONG_NEXT_TRUE
 00AA20  2               
 00AA20  2               ; XXX do what here?
 00AA20  2               ; will update correctly on next frame
@@ -365,7 +365,7 @@ Current file: player1.asm
 00AA20  2  60           	rts
 00AA21  2               
 00AA21  2               not_note_next:
-00AA21  2  A5 F5        	lda CHAN_NOTE_DATA
+00AA21  2  A5 E5        	lda CHAN_NOTE_DATA
 00AA23  2  C9 03        	cmp #NOTE_END
 00AA25  2  D0 05        	bne not_end_of_song
 00AA27  2               
@@ -392,15 +392,15 @@ Current file: player1.asm
 00AA2D  2               
 00AA2D  2               ; x = channel pattern position offset
 00AA2D  2  A2 00        	ldx #$00
-00AA2F  2  86 F6        	stx CHANS_INACTIVE
+00AA2F  2  86 E6        	stx CHANS_INACTIVE
 00AA31  2  A9 FF        	lda #$ff
-00AA33  2  85 F0        	sta CH1_ACTIVE
-00AA35  2  85 F1        	sta CH2_ACTIVE
-00AA37  2  85 F2        	sta CH3_ACTIVE
-00AA39  2  85 F3        	sta CH4_ACTIVE
+00AA33  2  85 E0        	sta CH1_ACTIVE
+00AA35  2  85 E1        	sta CH2_ACTIVE
+00AA37  2  85 E2        	sta CH3_ACTIVE
+00AA39  2  85 E3        	sta CH4_ACTIVE
 00AA3B  2               
 00AA3B  2               song_pos_loop:
-00AA3B  2  A5 E0        	lda SONG_POS
+00AA3B  2  A5 D0        	lda SONG_POS
 00AA3D  2  38           	sec
 00AA3E  2  E9 40        	sbc #$40
 00AA40  2  10 10        	bpl song_page_2
@@ -408,11 +408,11 @@ Current file: player1.asm
 00AA42  2               song_page_1:
 00AA42  2  0A           	asl
 00AA43  2  0A           	asl
-00AA44  2  85 F4        	sta TEMP_GUY
+00AA44  2  85 E4        	sta TEMP_GUY
 00AA46  2  8A           	txa
 00AA47  2  4A           	lsr
 00AA48  2  18           	clc
-00AA49  2  65 F4        	adc TEMP_GUY
+00AA49  2  65 E4        	adc TEMP_GUY
 00AA4B  2  A8           	tay
 00AA4C  2  B9 4E B3     	lda SONG_PAGE_1,y
 00AA4F  2  4C 5F AA     	jmp pattern_found
@@ -420,16 +420,16 @@ Current file: player1.asm
 00AA52  2               song_page_2:
 00AA52  2  0A           	asl
 00AA53  2  0A           	asl
-00AA54  2  85 F4        	sta TEMP_GUY
+00AA54  2  85 E4        	sta TEMP_GUY
 00AA56  2  8A           	txa
 00AA57  2  4A           	lsr
 00AA58  2  18           	clc
-00AA59  2  65 F4        	adc TEMP_GUY
+00AA59  2  65 E4        	adc TEMP_GUY
 00AA5B  2  A8           	tay
 00AA5C  2  B9 4E B4     	lda SONG_PAGE_2,y
 00AA5F  2               
 00AA5F  2               pattern_found:
-00AA5F  2  85 F4        	sta TEMP_GUY
+00AA5F  2  85 E4        	sta TEMP_GUY
 00AA61  2               
 00AA61  2               ; lets make sure its not an empty pattern
 00AA61  2  C9 FF        	cmp #$ff
@@ -440,21 +440,21 @@ Current file: player1.asm
 00AA66  2  4A           	lsr
 00AA67  2  A8           	tay
 00AA68  2  A9 00        	lda #$00
-00AA6A  2  99 F0 00     	sta CH1_ACTIVE,y
+00AA6A  2  99 E0 00     	sta CH1_ACTIVE,y
 00AA6D  2               
 00AA6D  2               ; reset song if there are 4 empty patterns
-00AA6D  2  E6 F6        	inc CHANS_INACTIVE
-00AA6F  2  A5 F6        	lda CHANS_INACTIVE
+00AA6D  2  E6 E6        	inc CHANS_INACTIVE
+00AA6F  2  A5 E6        	lda CHANS_INACTIVE
 00AA71  2  C9 04        	cmp #$04
 00AA73  2  D0 07        	bne dont_reset
 00AA75  2               
 00AA75  2               song_reset:
 00AA75  2  A9 00        	lda #$00
-00AA77  2  85 E0        	sta SONG_POS
+00AA77  2  85 D0        	sta SONG_POS
 00AA79  2  4C 2D AA     	jmp SONG_POS_UPDATE
 00AA7C  2               
 00AA7C  2               dont_reset:
-00AA7C  2  A5 F4        	lda TEMP_GUY
+00AA7C  2  A5 E4        	lda TEMP_GUY
 00AA7E  2               
 00AA7E  2               ; LSB
 00AA7E  2  0A           	asl
@@ -463,18 +463,18 @@ Current file: player1.asm
 00AA81  2  0A           	asl
 00AA82  2  18           	clc
 00AA83  2  69 4E        	adc #<PATTERNS	;$50
-00AA85  2  95 E6        	sta CH1_PATTERN_POS,x
+00AA85  2  95 D6        	sta CH1_PATTERN_POS,x
 00AA87  2  E8           	inx
 00AA88  2               
 00AA88  2               ; MSB11
-00AA88  2  A5 F4        	lda TEMP_GUY
+00AA88  2  A5 E4        	lda TEMP_GUY
 00AA8A  2  4A           	lsr
 00AA8B  2  4A           	lsr
 00AA8C  2  4A           	lsr
 00AA8D  2  4A           	lsr
 00AA8E  2  18           	clc
 00AA8F  2  69 AB        	adc #>PATTERNS
-00AA91  2  95 E6        	sta CH1_PATTERN_POS,x
+00AA91  2  95 D6        	sta CH1_PATTERN_POS,x
 00AA93  2  E8           	inx
 00AA94  2  E0 08        	cpx #$08
 00AA96  2  D0 A3        	bne song_pos_loop

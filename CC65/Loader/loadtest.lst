@@ -1,0 +1,81 @@
+ca65 V2.13.3 - (C) Copyright 1998-2012 Ullrich von Bassewitz
+Main file   : loadtest.asm
+Current file: loadtest.asm
+
+000000r 1               ;----------------------------------------------
+000000r 1               ; Basic loader VIC20
+000000r 1               ; CC65 conversion by KC 2024
+000000r 1               ;----------------------------------------------
+000000r 1               
+000000r 1               ;----------------------------------------------
+000000r 1               ; Header
+000000r 1               ;----------------------------------------------
+000000r 1               
+000000r 1               ;.org $1200-2
+000000r 1               
+000000r 1  rr rr        	.word main
+000002r 1               main:
+000002r 1               	.include "loadtest.inc"
+000002r 2               ;----------------------------------------------
+000002r 2               ; BASIC header
+000002r 2               ;----------------------------------------------
+000002r 2               
+000002r 2               .segment "BASIC"
+000000r 2               
+000000r 2  rr rr        	.word load
+000002r 2  rr rr        load:   .word @end
+000004r 2               
+000004r 2               ; 40 SYS pload
+000004r 2  28 00 9E 20  	.byte $28,$00,$9e,$20
+000008r 2  rr           	.byte .lobyte(pload/1000 .mod 10) + $30
+000009r 2  rr           	.byte .lobyte(pload/100 .mod 10) + $30
+00000Ar 2  rr           	.byte .lobyte(pload/10 .mod 10) + $30
+00000Br 2  rr           	.byte .lobyte(pload/1 .mod 10) + $30
+00000Cr 2  00 00        	.byte $00,$00
+00000Er 2               
+00000Er 2  00 00        @end:   .word 0
+000010r 2               
+000010r 2               
+000010r 2               pload:
+000010r 2  A9 00        	lda #0
+000012r 2  A2 00        	ldx #0				; Copy loader code to $0f00
+000014r 2               load_loop:
+000014r 2  95 00        	sta $00,x
+000016r 2  E8           	inx
+000017r 2  D0 FB        	bne load_loop
+000019r 2               
+000019r 2               ; Which device to use (in A the file num 1 is OK - x with 8 is the type of device
+000019r 2               ;                       usually the first drive, and y set to 1 reads from the header
+000019r 2               ;                       of the file the location where to save it)
+000019r 2  A9 01        	lda #1
+00001Br 2  A2 08        	ldx #8		; Disk device
+00001Dr 2  A0 01        	ldy #1
+00001Fr 2  20 BA FF     	jsr $ffba
+000022r 2               
+000022r 2               ; Load the file name (in accumulator the size of the string
+000022r 2               ;                      containing the name, x low address for FileName,
+000022r 2               ;                      y high address for FileName)
+000022r 2  A9 09        	lda #9
+000024r 2  A2 rr        	ldx #<filename
+000026r 2  A0 rr        	ldy #>filename
+000028r 2  20 BD FF     	jsr $ffbd
+00002Br 2               
+00002Br 2               ; load from disk to ram
+00002Br 2  A9 00        	lda #0		; accumulator must be set to 0 to load the image
+00002Dr 2  A2 FF        	ldx #<$ff	; target location low not set (got from header)
+00002Fr 2  A0 00        	ldy #>$ff	; target location high (got from header)
+000031r 2  20 D5 FF     	jsr $ffd5
+000034r 2               
+000034r 2               endless:
+000034r 2  4C rr rr     	jmp endless
+000037r 2               
+000037r 2               filename:
+000037r 2  53 4C 41 53  	.byte "SLASHER2C"
+00003Br 2  48 45 52 32  
+00003Fr 2  43           
+000040r 2               
+000040r 1               
+000040r 1               eind_asm:
+000040r 1               
+000040r 1               ;.out .sprintf("Loader size = %d bytes", (eind_asm - main))
+000040r 1               

@@ -48,8 +48,7 @@ rem Create discimage and add pictures + fastloader to diskimage
    c1541 -attach %1.d64 -write ..\TAPES\%1.prg agdgame.prg
    c1541 -attach %1.d64 -write ..\..\CC65\turbodisk turbodisk 
    c1541 -attach %1.d64 -write ..\..\CC65\loader.prg %1.prg 
- )
- if %turbo%==0 (
+ ) else (
    c1541 -attach %1.d64 -write ..\TAPES\%1.prg %1.prg
  )
  for %%f in (..\..\pictures\%1*.*) do c1541 -attach %1.d64 -write %%f %%~nf
@@ -57,9 +56,6 @@ rem Create discimage and add pictures + fastloader to diskimage
 
 rem Start emulator
  echo Starting Vice with %1.prg
-
-rem cd ..\GTK3VICE-3.8-win64\bin
-rem xvic -silent -memory all -ntsc ..\TAPES\%1.prg
 
  xvic -silent -memory all -ntsc "..\discs\%1.d64:%1.prg"
  cd ..\..

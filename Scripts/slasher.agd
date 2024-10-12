@@ -897,6 +897,10 @@ EVENT MAINLOOP1
 
 EVENT MAINLOOP2
 
+  IF O = 255
+    LET O 0
+  ENDIF
+
   IF SCREEN = 0
     IF N = 12
         LET N 0

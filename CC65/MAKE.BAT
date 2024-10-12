@@ -54,10 +54,6 @@ rem Linking
  echo Linking: %1
  ld65 %1.o -C vic20.cfg -o %1.bin
  if not "%errorlevel%" == "0" goto failed
-
-rem copy %1.atm "C:\Emulator\Atomulator Phill\mmc"
- echo.
- echo Copying: %1
  echo Finished, created %1.bin
  goto end
 
