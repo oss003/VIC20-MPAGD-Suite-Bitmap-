@@ -17,7 +17,19 @@ api2:
 	jmp music_off
 api3:
 	cmp #3
-	bne api_end
+	bne snd_1
 	jmp music_play
+snd_1:
+	cmp #5
+	bne snd_2
+	lda #222
+	sta SetSoundVars
+	rts
+snd_2:
+	cmp #6
+	bne api_end
+	lda #222
+	sta SetSoundVars+3
+	rts
 api_end:
 	rts

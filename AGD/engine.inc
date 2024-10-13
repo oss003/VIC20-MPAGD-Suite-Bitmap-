@@ -4916,6 +4916,8 @@ disply:
 	jsr num2ch				; convert accumulator to string.
 displ1:
 	dec z80_c				; back one character.
+	lda z80_c
+	cmp #$ff
 	bne :+
 	dec z80_b
 :

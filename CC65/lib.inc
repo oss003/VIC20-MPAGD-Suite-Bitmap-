@@ -435,18 +435,24 @@ prskey:
 	pha
 prsloop:
 	jsr vsync
+	jsr joykey
+	ora #$80
+	cmp #$ff
+	bne :+
 	jsr readkey
-	cpy #255
+	cmp #255
 	beq prsloop		; wait until key pressed
-
+:
 prsrelease:
 	jsr vsync
-	jsr readkey
-	cpy #255
-	bne prsrelease		; wait until key released
-
 	jsr joykey
-
+	ora #$80
+	cmp #$ff
+	beq :+
+	jsr readkey
+	cmp #255
+	bne prsrelease		; wait until key released
+:
 	pla
 	tay
 	rts
@@ -686,6 +692,10 @@ vsync1:
 	bit IFR1		; check Interrupt Flag Register
 	beq vsync1		; wait if timer not expired
 	lda Timer11_Low		; clear Timer interrupt
+
+; Handle sound command
+
+;	jsr make_sound2
 
 ; Handle shrapnel every even frame
 
@@ -1426,3 +1436,76 @@ filename:
 	.byte 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 filelen:
 	.byte 0
+
+;----------------------------------------------------
+; Sound
+;----------------------------------------------------
+
+; Actual memory locations
+
+SetSoundVars:		.byte $0a, $19, $10, $40
+SetSoundDuration:	.byte $0a, $19, $10, $40
+
+;   asl a ; $034e
+;   ora $4010,y ; $034f $0350 $0351
+
+; Start of code
+
+make_sound2:
+	ldy #$00
+	ldx #$de
+	lda SetSoundVars
+	cmp SetSoundDuration		; $0359 $035a
+	bcs l0366
+	inc SetSoundVars
+	inc $900a
+	jmp l0374
+
+l0366:	sty $900a
+	cpx SetSoundVars
+	bne l0374
+	sty SetSoundVars
+	stx $900a
+l0374:	lda SetSoundVars+1
+	cmp SetSoundDuration+1		; $0377 $0378
+	bcs l0384
+	inc SetSoundVars+1
+	inc $900b
+	jmp l0392
+l0384:	sty $900b
+	cpx SetSoundVars+1
+	bne l0392
+	sty SetSoundVars+1
+	stx $900b
+l0392:	lda SetSoundVars+2
+	cmp SetSoundDuration+2		; $0395 $0396
+	bcs l03a2 
+	inc SetSoundVars+2
+	dec $900c
+	jmp l03b0
+l03a2:	sty $900c
+	cpx SetSoundVars+2
+	bne l03b0
+	sty SetSoundVars+2
+	stx $900c
+l03b0:	lda SetSoundVars+3
+	cmp SetSoundDuration+3		; $03b3 $03b4
+	bcs l03d3
+	inc SetSoundVars+3
+	lda SetSoundVars+3
+	cmp #$16
+	bne l03c8
+	lda #$b0
+	sta $900d
+	beq l03e1
+l03c8:	cmp #$2b
+	bne l03e1
+	lda #$a0
+	sta $900d
+	beq l03e1
+l03d3:	sty $900d
+	cpx SetSoundVars+3
+	bne l03e1
+	sty SetSoundVars+3
+	stx $900d
+l03e1:	rts
