@@ -9357,12 +9357,12 @@ Current file: game.asm
 003CE0r 2               
 003CE0r 2  AD 00 90     	lda Reg0
 003CE3r 2  29 80        	and #%10000000
-003CE5r 2  09 0C        	ora #CentreX
+003CE5r 2  09 04        	ora #CentreX
 003CE7r 2  8D 00 90     	sta Reg0
 003CEAr 2               
 003CEAr 2               ; move vertical position in the screen
 003CEAr 2               
-003CEAr 2  A9 22        	lda #CentreY
+003CEAr 2  A9 1B        	lda #CentreY
 003CECr 2  8D 01 90     	sta Reg1
 003CEFr 2               
 003CEFr 2               ; Set screem memory to $200
