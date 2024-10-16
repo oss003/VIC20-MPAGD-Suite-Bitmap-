@@ -110,19 +110,19 @@ DEFINEFONT      0 0 0 0 0 0 0 0
 
 DEFINEBLOCK     EMPTYBLOCK
                 0 0 0 0 0 0 0 0
-                71
+                1
 
 DEFINEBLOCK     WALLBLOCK
                 254 254 254 0 239 239 239 0
-                66
+                1
 
 DEFINEBLOCK     LADDERBLOCK
                 0 0 255 0 0 0 255 0
-                71
+                1
 
 DEFINEBLOCK     FODDERBLOCK
                 170 85 170 85 170 85 170 85
-                68
+                1
 
 
 DEFINESPRITE    4
@@ -286,7 +286,7 @@ SPRITEPOSITION  2 3 124 160
 SPRITEPOSITION  2 3 8 152
 SPRITEPOSITION  2 3 56 24
 
-DEFINEOBJECT    71 254 56 120
+DEFINEOBJECT    1 254 56 120
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
@@ -463,6 +463,9 @@ EVENT MAINLOOP2
 
 
 EVENT INTROMENU
+PAPER 0
+INK 1
+CLS
 
 
 EVENT GAMEINIT

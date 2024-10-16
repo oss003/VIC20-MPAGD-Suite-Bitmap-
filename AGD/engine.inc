@@ -66,8 +66,8 @@
 .if modelflag
 	ScrWidth	= 22	; PAL settings
 	ScrHeight	= 22
-	CentreX		= 4
-	CentreY		= 28
+	CentreX		= 12
+	CentreY		= 34
 	timervalue	= 20000
 	timerint	= 20000			; Interrupt timer 1/50 sec
 	.out "- PAL"

@@ -237,7 +237,7 @@ init:
 
 	lda Reg3
 	and #%10000001
-	ora #ScrWidth		; number of rows multipled by two
+	ora #ScrHeight		; number of rows multipled by two
 	sta Reg3
 
 ; horizontal and vertical position must be set for 

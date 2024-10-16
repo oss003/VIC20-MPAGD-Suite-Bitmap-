@@ -57,7 +57,11 @@ rem Create discimage and add pictures + fastloader to diskimage
 rem Start emulator
  echo Starting Vice with %1.prg
 
- xvic -silent -memory all -ntsc "..\discs\%1.d64:%1.prg"
+ if %model%==0 (
+   xvic -silent -memory all -ntsc "..\discs\%1.d64:%1.prg"
+ ) else (
+   xvic -silent -memory all -pal "..\discs\%1.d64:%1.prg"
+ )
  cd ..\..
 
  goto end
