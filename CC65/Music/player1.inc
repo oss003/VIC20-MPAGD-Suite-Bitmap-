@@ -41,6 +41,11 @@
 	FAST_COUNTER      = $e7
 	MEGA_COUNTER      = $e8
 
+	CHANNEL1_ENABLED  = $ea
+	CHANNEL2_ENABLED  = $eb
+	CHANNEL3_ENABLED  = $ec
+	CHANNEL4_ENABLED  = $ed
+
 ;---------------------------------------------------------------
 ; Constants
 ;---------------------------------------------------------------
@@ -318,8 +323,11 @@ AUDIO_PROCESS_CHANNEL:
 	bne not_note
 
 is_note:
+	lda CHANNEL1_ENABLED,x
+	beq channel_disabled_is_note
 	lda CHAN_NOTE_DATA
 	sta VIC_CHAN_1,x
+channel_disabled_is_note:	
 	rts
 
 not_note:
@@ -327,8 +335,11 @@ not_note:
 	cmp #%00000001
 	bne not_note_off
 
+	lda CHANNEL1_ENABLED,x
+	beq channel_disabled_not_note
 	lda #$00
 	sta VIC_CHAN_1,x
+channel_disabled_not_note:
 	rts
 
 not_note_off:
