@@ -1445,6 +1445,7 @@ filelen:
 
 SetSoundVars:		.byte $0a, $19, $10, $40
 SetSoundDuration:	.byte $0a, $19, $10, $40
+SetSoundTone: 		.byte $de
 
 ;   asl a ; $034e
 ;   ora $4010,y ; $034f $0350 $0351
@@ -1464,7 +1465,7 @@ make_sound2:
 	sta CHANNEL4_ENABLED
 
 	ldy #$00
-	ldx #$de
+	ldx SetSoundTone
 	lda SetSoundVars
 	cmp SetSoundDuration		; $0359 $035a
 	bcs l0366
