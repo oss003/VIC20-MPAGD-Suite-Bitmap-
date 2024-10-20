@@ -810,7 +810,7 @@ clrdata:
 
 ; Clear colour attributes
 
-	lda #0
+	lda fontcol
 	ldx #0
 clrcolour:
 	sta ColorAttr,x

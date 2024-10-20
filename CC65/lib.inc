@@ -695,7 +695,7 @@ vsync1:
 
 ; Handle sound command
 
-;	jsr make_sound2
+	jsr make_sound2
 
 ; Handle shrapnel every even frame
 
@@ -1445,18 +1445,38 @@ filelen:
 
 SetSoundVars:		.byte $0a, $19, $10, $40
 SetSoundDuration:	.byte $0a, $19, $10, $40
+SetSoundTone: 		.byte $de
 
 ;   asl a ; $034e
 ;   ora $4010,y ; $034f $0350 $0351
 
 ; Start of code
 
+CHANNEL1_ENABLED  = $ea
+CHANNEL2_ENABLED  = $eb
+CHANNEL3_ENABLED  = $ec
+CHANNEL4_ENABLED  = $ed
+
 make_sound2:
+;	lda #$01
+;	sta CHANNEL1_ENABLED
+;	sta CHANNEL2_ENABLED
+;	sta CHANNEL3_ENABLED
+;	sta CHANNEL4_ENABLED
+
 	ldy #$00
-	ldx #$de
+	ldx SetSoundTone
 	lda SetSoundVars
 	cmp SetSoundDuration		; $0359 $035a
 	bcs l0366
+
+	lda SetSoundVars
+	cmp SetSoundDuration
+	beq l0374
+
+	lda #$0
+	sta CHANNEL1_ENABLED	
+
 	inc SetSoundVars
 	inc $900a
 	jmp l0374
@@ -1466,7 +1486,15 @@ l0366:	sty $900a
 	bne l0374
 	sty SetSoundVars
 	stx $900a
+
 l0374:	lda SetSoundVars+1
+	cmp SetSoundDuration+1
+	beq l0392
+
+	lda #$0
+	sta CHANNEL2_ENABLED
+
+	lda SetSoundVars+1
 	cmp SetSoundDuration+1		; $0377 $0378
 	bcs l0384
 	inc SetSoundVars+1
@@ -1477,7 +1505,14 @@ l0384:	sty $900b
 	bne l0392
 	sty SetSoundVars+1
 	stx $900b
+
 l0392:	lda SetSoundVars+2
+	cmp SetSoundDuration+2
+	beq l03b0
+	lda #$0
+	sta CHANNEL3_ENABLED
+
+	lda SetSoundVars+2
 	cmp SetSoundDuration+2		; $0395 $0396
 	bcs l03a2 
 	inc SetSoundVars+2
@@ -1488,9 +1523,18 @@ l03a2:	sty $900c
 	bne l03b0
 	sty SetSoundVars+2
 	stx $900c
+
 l03b0:	lda SetSoundVars+3
 	cmp SetSoundDuration+3		; $03b3 $03b4
 	bcs l03d3
+
+	lda SetSoundVars+3
+	cmp SetSoundDuration+3
+	beq l03e1	
+
+	lda #$0
+	sta CHANNEL4_ENABLED
+
 	inc SetSoundVars+3
 	lda SetSoundVars+3
 	cmp #$16
@@ -1508,4 +1552,5 @@ l03d3:	sty $900d
 	bne l03e1
 	sty SetSoundVars+3
 	stx $900d
+
 l03e1:	rts

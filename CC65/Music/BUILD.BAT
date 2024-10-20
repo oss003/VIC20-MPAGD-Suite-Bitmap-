@@ -10,7 +10,7 @@ rem del %1.inc
 rem Linking
  echo.
  echo Linking: %1
- ld65 %1.o -C atom.cfg -o %1.prg
+ ld65 %1.o -C vic20.cfg -o %1.prg
  if not "%errorlevel%" == "0" goto failed
  goto end
 

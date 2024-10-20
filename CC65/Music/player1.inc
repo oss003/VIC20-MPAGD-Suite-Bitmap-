@@ -41,6 +41,13 @@
 	FAST_COUNTER      = $e7
 	MEGA_COUNTER      = $e8
 
+; Flag for enable/disable channel for music
+
+	CHANNEL1_ENABLED  = $ea
+	CHANNEL2_ENABLED  = $eb
+	CHANNEL3_ENABLED  = $ec
+	CHANNEL4_ENABLED  = $ed
+
 ;---------------------------------------------------------------
 ; Constants
 ;---------------------------------------------------------------
@@ -154,6 +161,13 @@ music_on:
 	sta IER2
 	lda #$0f
 	sta $900e
+
+	lda #$1
+	sta CHANNEL1_ENABLED
+	sta CHANNEL2_ENABLED
+	sta CHANNEL3_ENABLED
+	sta CHANNEL4_ENABLED
+
 	cli			; enable interrupts
 	rts
 
@@ -162,12 +176,23 @@ music_on:
 ;---------------------------------------------------------------
 
 music_off:
-	sei			; enable interrupts
-	lda #$7f		; int timer1
-	sta IFR2
-	sta IER2
-	lda #$00
-	sta $900e
+;	sei			; enable interrupts
+;	lda #$7f		; int timer1
+;	sta IFR2
+;	sta IER2
+;	lda #$00
+;	sta $900e
+
+	lda #$0
+	sta CHANNEL1_ENABLED
+	sta CHANNEL2_ENABLED
+	sta CHANNEL3_ENABLED
+	sta CHANNEL4_ENABLED
+	sta VIC_CHAN_1
+	sta VIC_CHAN_2
+	sta VIC_CHAN_3
+	sta VIC_CHAN_4
+
 	rts
 
 ;---------------------------------------------------------------
@@ -318,8 +343,11 @@ AUDIO_PROCESS_CHANNEL:
 	bne not_note
 
 is_note:
+	lda CHANNEL1_ENABLED,x
+	beq channel_disabled_is_note
 	lda CHAN_NOTE_DATA
 	sta VIC_CHAN_1,x
+channel_disabled_is_note:	
 	rts
 
 not_note:
@@ -327,8 +355,11 @@ not_note:
 	cmp #%00000001
 	bne not_note_off
 
+	lda CHANNEL1_ENABLED,x
+	beq channel_disabled_not_note
 	lda #$00
 	sta VIC_CHAN_1,x
+channel_disabled_not_note:
 	rts
 
 not_note_off:

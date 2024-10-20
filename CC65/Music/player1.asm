@@ -7,7 +7,7 @@
 ; Header
 ;----------------------------------------------
 
-.org $a900-2
+.segment "CODE"
 
 	.word main
 main:
