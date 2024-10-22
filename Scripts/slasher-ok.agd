@@ -944,27 +944,16 @@ EVENT INTROMENU
 
 ; Load titlescreen
 
+  PAPER 0
   CLS
- ; INK 1:AT 21,15:PRINT"LOADING"
-  USER 7
-
+  INK 1:AT 21,15:PRINT"LOADING"
   LOAD "SLASHER1D"
   LOAD "SLASHER1C"
-  LOAD "SLASHER1S"
   IF Q 0
     LOAD "PLAYER1"
     LET Q 1
   ENDIF
-
-  PAPER 10
-  BORDER 7
-  AUXCOLOUR 14
   WAITKEY
-  USER 8
-  PAPER 0
-  INK 1
-  BORDER 0
-
   USER 0
 
 ; Display control selection screen

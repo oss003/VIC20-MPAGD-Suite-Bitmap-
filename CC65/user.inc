@@ -49,13 +49,13 @@ clearscreen1000:
 
 	lda Reg3
 	and #%10000001
-	ora #48		; number of rows multipled by two
+	ora #24		; number of rows multipled by two
 	sta Reg3
 
 	rts
 api5:
 	cmp #8
-	bne api6
+	bne api_end
 
 ; max num of columns 22
 
@@ -105,14 +105,6 @@ api5:
 	sta Reg5
 
 	rts	
-api6:
-	cmp #9
-	bne api_end
-	lda #$e0
-	sta $900e
-	lda #$af
-	sta $900f
-	rts
 snd_1:
 	cmp #5
 	bne snd_2
