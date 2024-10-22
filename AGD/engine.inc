@@ -67,7 +67,9 @@
 	ScrWidth	= 22	; PAL settings
 	ScrHeight	= 22
 	CentreX		= 12
-	CentreY		= 34
+	CentreY		= 38
+	CentreXMP   = 14
+	CentreYMP   = 36	
 	timervalue	= 20000
 	timerint	= 20000			; Interrupt timer 1/50 sec
 	.out "- PAL"
@@ -76,6 +78,8 @@
 	ScrHeight	= 22
 	CentreX		= 4
 	CentreY		= 27
+	CentreXMP   = 6
+	CentreYMP   = 24
 	timervalue	= 20000
 	timerint	= 20000			; Interrupt timer 1/50 sec
  	.out "- NTSC"
