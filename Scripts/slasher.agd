@@ -1071,6 +1071,7 @@ EVENT LOSTGAME
 ; Load Trick or Treat screen
 
   PAPER 0
+  INK 0
   CLS
   INK 1:AT 21,15:PRINT"LOADING"
   LOAD "SLASHER2D"
