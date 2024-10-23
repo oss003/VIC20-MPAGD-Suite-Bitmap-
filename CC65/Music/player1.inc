@@ -493,6 +493,3 @@ dont_reset:
 	bne song_pos_loop
 	rts
 
-	.align $100
-songpos:
-	.incbin "songdata_pal.bin"

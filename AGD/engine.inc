@@ -68,8 +68,8 @@
 	CentreY		= 38
 	CentreXMP   = 14
 	CentreYMP   = 36	
-	timervalue	= 20000
-	timerint	= 20000			; Interrupt timer 1/50 sec
+	timervalue	= 24000
+	timerint	= 24000			; Interrupt timer 1/50 sec
 	.out "- PAL"
 .else
 	ScrWidth	= 22	; NTSC settings
@@ -184,14 +184,6 @@ clrloop:
 
 	jsr game	 		; start the game.
 	jmp start
-
-; Set crtflag to identify machine, NTSC or PAL
-
-.if modelflag
-crtflag:	.byte 1
-.else
-crtflag:	.byte 0
-.endif
 
 ; Don't change the order of these four.  
 ; Menu routine relies on winlft following wintop.

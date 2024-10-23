@@ -10,7 +10,7 @@ x NUMSPR, check speed for maximum nr of sprites
 - MAP, adjust declaration, is $1e4 bytes, not $300 bytes
 - PAL/NTSC not in engine, relocate to logical area
 - cls: relocate to lib
-- plsnd: add soundeffects for SOUND command
+x plsnd: add soundeffects for SOUND command
 x checkx: cmp#24 must be cmp #22
 - gtblk: check calculation screen address
 - tstbl: check MAP address calculation
@@ -38,7 +38,7 @@ x TICKER, check command
 x CALL, check command
 x COLOUR, check command
 x CRASH, add white noise
-- SOUND, check fx sounds
+x SOUND, check fx sounds
 - SILENCE, check command
 x CLW, check command
 x Collectable blocks, check adventure mode
@@ -50,7 +50,7 @@ x Colourmode, think of easy way to implement multicolour mode
    PAPER, background colour
 - xflag, check metablocks
 - Check map movements
-- Check sprite outside screen, eg y=200
+x Check sprite outside screen, eg y=200
 
 ---------------------------------------------------------------------
 Compiler:

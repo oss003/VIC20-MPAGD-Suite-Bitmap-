@@ -511,14 +511,14 @@ Current file: player1.asm
 0001B2r 2  D0 A3        	bne song_pos_loop
 0001B4r 2  60           	rts
 0001B5r 2               
-0001B5r 2  xx xx xx xx  	.align $100
-0001B9r 2  xx xx xx xx  
-0001BDr 2  xx xx xx xx  
-000200r 2               songpos:
-000200r 2  48 01 0C 0C  	.incbin "songdata_pal.bin"
-000204r 2  0F 17 05 27  
-000208r 2  05 0E 20 20  
-000C50r 2               
+0001B5r 2               
+0001B5r 1  xx xx xx xx  	.align $100
+0001B9r 1  xx xx xx xx  
+0001BDr 1  xx xx xx xx  
+000200r 1               songpos:
+000200r 1  48 01 0C 0C  	.incbin "songdata_pal.bin"
+000204r 1  0F 17 05 27  
+000208r 1  05 0E 20 20  
 000C50r 1               
 000C50r 1               eind_asm:
 000C50r 1               

@@ -1,5 +1,9 @@
 @echo off
 
+rem -------------------------------------------------------
+rem Check parameters
+rem -------------------------------------------------------
+
  set model=0
  if "%2"=="pal" set model=1
  if "%3"=="pal" set model=1
@@ -20,7 +24,10 @@
  if "%5"=="turbo" set turbo=1
  if "%6"=="turbo" set turbo=1
 
+rem -------------------------------------------------------
 rem Compile AGD file
+rem -------------------------------------------------------
+
  copy scripts\%1.agd agd
  if errorlevel 1 goto error
  cd AGD
@@ -31,17 +38,28 @@ rem Compile AGD file
  del %1.*
  del game.cfg
 
+rem -------------------------------------------------------
 rem Assemble file
+rem -------------------------------------------------------
+
  cd ..\cc65
  call make %1 %model% %2 %3 %4 %5 %6 %7 %8 %9
  copy %1.bin "..\GTK3VICE-3.8-win64\TAPES\%1.prg"
  del %1.bin
 
-rem Create discimage and add pictures + fastloader to diskimage 
+rem -------------------------------------------------------
+rem Create discimage 
+rem -------------------------------------------------------
+
  echo.
  echo Creating diskimage %1.d64
  cd ..\GTK3VICE-3.8-win64\bin
  c1541 -format "diskimage,id" d64 %1.d64 
+
+rem -------------------------------------------------------
+rem Add TURBODISK to image if turbo parameter given
+rem -------------------------------------------------------
+
  if %turbo%==1 (
    c1541 -attach %1.d64 -write ..\..\CC65\loader.prg %1.prg 
    c1541 -attach %1.d64 -write ..\TAPES\%1.prg agdgame.prg
@@ -49,12 +67,24 @@ rem Create discimage and add pictures + fastloader to diskimage
  ) else (
    c1541 -attach %1.d64 -write ..\TAPES\%1.prg %1.prg
  )
+
+rem -------------------------------------------------------
+rem Add music player to image
+rem -------------------------------------------------------
+
  c1541 -attach %1.d64 -write ..\..\MUSIC\player1 player1 
 
- for %%f in (..\..\pictures\%1*.*) do c1541 -attach %1.d64 -write %%f %%~nf
- move %1.d64 ..\discs >nul
+rem -------------------------------------------------------
+rem Add pictures to image
+rem -------------------------------------------------------
 
+ for %%f in (..\..\pictures\%1*.*) do c1541 -attach %1.d64 -write %%f %%~nf
+
+rem -------------------------------------------------------
 rem Start emulator
+rem -------------------------------------------------------
+
+ move %1.d64 ..\discs >nul
  echo Starting Vice with %1.prg
 
  if %model%==0 (

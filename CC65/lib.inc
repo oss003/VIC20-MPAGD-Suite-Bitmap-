@@ -99,14 +99,26 @@
 ;		1101	     1400  5120
 ;		1110	     1800  6144
 ;		1111	     1C00  7168
+;
+; Sound registers:
+;
+;	$900a	Frequency for oscillator 1 (low)
+;		(on: 128-255)
+;	$900b	Frequency for oscillator 2 (medium)
+;		(on: 128-255)
+;	$900c	Frequency for oscillator 3 (high)
+;		(on: 128-255)
+;	$900d	Frequency of noise source
+;	$900e	bit 0-3 sets volume of all sound
+;		bits 4-7 are auxiliary color information
 ;	$900f	Screen and border color register
 ;		bits 4-7 select background color
 ;		bits 0-2 select border color
 ;		bit 3 selects inverted or normal mode
 ;
-; $9110-$911F 6522 VIA#1
-; $9120-$912F 6522 VIA#2
-;
+; I/O:
+;	VIA1 -VIA2
+;-----------------------------------------------------------
 ;	$9110,$9120 	Port B output register
 ;	$9111,$9121 	Port A output register
 ;			(PA0) Bit 0=Serial CLK IN
@@ -140,8 +152,6 @@
 
 ; VIC constants
 
-;	scrchar 	= 22				; char/line
-;	scrline		= 22				; lines/screen
 	ScreenSize	= ScrWidth * ScrHeight * 8	; Screen size bytes
 	ScreenRowBytes	= ScrWidth * 16			; bytes/line
 	SpriteMaxY	= 161				; maxlines - 16 + 1
@@ -149,11 +159,16 @@
 ; VIC variables:
 
 	fontcol:	.byte 0		; Frontcolour text
+.if modelflag				; Set crtflag to identify machine, NTSC or PAL
+	crtflag:	.byte 1		; PAL
+.else
+	crtflag:	.byte 0		; NTSC
+.endif
 
 ; Addresses
 
-	MapAddr		= $400		; RAM
 	ScreenAddr	= $0200		; VIDEO RAM
+	MapAddr		= $0400		; RAM
 	CharAddress	= $1000		; CHAR RAM
 	Reg0		= $9000		; Horizontal centering
 	Reg1		= $9001		; Vertical centering
@@ -161,6 +176,10 @@
 	Reg3		= $9003		; Set # of rows
 	Reg4		= $9004		; Vsync signal
 	Reg5		= $9005		; Start of character memory
+	RegA		= $900a		; Colour and auxcolour register
+	RegB		= $900b		; Colour and auxcolour register
+	RegC		= $900c		; Colour and auxcolour register
+	RegD		= $900d		; Colour and auxcolour register
 	RegE		= $900e		; Colour and auxcolour register
 	RegF		= $900f		; Screen and border color register
 
@@ -195,21 +214,21 @@ init:
 ; Disable interrupts
 
 	lda #$7f
-	sta $911e
-	sta $912d
-	sta $912e
+	sta IER1
+	sta IFR2
+	sta IER2
 
 ; Set audio volume and flag to 0 to check when disabling
 ; beep and crash
 
 	lda #0
-	sta $900a
-	sta $900b
-	sta $900c
-	sta $900d
+	sta RegA
+	sta RegB
+	sta RegC
+	sta RegD
 
 	lda #$0f
-	sta $900e
+	sta RegE
 	lda #$00
 	sta SOUNDS_STATUS
 
@@ -225,61 +244,8 @@ init:
 	sta fontcol
 
 
-;---------------------------------------------------------------
-; max num of columns 22
-
-	lda Reg2
-	and #%10000000
-	ora #ScrWidth
-	sta Reg2
-
-; max num of lines (mult by 2 - 22) for 8x8 chars
-; no multiply for 8x16 chars
-
-	lda Reg3
-	and #%10000001
-	ora #ScrHeight		; number of rows
-	sta Reg3
-
-; horizontal and vertical position must be set for 
-; non standard screen resolution (standard 22x23)
-; same games even allow the user to change them
-; these values are for PAL for NTSC should be different
-; move horizontal position in the screen
-
-	lda Reg0
-	and #%10000000
-	ora #CentreX
-	sta Reg0
-
-; move vertical position in the screen
-
-	lda #CentreY
-	sta Reg1
-
-; Set screem memory to $200
-; bit 7 on $9002 has to be set
-
-	lda Reg2
-	ora #%10000000
-	sta Reg2
-
-; Set character data pointer to CHAR RAM at $1000
-; bit 7 on $9005 has always to be set 
-; (based on compute - mapping the vic book)
-; color ram goes to 9600
-
-	lda Reg5
-	and #%00001100
-	ora #%10001100
-	sta Reg5
-;---------------------------------------------------------------
-
-; This set the char size to 8x16
-
-	lda Reg3
-	ora #%00000001
-	sta Reg3
+	lda #0		; Mode 0 = MPAGD
+	jsr SetReg
 
 ; Init screencharacters
 ; Fill screen with characters from left to right, up to down
@@ -683,11 +649,15 @@ vsync:
 	txa
 	pha
 
+;-------------------------------------------------------------
 ; Read joystick/keyboard.
+;-------------------------------------------------------------
 
 	jsr joykey
 
+;-------------------------------------------------------------
 ; Sync framerate with timer 25Hz
+;-------------------------------------------------------------
 
 	lda #$40		; set Timer1 expired bit
 vsync1:
@@ -695,11 +665,15 @@ vsync1:
 	beq vsync1		; wait if timer not expired
 	lda Timer11_Low		; clear Timer interrupt
 
+;-------------------------------------------------------------
 ; Handle sound command
+;-------------------------------------------------------------
 
 	jsr make_sound2
 
+;-------------------------------------------------------------
 ; Handle shrapnel every even frame
+;-------------------------------------------------------------
 
 	lda clock		; get clock
 	and #1			; 2 frames expired
@@ -707,62 +681,70 @@ vsync1:
 	jsr proshr		; process shrapnel
 :
 
-; Handle sound
+;-------------------------------------------------------------
+; Handle sound BEEP and CRASH
+;-------------------------------------------------------------
 
-    lda sndtyp
-    beq sndskip
+	lda sndtyp
+	beq sndskip
 
 sndloop:
-    ldy sndtyp
+	ldy sndtyp
 sndwait:
-    dey
-    bne sndwait
+	dey
+	bne sndwait
 
-    lda sndtyp
-    bmi crashaudio
+	lda sndtyp
+	bmi crashaudio
 
+; BEEP command:
+; enable sound on channel 2
+; range 0-127
 
 beepaudio:
-    ; enable sound on channel 2
-    ; add 128 because sound is in range 128-255
-;    lsr
 	lda SOUNDS_STATUS
 	ora #%01000000
 	sta SOUNDS_STATUS
-    lda #$ff
-    sec
-    sbc sndtyp
-    lsr
-    lsr
-    ora #%11000000
-    sta $900c
-    jmp endaudiotype
+	lda #$ff
+	sec
+	sbc sndtyp
+	lsr
+	lsr
+	ora #%11000000
+	sta RegC
+	jmp endaudiotype
+
+; CRASH command:
+; enable sound on channel 3
+; range 128-255
+
 crashaudio:
 	lda SOUNDS_STATUS
 	ora #%10000000
 	sta SOUNDS_STATUS
-    lda #$ff
-    sec
-    sbc sndtyp
-    ora #%10000000
-    sta $900d
+	lda #$ff
+	sec
+	sbc sndtyp
+	ora #%10000000
+	sta RegD
 
 endaudiotype:
+	dec sndtyp
+	beq sndskip
+	cmp #128
+	beq sndskip
+	jmp sndloop
 
-    dec sndtyp
-    beq sndskip
-    cmp #128
-    beq sndskip
-    jmp sndloop
+; disable sound
+
 sndskip: 
-    ; disable sound
 	bit SOUNDS_STATUS
 	bvc :+
 	lda SOUNDS_STATUS
 	and #%10111111
 	sta SOUNDS_STATUS
 	lda #$00
-    sta $900c
+	sta RegC
 :
 	bit SOUNDS_STATUS
 	bpl :+
@@ -771,20 +753,16 @@ sndskip:
 	and #%01111111
 	sta SOUNDS_STATUS
 	lda #$00
-    sta $900d
+	sta RegD
 :
-    pla
-    tax
-    pla
-    tay
-    pla
-    rts
+	pla
+	tax
+	pla
+	tay
+	pla
+	rts
+
 sndtyp:		.byte 0		; Beep sound parameter
-
-
-
-
-
 
 ;========================================================
 ; SPRITE HANDLING ROUTINES
@@ -1451,9 +1429,6 @@ SetSoundTone: 		.byte $de
 SndVal:			.byte 222,222
 SndVarPtr:		.byte 0,3
 
-;   asl a ; $034e
-;   ora $4010,y ; $034f $0350 $0351
-
 ; Start of code
 
 CHANNEL1_ENABLED  = $ea
@@ -1462,16 +1437,10 @@ CHANNEL3_ENABLED  = $ec
 CHANNEL4_ENABLED  = $ed
 
 make_sound2:
-;	lda #$01
-;	sta CHANNEL1_ENABLED
-;	sta CHANNEL2_ENABLED
-;	sta CHANNEL3_ENABLED
-;	sta CHANNEL4_ENABLED
-
 	ldy #$00
 	ldx SetSoundTone
 	lda SetSoundVars
-	cmp SetSoundDuration		; $0359 $035a
+	cmp SetSoundDuration
 	bcs l0366
 
 	lda SetSoundVars
@@ -1479,57 +1448,57 @@ make_sound2:
 	beq l0374
 
 	lda #$0
-	sta CHANNEL1_ENABLED	
-
+	sta CHANNEL1_ENABLED	; Enable channel 1
 	inc SetSoundVars
-	inc $900a
+	inc RegA
 	jmp l0374
 
-l0366:	sty $900a
+l0366:	sty RegA
 	cpx SetSoundVars
 	bne l0374
 	sty SetSoundVars
-	stx $900a
+	stx RegA
 
 l0374:	lda SetSoundVars+1
 	cmp SetSoundDuration+1
 	beq l0392
 
 	lda #$0
-	sta CHANNEL2_ENABLED
-
+	sta CHANNEL2_ENABLED	; Enable channel 2
 	lda SetSoundVars+1
-	cmp SetSoundDuration+1		; $0377 $0378
+	cmp SetSoundDuration+1
 	bcs l0384
 	inc SetSoundVars+1
-	inc $900b
+	inc RegB
 	jmp l0392
-l0384:	sty $900b
+
+l0384:	sty RegB
 	cpx SetSoundVars+1
 	bne l0392
 	sty SetSoundVars+1
-	stx $900b
+	stx RegB
 
 l0392:	lda SetSoundVars+2
 	cmp SetSoundDuration+2
 	beq l03b0
-	lda #$0
-	sta CHANNEL3_ENABLED
 
+	lda #$0
+	sta CHANNEL3_ENABLED	; Enable channel 3
 	lda SetSoundVars+2
-	cmp SetSoundDuration+2		; $0395 $0396
+	cmp SetSoundDuration+2
 	bcs l03a2 
 	inc SetSoundVars+2
-	dec $900c
+	dec RegC
 	jmp l03b0
-l03a2:	sty $900c
+
+l03a2:	sty RegC
 	cpx SetSoundVars+2
 	bne l03b0
 	sty SetSoundVars+2
-	stx $900c
+	stx RegC
 
 l03b0:	lda SetSoundVars+3
-	cmp SetSoundDuration+3		; $03b3 $03b4
+	cmp SetSoundDuration+3
 	bcs l03d3
 
 	lda SetSoundVars+3
@@ -1537,24 +1506,51 @@ l03b0:	lda SetSoundVars+3
 	beq l03e1	
 
 	lda #$0
-	sta CHANNEL4_ENABLED
-
+	sta CHANNEL4_ENABLED	; Enable channel 4
 	inc SetSoundVars+3
 	lda SetSoundVars+3
 	cmp #$16
 	bne l03c8
 	lda #$b0
-	sta $900d
+	sta RegD
 	beq l03e1
 l03c8:	cmp #$2b
 	bne l03e1
 	lda #$a0
-	sta $900d
+	sta RegD
 	beq l03e1
-l03d3:	sty $900d
+l03d3:	sty RegD
 	cpx SetSoundVars+3
 	bne l03e1
 	sty SetSoundVars+3
-	stx $900d
+	stx RegD
 
 l03e1:	rts
+
+;----------------------------------------------------
+; Set video registers
+;----------------------------------------------------
+
+SetReg:
+	asl a
+	clc
+	adc crtflag
+	tax
+	lda centreX,x
+	sta Reg0
+	lda centreY,x
+	sta Reg1
+	lda scrW,x
+	sta Reg2
+	lda scrH,x
+	sta Reg3
+	lda RAMset,x
+	sta Reg5
+	rts
+
+centreX:	.byte $04,$0c,$06,$0e
+centreY:	.byte $1b,$26,$18,$24
+scrW:		.byte $96,$96,$14,$14
+scrH:		.byte $17,$17,$19,$19
+RAMset:		.byte $8c,$8c,$cc,$cc
+

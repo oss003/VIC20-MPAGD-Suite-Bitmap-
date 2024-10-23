@@ -12,6 +12,9 @@
 	.word main
 main:
 	.include "player1.inc"
+	.align $100
+songpos:
+	.incbin "songdata_pal.bin"
 
 eind_asm:
 
