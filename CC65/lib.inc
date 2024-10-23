@@ -1548,9 +1548,9 @@ SetReg:
 	sta Reg5
 	rts
 
-centreX:	.byte $04,$0c,$06,$0e
-centreY:	.byte $1b,$26,$18,$24
-scrW:		.byte $96,$96,$14,$14
-scrH:		.byte $17,$17,$19,$19
-RAMset:		.byte $8c,$8c,$cc,$cc
+centreX:	.byte $04,$0c,$06,$0e,$07
+centreY:	.byte $1b,$26,$18,$24,$17
+scrW:		.byte $96,$96,$14,$14,$14
+scrH:		.byte $17,$17,$19,$19,$19
+RAMset:		.byte $8c,$8c,$cc,$cc,$cc
 

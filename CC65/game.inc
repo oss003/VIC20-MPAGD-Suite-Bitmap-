@@ -1,1 +1,1 @@
-.include "slasher.inc" 
+.include "kingtut.inc" 
