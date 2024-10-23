@@ -30,6 +30,16 @@ clearscreen1000:
 	inx
 	bne clearscreen1000
 
+	lda Reg0
+	and #%10000000
+	ora #CentreXMP
+	sta Reg0
+
+; move vertical position in the screen
+
+	lda #CentreYMP
+	sta Reg1	
+
 	; Set color memory to $9400
 	lda Reg2
 	and #%01111111
@@ -113,7 +123,9 @@ snd_1:
 	rts
 snd_2:
 	cmp #6
-	bne api4
+	beq :+
+	jmp api4
+:
 	lda #222
 	sta SetSoundVars+3
 	rts
