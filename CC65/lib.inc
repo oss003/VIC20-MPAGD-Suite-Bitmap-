@@ -199,7 +199,7 @@ init:
 	sta $912d
 	sta $912e
 
-; Set audio volume to max and flag to check when disabling
+; Set audio volume and flag to 0 to check when disabling
 ; beep and crash
 
 	lda #0
@@ -225,6 +225,7 @@ init:
 	sta fontcol
 
 
+;---------------------------------------------------------------
 ; max num of columns 22
 
 	lda Reg2
@@ -237,7 +238,7 @@ init:
 
 	lda Reg3
 	and #%10000001
-	ora #ScrHeight		; number of rows multipled by two
+	ora #ScrHeight		; number of rows
 	sta Reg3
 
 ; horizontal and vertical position must be set for 
@@ -272,6 +273,7 @@ init:
 	and #%00001100
 	ora #%10001100
 	sta Reg5
+;---------------------------------------------------------------
 
 ; This set the char size to 8x16
 
@@ -1446,6 +1448,8 @@ filelen:
 SetSoundVars:		.byte $0a, $19, $10, $40
 SetSoundDuration:	.byte $0a, $19, $10, $40
 SetSoundTone: 		.byte $de
+SndVal:			.byte 222,222
+SndVarPtr:		.byte 0,3
 
 ;   asl a ; $034e
 ;   ora $4010,y ; $034f $0350 $0351

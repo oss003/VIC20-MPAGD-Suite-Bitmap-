@@ -23,8 +23,6 @@
 ;	aflag			; adventure mode
 ;	iflag			; invert mode
 
-;swrflag = 0
-
 .if mflag 
 	.out "- MEN/INV enabled"  
 .endif
@@ -186,6 +184,14 @@ clrloop:
 
 	jsr game	 		; start the game.
 	jmp start
+
+; Set crtflag to identify machine, NTSC or PAL
+
+.if modelflag
+crtflag:	.byte 1
+.else
+crtflag:	.byte 0
+.endif
 
 ; Don't change the order of these four.  
 ; Menu routine relies on winlft following wintop.
