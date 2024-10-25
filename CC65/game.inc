@@ -1,1 +1,1 @@
-.include "kingtut.inc" 
+.include "testsound.inc" 

@@ -790,7 +790,7 @@ rpblc1:
 ;----------------------------------------------------------------------
 ; Clear screen routine.
 ;
-; Fill screenmem $8000-$97ff with ScrFillByte
+; Fill screenmem $9400-$97ff with ScrFillByte
 ;----------------------------------------------------------------------
 
 cls:
@@ -815,6 +815,7 @@ clrdata:
 	lda fontcol
 	ldx #0
 clrcolour:
+	sta ColorAttr-$200,x
 	sta ColorAttr,x
 	inx
 	bne clrcolour

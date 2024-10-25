@@ -159,6 +159,7 @@
 ; VIC variables:
 
 	fontcol:	.byte 0		; Frontcolour text
+	mode:		.byte 0		; 0=MPAGD, 1=MiniPaint
 .if modelflag				; Set crtflag to identify machine, NTSC or PAL
 	crtflag:	.byte 1		; PAL
 .else
@@ -1423,18 +1424,41 @@ filelen:
 
 ; Actual memory locations
 
-SetSoundVars:		.byte $0a, $19, $10, $40
-SetSoundDuration:	.byte $0a, $19, $10, $40
-SetSoundTone: 		.byte $de
-SndVal:			.byte 222,222
-SndVarPtr:		.byte 0,3
-
-; Start of code
-
 CHANNEL1_ENABLED  = $ea
 CHANNEL2_ENABLED  = $eb
 CHANNEL3_ENABLED  = $ec
 CHANNEL4_ENABLED  = $ed
+
+SetSoundVars:		.byte $0a, $19, $10, $40
+SetSoundDuration:	.byte $0a, $19, $10, $40
+SetSoundTone: 		.byte $de
+
+;-------------------------------------------- 
+;                      SOUND    0   1   2   3 
+;-------------------------------------------- 
+SndTone:		.byte 200,200,200,120
+SndChannel:		.byte   1,  0,  3,  1
+SndDuration:		.byte  60, 60, 60, 40
+
+;-------------------------------------------- 
+; Called by SOUND with parameter in A
+;-------------------------------------------- 
+
+playsound:
+	tay
+	lda SndTone,y		; lda $a0
+	sta SetSoundTone	; sta SetSoundTone
+	lda SndDuration,y	; lda $a2
+	ldx SndChannel,y	; ldx $a1
+	lda SetSoundDuration,x	; sta SetSoundDuration,x
+	lda SndTone,y		; lda $a0
+	sta SetSoundVars,x	; sta SetSoundVars,x
+	rts
+
+;-------------------------------------------- 
+; Make sound
+; Called by vsync every frame
+;-------------------------------------------- 
 
 make_sound2:
 	ldy #$00
@@ -1532,6 +1556,7 @@ l03e1:	rts
 ;----------------------------------------------------
 
 SetReg:
+	sta mode
 	asl a
 	clc
 	adc crtflag
@@ -1548,9 +1573,69 @@ SetReg:
 	sta Reg5
 	rts
 
-centreX:	.byte $04,$0c,$06,$0e,$07
-centreY:	.byte $1b,$26,$18,$24,$17
-scrW:		.byte $96,$96,$14,$14,$14
-scrH:		.byte $17,$17,$19,$19,$19
-RAMset:		.byte $8c,$8c,$cc,$cc,$cc
+centreX:	.byte $04,$0c,$06,$0e
+centreY:	.byte $1b,$26,$18,$24
+scrW:		.byte $96,$96,$14,$14
+scrH:		.byte $17,$17,$19,$19
+RAMset:		.byte $8c,$8c,$cc,$cc
+BottomScr:	.byte $84,$a0,$84,$a0
 
+;----------------------------------------------------
+; Display functions
+;
+; DISPLAYON   resets CentreY
+; DISPLAYOFF  locates screen below bottom
+; DISPLAYUP   scrolls screen up until default CentreY
+; DISPLAYDOWN scrolls screen down until below bottom
+;----------------------------------------------------
+
+dispon:
+	lda mode
+	asl a
+	clc
+	adc crtflag
+	tax
+	lda centreY,x
+	sta Reg1
+	rts
+
+dispoff:
+	lda mode
+	asl a
+	clc
+	adc crtflag
+	tax
+	lda BottomScr,x
+	sta Reg1
+	rts
+
+dispup:
+	lda mode
+	asl a
+	clc
+	adc crtflag
+	tax
+	lda centreY,x
+	sta tmp
+scr_down_loop:
+	lda #1
+	jsr delay
+	dec Reg1
+	lda Reg1
+	cmp tmp
+	bne scr_down_loop
+	rts
+
+dispdown:
+	lda mode
+	asl a
+	clc
+	adc crtflag
+	tax
+	lda #1
+	jsr delay
+	inc Reg1
+	lda Reg1
+	cmp BottomScr,x
+	bne dispdown
+	rts
