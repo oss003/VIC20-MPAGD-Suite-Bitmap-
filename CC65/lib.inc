@@ -1450,7 +1450,7 @@ playsound:
 	sta SetSoundTone	; sta SetSoundTone
 	lda SndDuration,y	; lda $a2
 	ldx SndChannel,y	; ldx $a1
-	lda SetSoundDuration,x	; sta SetSoundDuration,x
+	sta SetSoundDuration,x	; sta SetSoundDuration,x
 	lda SndTone,y		; lda $a0
 	sta SetSoundVars,x	; sta SetSoundVars,x
 	rts
