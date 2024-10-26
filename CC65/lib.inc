@@ -1428,6 +1428,7 @@ CHANNEL1_ENABLED  = $ea
 CHANNEL2_ENABLED  = $eb
 CHANNEL3_ENABLED  = $ec
 CHANNEL4_ENABLED  = $ed
+MUSIC_ON		  = $ee
 
 SetSoundVars:		.byte $0a, $19, $10, $40
 SetSoundDuration:	.byte $0a, $19, $10, $40
@@ -1470,7 +1471,7 @@ make_sound2:
 	lda SetSoundVars
 	cmp SetSoundDuration
 	bne :+
-	lda #$1
+	lda MUSIC_ON
 	sta CHANNEL1_ENABLED	; Enable channel 1
 	jmp l0374
 :
@@ -1490,7 +1491,7 @@ l0366:	sty RegA
 l0374:	lda SetSoundVars+1
 	cmp SetSoundDuration+1
 	bne :+
-	lda #$1
+	lda MUSIC_ON
 	sta CHANNEL2_ENABLED	; Enable channel 1
 	jmp l0392
 :
@@ -1512,7 +1513,7 @@ l0384:	sty RegB
 l0392:	lda SetSoundVars+2
 	cmp SetSoundDuration+2
 	bne :+
-	lda #$1
+	lda MUSIC_ON
 	sta CHANNEL3_ENABLED	; Enable channel 1
 	jmp l03b0
 :
@@ -1534,7 +1535,7 @@ l03a2:	sty RegC
 l03b0:	lda SetSoundVars+3
 	cmp SetSoundDuration+3
 	bne :+
-	lda #$1
+	lda MUSIC_ON
 	sta CHANNEL4_ENABLED	; Enable channel 1
 	jmp l03d3
 :
