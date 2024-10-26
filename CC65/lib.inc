@@ -1436,9 +1436,9 @@ SetSoundTone: 		.byte $de
 ;-------------------------------------------- 
 ;                      SOUND    0   1   2   3 
 ;-------------------------------------------- 
-SndTone:		.byte 250,220,240,200
-SndChannel:		.byte   0,  2,  1,  3
-SndDuration:		.byte  60, 100, 40, 60
+SndTone:		.byte 200,200,222,220
+SndChannel:		.byte   1,  0,  3,  1
+SndDuration:		.byte  60, 60, 60, 40
 
 ;-------------------------------------------- 
 ; Called by SOUND with parameter in A
@@ -1539,12 +1539,17 @@ l03b0:	lda SetSoundVars+3
 	jmp l03d3
 :
 
-	lda SetSoundVars+3
-	cmp SetSoundDuration+3
-	beq l03e1	
+	; lda SetSoundVars+3
+	; cmp SetSoundDuration+3
+	; beq l03e1	
 
 	lda #$0
 	sta CHANNEL4_ENABLED	; Enable channel 4
+
+	lda SetSoundVars+3
+    cmp SetSoundDuration+3 ; $03b3 $03b4
+    bcs l03d3
+
 	inc SetSoundVars+3
 	lda SetSoundVars+3
 	cmp #$16
