@@ -1436,9 +1436,9 @@ SetSoundTone: 		.byte $de
 ;-------------------------------------------- 
 ;                      SOUND    0   1   2   3 
 ;-------------------------------------------- 
-SndTone:		.byte 200,200,200,120
-SndChannel:		.byte   1,  0,  3,  1
-SndDuration:		.byte  60, 60, 60, 40
+SndTone:		.byte 250,250,240,120
+SndChannel:		.byte   0,  1,  2,  1
+SndDuration:		.byte  80, 80, 40, 40
 
 ;-------------------------------------------- 
 ; Called by SOUND with parameter in A
@@ -1469,10 +1469,15 @@ make_sound2:
 
 	lda SetSoundVars
 	cmp SetSoundDuration
+	bne :+
+	lda #0
+	sta RegA
 	beq l0374
+:	
 
 	lda #$0
 	sta CHANNEL1_ENABLED	; Enable channel 1
+
 	inc SetSoundVars
 	inc RegA
 	jmp l0374
@@ -1485,10 +1490,15 @@ l0366:	sty RegA
 
 l0374:	lda SetSoundVars+1
 	cmp SetSoundDuration+1
+	bne :+
+	lda #0
+	sta RegB
 	beq l0392
+:	
 
 	lda #$0
 	sta CHANNEL2_ENABLED	; Enable channel 2
+
 	lda SetSoundVars+1
 	cmp SetSoundDuration+1
 	bcs l0384
@@ -1504,10 +1514,15 @@ l0384:	sty RegB
 
 l0392:	lda SetSoundVars+2
 	cmp SetSoundDuration+2
+	bne :+
+	lda #0
+	sta RegC
 	beq l03b0
+:
 
 	lda #$0
 	sta CHANNEL3_ENABLED	; Enable channel 3
+
 	lda SetSoundVars+2
 	cmp SetSoundDuration+2
 	bcs l03a2 
@@ -1521,16 +1536,22 @@ l03a2:	sty RegC
 	sty SetSoundVars+2
 	stx RegC
 
-l03b0:	lda SetSoundVars+3
-	cmp SetSoundDuration+3
-	bcs l03d3
-
+l03b0:
 	lda SetSoundVars+3
 	cmp SetSoundDuration+3
+	bne :+
+	lda #0
+	sta RegD
 	beq l03e1	
+:	
 
 	lda #$0
 	sta CHANNEL4_ENABLED	; Enable channel 4
+
+	lda SetSoundVars+3
+	cmp SetSoundDuration+3
+	bcs l03d3
+
 	inc SetSoundVars+3
 	lda SetSoundVars+3
 	cmp #$16
