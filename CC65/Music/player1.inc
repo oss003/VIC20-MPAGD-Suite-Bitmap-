@@ -47,6 +47,7 @@
 	CHANNEL2_ENABLED  = $eb
 	CHANNEL3_ENABLED  = $ec
 	CHANNEL4_ENABLED  = $ed
+	MUSIC_ON	      = $ee
 
 ;---------------------------------------------------------------
 ; Constants
@@ -163,6 +164,7 @@ music_on:
 	sta $900e
 
 	lda #$1
+	sta MUSIC_ON
 	sta CHANNEL1_ENABLED
 	sta CHANNEL2_ENABLED
 	sta CHANNEL3_ENABLED
@@ -176,14 +178,15 @@ music_on:
 ;---------------------------------------------------------------
 
 music_off:
-;	sei			; enable interrupts
-;	lda #$7f		; int timer1
-;	sta IFR2
-;	sta IER2
-;	lda #$00
-;	sta $900e
+	; sei			; enable interrupts
+	; lda #$7f		; int timer1
+	; sta IFR2
+	; sta IER2
+	; lda #$00
+	; sta $900e
 
 	lda #$0
+	sta MUSIC_ON
 	sta CHANNEL1_ENABLED
 	sta CHANNEL2_ENABLED
 	sta CHANNEL3_ENABLED
