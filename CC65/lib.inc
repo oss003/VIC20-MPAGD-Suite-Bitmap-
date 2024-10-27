@@ -228,7 +228,8 @@ init:
 	sta RegC
 	sta RegD
 
-	lda #$0f
+	lda RegE
+	ora #$0f
 	sta RegE
 	lda #$00
 	sta SOUNDS_STATUS

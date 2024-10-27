@@ -160,7 +160,8 @@ int_service:
 music_on:
 	lda #$c0		; int timer1
 	sta IER2
-	lda #$0f
+	lda $900e
+	ora #$0f
 	sta $900e
 
 	lda #$1
@@ -267,7 +268,8 @@ AUDIO_UPDATE:
 	ldy PATTERN_POS
 	lda TABLE_SPEED,y
 	sta FRAME_LENGTH
-	lda TABLE_VOLUME,y
+	lda VIC_VOLUME
+	ora TABLE_VOLUME,y
 	sta VIC_VOLUME
 
 ; x = channel counter
