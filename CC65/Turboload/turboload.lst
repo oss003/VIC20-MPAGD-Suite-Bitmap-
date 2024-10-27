@@ -184,7 +184,8 @@ Current file: turboload.asm
 00A471  2  C8                       iny
 00A472  2  C4 B7                    cpy L00B7		; Nr chars in filename
 00A474  2  90 F6                    bcc LA46C
-00A476  2  B0 05                    bcs LA47D
+00A476  2               ;            bcs LA47D
+00A476  2  B0 2A        	    bcs LA4A2
 00A478  2               
 00A478  2  A5 93        LA478:      lda L0093
 00A47A  2  4C 49 F5                 jmp LF549

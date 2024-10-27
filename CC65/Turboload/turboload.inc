@@ -162,7 +162,8 @@ LA46C:      lda (L00BB),Y	; Get char filename
             iny
             cpy L00B7		; Nr chars in filename
             bcc LA46C
-            bcs LA47D
+;            bcs LA47D
+	    bcs LA4A2
 
 LA478:      lda L0093
             jmp LF549

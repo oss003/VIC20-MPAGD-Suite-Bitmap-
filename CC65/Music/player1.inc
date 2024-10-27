@@ -269,7 +269,7 @@ AUDIO_UPDATE:
 	lda TABLE_SPEED,y
 	sta FRAME_LENGTH
 	lda TABLE_VOLUME,y
-	and #$0f
+	and #$f0
 	ora VIC_VOLUME
 	sta VIC_VOLUME
 
@@ -389,7 +389,8 @@ not_note_next:
 	bne not_end_of_song
 
 ; turn the sound off cheaply :D/
-	lda #$00
+	lda VIC_VOLUME
+	and #$f0
 	sta VIC_VOLUME
 
 ;-----BUG----------
