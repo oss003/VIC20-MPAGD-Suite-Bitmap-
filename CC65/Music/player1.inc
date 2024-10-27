@@ -268,8 +268,9 @@ AUDIO_UPDATE:
 	ldy PATTERN_POS
 	lda TABLE_SPEED,y
 	sta FRAME_LENGTH
-	lda VIC_VOLUME
-	ora TABLE_VOLUME,y
+	lda TABLE_VOLUME,y
+	and #$0f
+	ora VIC_VOLUME
 	sta VIC_VOLUME
 
 ; x = channel counter
