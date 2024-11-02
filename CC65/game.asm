@@ -27,7 +27,15 @@ load:   .word @end
 
 ;----------------------------------------------
 
+.segment "MUSIC"
+.org $a900	
+	.include "music/player1.inc"
+	.align $100
+songpos:
+	.incbin "music/songdata_pal.bin"
+
 .segment "CODE"
+.org $2000
 main:
 	.include "game.inc"
 	.include "lib.inc"
