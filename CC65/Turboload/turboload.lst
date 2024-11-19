@@ -307,6 +307,7 @@ Current file: turboload.asm
 00A54B  2  A0 00                    ldy #$00
 00A54D  2  BD 00 A8     LA54D:      lda LA800,X
 00A550  2  91 AE                    sta (L00AE),Y
+00A552  2               ; 	jsr setborder
 00A552  2  C8                       iny
 00A553  2  E8                       inx
 00A554  2  F0 07                    beq LA55D
@@ -332,6 +333,7 @@ Current file: turboload.asm
 00A571  2  A0 00        LA571:      ldy #$00
 00A573  2  BD 00 A8     LA573:      lda LA800,X
 00A576  2  91 AE                    sta (L00AE),Y
+00A578  2               ;	jsr setborder
 00A578  2  C8                       iny
 00A579  2  E8                       inx
 00A57A  2  D0 F7                    bne LA573
@@ -383,12 +385,26 @@ Current file: turboload.asm
 00A5BA  2  D0 CF                    bne LA58B
 00A5BC  2  60                       rts
 00A5BD  2               
+00A5BD  2               ;setborder:
+00A5BD  2               ;	sta (L00AE),Y
+00A5BD  2               ;	and #7
+00A5BD  2               ;	sta tmp
+00A5BD  2               ;	lda $900f
+00A5BD  2               ;	and #7
+00A5BD  2               ;	ora tmp
+00A5BD  2               ;	sta $900f
+00A5BD  2               ;	rts
+00A5BD  2               ;
+00A5BD  2               ;tmp:	.byte 0
+00A5BD  2               
 00A5BD  2  00 00 00 00              .byte $00,$00,$00,$00,$00,$00,$00,$00
 00A5C1  2  00 00 00 00  
 00A5C5  2  00 00 00 00              .byte $00,$00,$00,$00,$00,$00,$00,$00
 00A5C9  2  00 00 00 00  
-00A5CD  2  00 00 00 00              .byte $00,$00,$00,$00,$00,$00,$00,$00
-00A5D1  2  00 00 00 00  
+00A5CD  2  00 00 00 00              .byte $00,$00,$00,$00,$00,$00,$00
+00A5D1  2  00 00 00     
+00A5D4  2               
+00A5D4  2  00           	    .byte $00
 00A5D5  2  00 00 00 00              .byte $00,$00,$00,$00,$00,$00,$00,$00
 00A5D9  2  00 00 00 00  
 00A5DD  2  00 00 00 00              .byte $00,$00,$00,$00,$00,$00,$00,$00

@@ -32,6 +32,9 @@ main:
 	.include "game.inc"
 	.include "lib.inc"
 ;	.include "music.inc"
+;colscr:	.incbin "..\pictures\slasher3c"
+;datscr:	.incbin "..\pictures\slasher3d"
+
 	.include "z80.asm"
 
 eind_asm:

@@ -29,12 +29,14 @@ rem Compile AGD file
 rem -------------------------------------------------------
 
  copy scripts\%1.agd agd
- if errorlevel 1 goto error
+ if errorlevel 1 goto copyerror
  cd AGD
  agd %1 %2 %3 %4 %5 %6
-
+ if errorlevel 1 goto agderror
  copy %1.inc ..\cc65\ >nul
+ if errorlevel 1 goto copyerror
  copy game.cfg ..\cc65\ >nul
+ if errorlevel 1 goto copyerror
  del %1.*
  del game.cfg
 
@@ -45,6 +47,7 @@ rem -------------------------------------------------------
  cd ..\cc65
  call make %1 %model% %2 %3 %4 %5 %6 %7 %8 %9
  copy %1.bin "..\GTK3VICE-3.8-win64\TAPES\%1.prg"
+ if errorlevel 1 goto copyerror
  del %1.bin
 
 rem -------------------------------------------------------
@@ -72,7 +75,11 @@ rem -------------------------------------------------------
 rem Add music player to image
 rem -------------------------------------------------------
 
- c1541 -attach %1.d64 -write ..\..\MUSIC\player1 player1 
+ if exist ..\..\MUSIC\%1.mus (
+  c1541 -attach %1.d64 -write ..\..\MUSIC\%1.mus player1 
+ ) else (
+  c1541 -attach %1.d64 -write ..\..\MUSIC\player1 player1 
+ )
 
 rem -------------------------------------------------------
 rem Add pictures to image
@@ -96,7 +103,20 @@ rem -------------------------------------------------------
 
  goto end
 
-:error
- echo %1.agd not found .....
+rem -------------------------------------------------------
+rem Error handling
+rem -------------------------------------------------------
+
+:copyerror
+ echo *** COPY ERROR ***, %1.agd not found .....
+ goto end
+
+:agderror
+ del %1.*
+ del game.cfg
+ cd ..
+ echo.
+ echo *** AGD COMPILER ERROR ***, errors found in %1.AGD
+ goto end
 
 :end

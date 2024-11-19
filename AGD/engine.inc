@@ -199,7 +199,7 @@ numob:	.byte NUMOBJ		; number of objects in game.
 wntopx:	.byte (8 * WINDOWTOP)
 wnlftx:	.byte (8 * WINDOWLFT)
 wnbotx:	.byte ((WINDOWTOP * 8) + (WINDOWHGT * 8) - 16)
-wnrgtx:	.byte ((WINDOWLFT * 8) + (WINDOWWID * 8) - 16)-2
+wnrgtx:	.byte ((WINDOWLFT * 8) + (WINDOWWID * 8) - 16)
 
 ; Make sure pointers are arranged in the same order as the data itself.
 

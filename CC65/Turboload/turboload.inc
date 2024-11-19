@@ -283,6 +283,7 @@ LA549:      ldx #$02
             ldy #$00
 LA54D:      lda LA800,X
             sta (L00AE),Y
+; 	jsr setborder
             iny
             inx
             beq LA55D
@@ -308,6 +309,7 @@ LA56F:      ldx #$02
 LA571:      ldy #$00
 LA573:      lda LA800,X
             sta (L00AE),Y
+;	jsr setborder
             iny
             inx
             bne LA573
@@ -359,9 +361,23 @@ LA5A4:      lda L9111
             bne LA58B
             rts
 
+;setborder:
+;	sta (L00AE),Y
+;	and #7
+;	sta tmp
+;	lda $900f
+;	and #7
+;	ora tmp
+;	sta $900f
+;	rts
+;
+;tmp:	.byte 0
+
             .byte $00,$00,$00,$00,$00,$00,$00,$00
             .byte $00,$00,$00,$00,$00,$00,$00,$00
-            .byte $00,$00,$00,$00,$00,$00,$00,$00
+            .byte $00,$00,$00,$00,$00,$00,$00
+
+	    .byte $00
             .byte $00,$00,$00,$00,$00,$00,$00,$00
             .byte $00,$00,$00,$00,$00,$00,$00,$00
             .byte $00,$00,$00,$00,$00,$00,$00,$00

@@ -1011,7 +1011,7 @@ DEFINESCREEN     96  96  96  96  96   0   0   0   0   0   0   0   0   0  96  96 
                   0   0   0   0   0   0   0   0   0   0   6  16  16  16  16  16  16   9   5   5   6   
                   0   0   0   0   0   0   0   0   0   0   7   5   5   5   7   5   5   5   5   5   7   
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-SPRITEPOSITION  7 8 64 58
+SPRITEPOSITION  7 8 64 48
 SPRITEPOSITION  1 6 104 120
 
 DEFINESCREEN     96  96  96  96  96   0   0   0   0   0   0   0   0   0  96  96  96  96  96   0   0                  7   5   5   5   5   5   5   5   7   5   5   5   5   5   7  66  65  66  65  66  65   
@@ -1280,8 +1280,8 @@ DEFINESCREEN     96  96  96  96  96   0   0   0   0   0   0   0   0   0  96  96 
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-SPRITEPOSITION  7 8 64 64
-SPRITEPOSITION  7 8 88 112
+SPRITEPOSITION  7 8 64 56
+SPRITEPOSITION  7 8 88 104
 
 DEFINESCREEN     96  96  96  96  96   0   0   0   0   0   0   0   0   0  96  96  96  96  96   0   0                  7   5   5   7   5   5   7   5   5   5   5   5   7   5   5   5   7   5   5   5   7   
                   6   5   5   8  16  84  16  85  83  16  34  35  35  35  36  16  83  10   5   5   6   
@@ -1383,7 +1383,7 @@ DEFINESCREEN     96  96  96  96  96   0   0   0   0   0   0   0   0   0  96  96 
                   6   5   5  11  16  16  16  16  39  40  40  40  41  16  16  16   6   0   0   0   0   
                   7   5   5   5   5   5   5   5   5   5   5   5   5   5   5   5   7   0   0   0   0   
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
-SPRITEPOSITION  7 8 64 64
+SPRITEPOSITION  7 8 64 56
 SPRITEPOSITION  3 4 96 32
 
 DEFINESCREEN     96  96  96  96  96   0   0   0   0   0   0   0   0   0  96  96  96  96  96   0   0                  0   0   0  65  66   5   7   5   5   5   5   5   7   5   5   5   7   5   5   5   7   
@@ -1524,7 +1524,7 @@ IF KEY RIGHT
     IF CANGORIGHT
         LET IMAGE = 2
         SPRITERIGHT
-        ; SOUND 0
+        BEEP 2
         LET DIRECTION = 0
     ENDIF
 ENDIF
@@ -1533,21 +1533,21 @@ IF KEY LEFT
         LET IMAGE = 3
         SPRITELEFT
         LET DIRECTION = 1
-        ; SOUND 0
+        BEEP 2
     ENDIF
 ENDIF
 IF KEY DOWN
     IF CANGODOWN
         LET IMAGE = 1
         SPRITEDOWN
-        ; SOUND 0
+        BEEP 2
     ENDIF
 ENDIF
 IF KEY UP
     IF CANGOUP
         LET IMAGE = 0
         SPRITEUP
-        ; SOUND 0
+        BEEP 2
     ENDIF
 ENDIF
 IF CUSTOM
@@ -1570,8 +1570,8 @@ ENDIF
 
 EVENT SPRITETYPE1
 IF COLLISION 0
-    ; SOUND 0
-    ; SOUND 0
+    BEEP 2
+    BEEP 2
     OTHER
     IF DIRECTION = 0
         SUBTRACT 2 FROM X
@@ -1584,7 +1584,7 @@ IF COLLISION 0
         IF E = 0
             EXPLODE 8
             BEEP 40
-            ; SOUND 0
+            BEEP 2
             REMOVE
             LET E = 50
             IF SCREEN = 7
@@ -1866,6 +1866,8 @@ ENDIF
 
 
 EVENT INTROMENU
+LOAD"PLAYER1"
+MUSICINIT
 PAPER 0
 ; ASM 62
 ; ASM 1
@@ -1982,7 +1984,7 @@ EVENT KILLPLAYER
 ; SILENCE
 LET LIVES = 0
 REPEAT 4
-    ; SOUND 0
+    BEEP 2
 ENDREPEAT
 
 
