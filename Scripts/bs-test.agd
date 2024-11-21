@@ -814,11 +814,11 @@ IF N = 0
                     IF CANGORIGHT
                         LET F = 1
                         SPRITERIGHT
+                        IF FRAME = 0
+                            BEEP 5
+                        ENDIF
                         IF C = 0
                             ANIMATE
-                            IF FRAME = 0
-                                BEEP 5
-                            ENDIF
                         ENDIF
                     ENDIF
                 ENDIF
@@ -826,11 +826,11 @@ IF N = 0
                     IF CANGOLEFT
                         LET F = 1
                         SPRITELEFT
-                        IF C = 0
-                            ANIMBACK
-                        ENDIF
                         IF FRAME = 0
                             BEEP 5
+                        ENDIF
+                        IF C = 0
+                            ANIMBACK
                         ENDIF
                     ENDIF
                 ENDIF
