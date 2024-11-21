@@ -701,6 +701,10 @@ sndwait:
 ; range 0-127
 
 beepaudio:
+	lda RegE
+	ora #$0f
+	sta RegE
+
 	lda SOUNDS_STATUS
 	ora #%01000000
 	sta SOUNDS_STATUS
