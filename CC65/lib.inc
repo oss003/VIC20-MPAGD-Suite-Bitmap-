@@ -701,6 +701,10 @@ sndwait:
 ; range 0-127
 
 beepaudio:
+	lda RegE
+	ora #$0f
+	sta RegE
+
 	lda SOUNDS_STATUS
 	ora #%01000000
 	sta SOUNDS_STATUS
@@ -718,6 +722,9 @@ beepaudio:
 ; range 128-255
 
 crashaudio:
+	lda RegE
+	ora #$0f
+	sta RegE
 	lda SOUNDS_STATUS
 	ora #%10000000
 	sta SOUNDS_STATUS
