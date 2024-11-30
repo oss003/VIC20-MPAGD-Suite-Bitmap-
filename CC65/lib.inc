@@ -197,11 +197,11 @@
 	JoyAddr2	= $9120		; Joystick address 2
 	KeyRowAddr	= $9121		; Keyboard row (read)
 	DDRB		= $9122		; Bit7 must be 0 for joystick read
-	Timer21_Low  	= $9124		; Timer 1 low byte
-	Timer21_High 	= $9125		; Timer 1 high byte
-	AUX2		= $912b		; Auxiliary control register
-	IFR2		= $912d		; Interrupt Flag Register
-	IER2		= $912e		; Interrupt Enable Register
+	; Timer21_Low  	= $9124		; Timer 1 low byte
+	; Timer21_High 	= $9125		; Timer 1 high byte
+	; AUX2		= $912b		; Auxiliary control register
+	; IFR2		= $912d		; Interrupt Flag Register
+	; IER2		= $912e		; Interrupt Enable Register
 
 	ColorAttr	= $9600		; Color attributes
 	HiRAM		= $a000		; Hi RAM 8kB
@@ -221,6 +221,30 @@ init:
 Ntsc_System:	
 
 ; Disable interrupts
+
+	lda #$00
+	sta $fc
+	lda #$a9
+	sta $fd
+
+	lda #$00
+	sta $fe
+	lda #$13
+	sta $ff
+
+	ldx #9
+outerloop_mus:
+	ldy #0
+loop_mus:
+	lda ($fe),y
+	sta ($fc),y
+	iny
+	bne loop_mus
+	inc $fd
+	inc $ff
+	dex
+	bne outerloop_mus
+
 
 	lda #$7f
 	sta IER1
@@ -1437,11 +1461,11 @@ filelen:
 
 ; Actual memory locations
 
-CHANNEL1_ENABLED  = $ea
-CHANNEL2_ENABLED  = $eb
-CHANNEL3_ENABLED  = $ec
-CHANNEL4_ENABLED  = $ed
-MUSIC_ON		  = $ee
+; CHANNEL1_ENABLED  = $ea
+; CHANNEL2_ENABLED  = $eb
+; CHANNEL3_ENABLED  = $ec
+; CHANNEL4_ENABLED  = $ed
+; MUSIC_ON		  = $ee
 
 SetSoundVars:		.byte $0a, $19, $10, $40
 SetSoundDuration:	.byte $0a, $19, $10, $40
