@@ -70,7 +70,7 @@
 	CentreYMP   = 36	
 	timervalue	= 24000
 	timerint	= 24000			; Interrupt timer 1/50 sec
-	.out "- PAL"
+	.out "- Starting vide in PAL mode"
 .else
 	ScrWidth	= 22	; NTSC settings
 	ScrHeight	= 22
@@ -80,7 +80,7 @@
 	CentreYMP   = 24
 	timervalue	= 20000
 	timerint	= 20000			; Interrupt timer 1/50 sec
- 	.out "- NTSC"
+ 	.out "- Starting vide in NTSC mode"
 .endif
 .out ""
 
