@@ -211,6 +211,14 @@
 ;----------------------------------------------------------------------
 
 init:
+	lda #0
+	sta crtflag
+	lda $ede4
+	cmp #5
+	beq Ntsc_System
+	lda #1
+	sta crtflag
+Ntsc_System:	
 
 ; Disable interrupts
 
