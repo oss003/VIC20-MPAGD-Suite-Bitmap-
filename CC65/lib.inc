@@ -259,10 +259,12 @@ loop_mus:
 	sta RegB
 	sta RegC
 	sta RegD
-	lda #$0f	; Max volume
-	sta RegE
 	lda #$00
 	sta SOUNDS_STATUS
+
+	lda RegE
+	ora #$0f	; Max volume
+	sta RegE
 
 ; Init screen for NTSC
 ; this sets the background and border color of the screen
