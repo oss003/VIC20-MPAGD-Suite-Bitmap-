@@ -259,6 +259,7 @@ loop_mus:
 	sta RegB
 	sta RegC
 	sta RegD
+	lda #$0f	; Max volume
 	sta RegE
 	lda #$00
 	sta SOUNDS_STATUS

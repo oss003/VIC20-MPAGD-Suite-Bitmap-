@@ -1,1 +1,1 @@
-.include "bs-test-joy.inc" 
+.include "testsound.inc" 
