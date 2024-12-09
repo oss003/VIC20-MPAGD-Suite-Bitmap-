@@ -84,12 +84,12 @@
 	AUX2		= $912b		; Auxiliary control register
 	IFR2		= $912d		; Interrupt Flag Register
 	IER2		= $912e		; Interrupt Enable Register
-;	timerint	= 20000		; Interrupt timer 1/50 sec
+	timerint	= 20000		; Interrupt timer 1/50 sec
 
 ;---------------------------------------------------------------
 ; API calls, entry with A = API call
 ;---------------------------------------------------------------
-.org $a900
+
 	jmp music_init
 	jmp music_on
 	jmp music_off
@@ -129,6 +129,7 @@ music_init:
 
 	lda #$01		; load first frame length
 	sta FRAME_LENGTH
+
 	rts	
 
 

@@ -1,16 +1,10 @@
-;----------------------------------------------------------------------------
-; Normal mode, blocks reappear when re-entering a screen
-;	build testcollect
-; Adventure mode, block disppear if already collected when entering a screen
-;	build testcollect a
-;----------------------------------------------------------------------------
 
-DEFINEWINDOW    2 0 19 22
+DEFINEWINDOW    0 0 21 22
 
 DEFINECONTROLS  'Q' 'A' 'O' 'P' ' ' 'Z' 'X'
 
 DEFINEMESSAGES
-    " "
+    " "
 
 DEFINEFONT      0 0 0 0 0 0 0 0
                 0 48 48 48 48 0 48 0
@@ -140,6 +134,8 @@ DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   2   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   2   0   0   0   0   0   0   0   0   0   0   0   0   0   0   3   0   0   0   0   0   0
                   2   0   0   0   0   0   0   0   0   0   0   2   2   2   2   2   2   2   2   2   2   2
@@ -152,6 +148,8 @@ DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0 
 SPRITEPOSITION  0 0 80 48
 
 DEFINESCREEN      0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+                  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
                   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
@@ -176,10 +174,13 @@ DEFINEOBJECT    1 254 56 120
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
                 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 
+
 MAP             WIDTH 4
                 STARTSCREEN 0
                 255   0   1 255
 ENDMAP
+
+
 
 EVENT PLAYER
   GETBLOCKS
@@ -254,10 +255,8 @@ EVENT GAMEINIT
 
 
 EVENT RESTARTSCREEN
- PRINTMODE 1
- AT 0,2
- PRINT "COLLECTBLOCK TEST"
- PRINTMODE 0
+
+
 
 EVENT FELLTOOFAR
 

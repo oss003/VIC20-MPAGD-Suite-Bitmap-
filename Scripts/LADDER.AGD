@@ -2,13 +2,13 @@
 DEFINEWINDOW    0 0 22 22
 
 DEFINEMESSAGES
-    "GAME OVER"
-    "DIAMOND GEEZER"
-    "SCORE"
-    "LIVES"
-    "1. KEYBOARD"
-    "2. KEMPSTON"
-    "3. SINCLAIR"
+    "GAME OVER"
+    "DIAMOND GEEZER"
+    "SCORE"
+    "LIVES"
+    "1. KEYBOARD"
+    "2. KEMPSTON"
+    "3. SINCLAIR"
     "  Welcome to Diamond Geezer...Move around the levelscollecting diamonds andavoiding the deadlyskulls   +"
 
 DEFINEFONT      0 0 0 0 0 0 0 0
@@ -299,7 +299,7 @@ ENDMAP
 
 
 EVENT PLAYER
-SPRITEINK 7
+SPRITEINK 1
 IF KEY UP
     IF LADDERABOVE
         LET IMAGE = 1
@@ -334,6 +334,7 @@ SPRITEINK 6
 
 
 EVENT SPRITETYPE1
+SPRITEINK 1
 IF DIRECTION = 0
     IF LADDERABOVE
         SPRITEUP
@@ -397,6 +398,7 @@ ENDIF
 IF COLLISION 0
     KILL
 ENDIF
+SPRITEINK 2
 
 
 EVENT SPRITETYPE2

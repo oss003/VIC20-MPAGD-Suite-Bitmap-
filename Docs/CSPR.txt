@@ -1,0 +1,148 @@
+; Colour a sprite, c=colour and 7
+
+cspr   equ $
+
+;----------------------------------------------------------------------------
+; Check if sprite offscreen (y-pos)
+;----------------------------------------------------------------------------
+
+       ld a,(ix+8)         ; look at the vertical first.	
+       cp 177              ; is it out-of-range?
+       ret nc              ; yes, can't colour it.
+
+;----------------------------------------------------------------------------
+; Calculate colour attribute address
+;----------------------------------------------------------------------------
+
+       rlca                ; divide by 64.
+       rlca                ; quicker than 6 rrca operations.
+       ld l,a              ; store in e register for now.
+       and 3               ; mask to find segment.
+       add a,88            ; attributes start at 88*256=22528.
+       ld h,a              ; that's our high byte sorted.
+
+       ld a,l              ; vertical/64 - same as vertical*4.
+       and 224             ; want a multiple of 32.
+       ld l,a              ; vertical element calculated.
+       ld a,(ix+9)         ; get horizontal position.
+       rra                 ; divide by 8.
+       rra
+       rra
+       and 31              ; want result in range 0-31.
+       add a,l             ; add to existing low byte.
+       ld l,a              ; that's the low byte done.
+
+       ld de,30            ; distance to next line down.
+       push hl             ; store address of attributes on stack.
+       exx                 ; put attributes in alternate bank.
+       pop hl              ; retrieve attributes address.
+       ld de,MAP-22528     ; distance to properties.
+       add hl,de           ; address of first block property.	
+
+       ld de,30            ; distance to next line down.
+       ld a,(ix+8)         ; x coordinate.
+
+;----------------------------------------------------------------------------
+; Vertical blocks down
+;----------------------------------------------------------------------------
+
+cspr2  ld b,3              ; default rows to write.
+       and 7               ; does x straddle cells?
+       jr nz,cspr0         ; yes, loop counter is good.		3 blocks
+       dec b               ; one fewer rows to write.		2 blocks
+
+; Read block property sprite
+
+cspr0  ld a,(hl)           ; get property.
+       and a               ; is it empty space?
+       jr nz,cspr6         ; yes, don't paint it.
+
+; If empty, paint it
+
+       exx                 ; switch to attributes.
+       ld a,(hl)           ; get attribute.
+       and SIMASK          ; remove ink.
+       or c                ; put in the new ink.
+       ld (hl),a           ; write back again.
+       exx                 ; switch to properties.
+
+; Set address 1st block right property
+
+cspr6  inc l               ; next cell.
+       exx                 ; switch to attributes.
+
+; Set address 2nd block right property
+
+       inc l               ; next cell.
+       exx                 ; switch to properties.
+
+; Read 1st right block property
+
+       ld a,(hl)           ; fetch block property.
+       and a               ; is it empty space?
+       jr nz,cspr7         ; yes, don't paint it.
+
+; If empty, paint it
+
+       exx                 ; switch to attributes.
+       ld a,(hl)           ; get attributes.
+       and SIMASK          ; remove ink.
+       or c                ; put in the new ink.
+       ld (hl),a           ; write back again.
+
+       exx                 ; switch to properties.
+cspr7  inc l               ; next cell.
+       exx                 ; switch to attributes.
+       inc l               ; next cell.
+       exx                 ; switch to properties.
+
+; Check vertical stradding
+
+       ld a,(ix+9)         ; y coordinate.
+       and 7               ; straddling cells?
+       jr z,cspr1          ; no, only 2 wide.
+
+; Read 2nd right block property
+
+       ld a,(hl)           ; get attributes.
+       and a               ; is it empty space?
+       jr nz,cspr1         ; yes, don't paint it.
+
+; If empty, paint it
+
+       exx                 ; switch to attributes.
+       and SIMASK          ; remove ink.
+       or c                ; put in the new ink.
+       ld (hl),a           ; write back again.
+       exx                 ; switch to properties.
+
+;----------------------------------------------------------------------------
+; Point to next row
+;----------------------------------------------------------------------------
+
+cspr1  add hl,de           ; next row.
+       exx                 ; switch to attributes.
+       add hl,de           ; next row.
+       exx                 ; switch to properties.
+
+;----------------------------------------------------------------------------
+; check if 2/3 rows done
+;----------------------------------------------------------------------------
+
+       djnz cspr0
+       ret
+
+
+;----------------------------------------------------------------------------
+; Exit if sprite offscreen (y-pos)
+; Calculate colour attribute address at sprite x,y
+; Vertical stradding?
+;   yes, rows = 3
+;   no , rows = 2
+; Vertical loop:
+;  Read block property sprite x  , if empty, paint it
+;  Read block property sprite x+1, if empty, paint it
+;  If hor stradding, Read block property sprite x+2, if empty, paint it
+;  Next row
+; Repeat for all rows
+;----------------------------------------------------------------------------

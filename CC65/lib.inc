@@ -197,11 +197,11 @@
 	JoyAddr2	= $9120		; Joystick address 2
 	KeyRowAddr	= $9121		; Keyboard row (read)
 	DDRB		= $9122		; Bit7 must be 0 for joystick read
-	; Timer21_Low  	= $9124		; Timer 1 low byte
-	; Timer21_High 	= $9125		; Timer 1 high byte
-	; AUX2		= $912b		; Auxiliary control register
-	; IFR2		= $912d		; Interrupt Flag Register
-	; IER2		= $912e		; Interrupt Enable Register
+	Timer21_Low  	= $9124		; Timer 1 low byte
+	Timer21_High 	= $9125		; Timer 1 high byte
+	AUX2		= $912b		; Auxiliary control register
+	IFR2		= $912d		; Interrupt Flag Register
+	IER2		= $912e		; Interrupt Enable Register
 
 	ColorAttr	= $9600		; Color attributes
 	HiRAM		= $a000		; Hi RAM 8kB
@@ -211,40 +211,8 @@
 ;----------------------------------------------------------------------
 
 init:
-	lda #0
-	sta crtflag
-	lda $ede4
-	cmp #5
-	beq Ntsc_System
-	lda #1
-	sta crtflag
-Ntsc_System:	
 
 ; Disable interrupts
-
-	lda #$00
-	sta $fc
-	lda #$a9
-	sta $fd
-
-	lda #$00
-	sta $fe
-	lda #$13
-	sta $ff
-
-	ldx #9
-outerloop_mus:
-	ldy #0
-loop_mus:
-	lda ($fe),y
-	sta ($fc),y
-	iny
-	bne loop_mus
-	inc $fd
-	inc $ff
-	dex
-	bne outerloop_mus
-
 
 	lda #$7f
 	sta IER1
@@ -263,7 +231,7 @@ loop_mus:
 	sta SOUNDS_STATUS
 
 	lda RegE
-	ora #$0f	; Max volume
+	ora #$0f		; Set volume max
 	sta RegE
 
 ; Init screen for NTSC
@@ -1341,6 +1309,109 @@ ddline_shift4:
 .endif
 
 ;----------------------------------------------------
+; SPRINTEINK
+;----------------------------------------------------
+
+cspr:
+	ldy #8
+	lda (z80_ix),y			; Get sprite y
+	sta dispy
+	cmp #8*ScrHeight+1		; Check if on screen
+	bcc :+
+	rts
+:
+	iny
+	lda (z80_ix),y			; Get sprite x
+	sta dispx
+
+; Calculate map address in buffaddr
+
+	jsr tstbl
+
+; Calculate colour attribte address in scraddr
+
+	jsr coladdr
+ 
+; Set number of rows
+
+	lda #3
+	sta z80_b
+	lda dispy
+	and #7
+	bne :+
+	dec z80_b
+:
+; Loop to colour row blocks
+
+cspr0:
+	ldy #0
+	lda (bufaddr),y
+	bne cspr6
+	lda z80_c
+	sta (scraddr),y
+cspr6:
+	ldy #1
+	lda (bufaddr),y
+	bne cspr7
+	lda z80_c
+	sta (scraddr),y
+cspr7:
+	lda dispx
+	and #7
+	beq cspr1
+
+	ldy #2
+	lda (bufaddr),y
+	bne cspr1
+
+	lda z80_c
+	sta (scraddr),y
+cspr1:
+	lda bufaddr
+	clc
+	adc #32
+	sta bufaddr
+	bcc :+
+	inc bufaddr+1
+:
+	lda scraddr
+	clc
+	adc #22
+	sta scraddr
+	bcc :+
+	inc scraddr+1
+:
+	dec z80_b
+	bne cspr0
+	rts
+
+; Calculate colour attribte address
+; scraddr = COLOR + dispy/16 + dispx/8
+
+coladdr:
+	lda dispy
+	lsr a
+	lsr a
+	lsr a
+	lsr a
+	tay
+	lda COLATTTB_hb,y
+	sta scraddr+1
+	lda COLATTTB_lb,y
+	sta scraddr
+	lda dispx
+	lsr a
+	lsr a
+	lsr a
+	clc
+	adc scraddr
+	sta scraddr
+	bcc :+
+	inc tmp+1
+:
+	rts
+
+;----------------------------------------------------
 ; Display character in A at dispx,dispy.
 ;
 ; Input:
@@ -1464,11 +1535,11 @@ filelen:
 
 ; Actual memory locations
 
-; CHANNEL1_ENABLED  = $ea
-; CHANNEL2_ENABLED  = $eb
-; CHANNEL3_ENABLED  = $ec
-; CHANNEL4_ENABLED  = $ed
-; MUSIC_ON		  = $ee
+CHANNEL1_ENABLED  = $ea
+CHANNEL2_ENABLED  = $eb
+CHANNEL3_ENABLED  = $ec
+CHANNEL4_ENABLED  = $ed
+MUSIC_ON		  = $ee
 
 SetSoundVars:		.byte $0a, $19, $10, $40
 SetSoundDuration:	.byte $0a, $19, $10, $40
