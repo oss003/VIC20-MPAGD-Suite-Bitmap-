@@ -1326,7 +1326,7 @@ cspr:
 
 ; Calculate map address in buffaddr
 
-	jsr tstbl
+;	jsr tstbl
 
 ; Calculate colour attribte address in scraddr
 
@@ -1334,10 +1334,10 @@ cspr:
  
 ; Set number of rows
 
-	lda #3
+	lda #2
 	sta z80_b
 	lda dispy
-	and #7
+	and #15
 	bne :+
 	dec z80_b
 :
@@ -1345,15 +1345,15 @@ cspr:
 
 cspr0:
 	ldy #0
-	lda (bufaddr),y
-	bne cspr6
+;	lda (bufaddr),y
+;	bne cspr6
 	lda z80_c
 	sta (scraddr),y
 cspr6:
 	ldy #1
-	lda (bufaddr),y
-	bne cspr7
-	lda z80_c
+;	lda (bufaddr),y
+;	bne cspr7
+;	lda z80_c
 	sta (scraddr),y
 cspr7:
 	lda dispx
@@ -1361,19 +1361,19 @@ cspr7:
 	beq cspr1
 
 	ldy #2
-	lda (bufaddr),y
-	bne cspr1
+;	lda (bufaddr),y
+;	bne cspr1
 
 	lda z80_c
 	sta (scraddr),y
 cspr1:
-	lda bufaddr
-	clc
-	adc #32
-	sta bufaddr
-	bcc :+
-	inc bufaddr+1
-:
+;	lda bufaddr
+;	clc
+;	adc #32
+;	sta bufaddr
+;	bcc :+
+;	inc bufaddr+1
+;:
 	lda scraddr
 	clc
 	adc #22
