@@ -82,6 +82,7 @@
 ;	$9003	set # of rows
 ;		bit 0 sets 8x8 or 16x8 chars
 ;		bits 1-6 set # of rows
+;	$9004	TV raster beam line
 ;	$9005	start of character memory
 ;		bits 0-3 start of character memory (default = 0)
 ;		bits 4-7 is rest of video address (default= F)
@@ -666,6 +667,10 @@ vsync1:
 	bit IFR1		; check Interrupt Flag Register
 	beq vsync1		; wait if timer not expired
 	lda Timer11_Low		; clear Timer interrupt
+
+waitraster:
+	lda Reg4
+	bne waitraster
 
 ;-------------------------------------------------------------
 ; Handle sound command
@@ -1324,10 +1329,6 @@ cspr:
 	lda (z80_ix),y			; Get sprite x
 	sta dispx
 
-; Calculate map address in buffaddr
-
-;	jsr tstbl
-
 ; Calculate colour attribte address in scraddr
 
 	jsr coladdr
@@ -1345,15 +1346,10 @@ cspr:
 
 cspr0:
 	ldy #0
-;	lda (bufaddr),y
-;	bne cspr6
 	lda z80_c
 	sta (scraddr),y
 cspr6:
 	ldy #1
-;	lda (bufaddr),y
-;	bne cspr7
-;	lda z80_c
 	sta (scraddr),y
 cspr7:
 	lda dispx
@@ -1361,19 +1357,9 @@ cspr7:
 	beq cspr1
 
 	ldy #2
-;	lda (bufaddr),y
-;	bne cspr1
-
 	lda z80_c
 	sta (scraddr),y
 cspr1:
-;	lda bufaddr
-;	clc
-;	adc #32
-;	sta bufaddr
-;	bcc :+
-;	inc bufaddr+1
-;:
 	lda scraddr
 	clc
 	adc #22
@@ -1407,7 +1393,7 @@ coladdr:
 	adc scraddr
 	sta scraddr
 	bcc :+
-	inc tmp+1
+	inc scraddr+1
 :
 	rts
 
