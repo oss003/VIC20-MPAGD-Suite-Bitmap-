@@ -668,9 +668,9 @@ vsync1:
 	beq vsync1		; wait if timer not expired
 	lda Timer11_Low		; clear Timer interrupt
 
-waitraster:
+rasterwait:
 	lda Reg4
-	bne waitraster
+	bne rasterwait
 
 ;-------------------------------------------------------------
 ; Handle sound command
@@ -941,6 +941,15 @@ ssprib:
 ;------------------------------------------------------------------
 
 sspric:
+	lda #1
+	sta z80_c
+	jsr cspr_old
+
+	ldy #17
+	lda (z80_ix),y
+	sta z80_c
+	jsr cspr_new
+
 .if rflag
 	jsr gsprad 		; get old sprite address.
 
@@ -1318,8 +1327,19 @@ ddline_shift4:
 ;----------------------------------------------------
 
 cspr:
+	lda z80_c
+	ldy #17
+	sta (z80_ix),y
+	rts
+
+cspr_new:
 	ldy #8
 	lda (z80_ix),y			; Get sprite y
+	jmp cspr_go
+cspr_old:
+	ldy #3
+	lda(z80_ix),y
+cspr_go:
 	sta dispy
 	cmp #8*ScrHeight+1		; Check if on screen
 	bcc :+

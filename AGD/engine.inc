@@ -121,7 +121,7 @@
 	SPR_WID = 16		; Sprite width
 	NUMSPR	= 12		; number of sprites.
 .endif
-	TABSIZ = 17			; size of each entry.
+	TABSIZ = 18			; size of each entry.
 	SPRBUF = NUMSPR * TABSIZ; size of entire table.
 	NMESIZ = 4			; bytes stored in nmetab for each sprite.
 
@@ -147,6 +147,7 @@
 	var_jumpHi = 14		; sprite jump ptr high
 	var_dataLo = 15		; sprite data ptr low
 	var_dataHi = 16		; sprite data ptr high
+	var_colour = 17		; sprite colour
 
 ; Particle engine.
 
@@ -5446,23 +5447,23 @@ kspr3:
 ;----------------------------------------------
 
 cpsp:
-	ldy #0					; fetch byte from table.
+	ldy #0				; fetch byte from table.
 	lda (z80_hl),y
 	; y=var_Type
 	sta (z80_ix),y			; set up type.
 	ldy #var_newType
 	sta (z80_ix),y 			; set up type.
 
-	inc z80_l 				; move to next byte.
+	inc z80_l 			; move to next byte.
 	bne :+
 	inc z80_h
 :
-	ldy #0 					; fetch byte from table.
+	ldy #0 				; fetch byte from table.
 	lda (z80_hl),y
 	ldy #var_newImage
 	sta (z80_ix),y			; set up image.
 
-	inc z80_l 				; move to next byte.
+	inc z80_l 			; move to next byte.
 	bne :+
 	inc z80_h
 :
@@ -5471,24 +5472,24 @@ cpsp:
 	ldy #var_newY
 	sta (z80_ix),y 			; set up coordinate.
 
-	lda #200 				; set initial coordinate off screen.
+	lda #200 			; set initial coordinate off screen.
 	ldy #var_Y
 	sta (z80_ix),y
 
-	inc z80_l 				; move to next byte.
+	inc z80_l 			; move to next byte.
 	bne :+
 	inc z80_h
 :
-	ldy #0 					; fetch byte from table.
+	ldy #0 				; fetch byte from table.
 	lda (z80_hl),y
 	ldy #var_newX
 	sta (z80_ix),y 			; set up coordinate.
 
-	inc z80_l 				; move to next byte.
+	inc z80_l 			; move to next byte.
 	bne :+
 	inc z80_h
 :
-	lda #0					; zeroes in accumulator.
+	lda #0				; zeroes in accumulator.
 	ldy #var_newFrame 		; reset frame number.
 	sta (z80_ix),y
 	ldy #var_Direction 		; reset direction.
@@ -5498,9 +5499,14 @@ cpsp:
 	ldy #var_jumpHi	 		; reset jump pointer high.
 	sta (z80_ix),y
 
-	lda #255 				; reset data pointer to auto-restore.
+	lda #255 			; reset data pointer to auto-restore.
 	ldy #var_dataHi
 	sta (z80_ix),y
+
+	lda fontcol			; set background PAPER
+	ldy #var_colour
+	sta (z80_ix),y
+
 evis0:
 	lda z80_i
 	pha
