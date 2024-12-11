@@ -1330,6 +1330,7 @@ cspr:
 	lda z80_c
 	ldy #17
 	sta (z80_ix),y
+	jsr cspr_new
 	rts
 
 cspr_new:

@@ -5503,7 +5503,7 @@ cpsp:
 	ldy #var_dataHi
 	sta (z80_ix),y
 
-	lda fontcol			; set background PAPER
+	lda fontcol			; set background INK
 	ldy #var_colour
 	sta (z80_ix),y
 
