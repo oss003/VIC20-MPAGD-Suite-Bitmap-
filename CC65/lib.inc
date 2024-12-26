@@ -941,7 +941,7 @@ ssprib:
 ;------------------------------------------------------------------
 
 sspric:
-	lda #1
+	lda fontcol			; Background colour
 	sta z80_c
 	jsr cspr_old
 
