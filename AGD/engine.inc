@@ -2613,6 +2613,9 @@ spaw1:
 	sta (z80_hl),y		; reset parameter.
 	iny
 	sta (z80_hl),y		; reset parameter.
+	iny
+	lda fontcol
+	sta (z80_hl),y		; reset parameter.
 rtssp:
 	lda spptr			; address of new sprite.
 	sta z80_x
